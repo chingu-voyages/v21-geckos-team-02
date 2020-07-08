@@ -1,9 +1,10 @@
 import React from "react";
+import MatchedProfileCard from "./components/UI/MatchedProfileCard";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <MatchedProfileCard />
     </div>
   );
 }
