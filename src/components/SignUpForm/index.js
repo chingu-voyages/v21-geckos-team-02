@@ -1,17 +1,19 @@
 import React from "react";
 import SignUpForm from "./form";
 import { FirebaseContext } from '../../components/Firebase'
+import { Paper, Typography } from '@material-ui/core'
+
 import './style.css'
 
 export default (props) => {
 
     return (
-        <div className="signup-box">
-            <h2>Sign Up</h2>
+        <Paper id="signup-box">
+            <Typography center variant="h5">Register</Typography>
             <FirebaseContext.Consumer>
                 {firebase => <SignUpForm firebase={firebase} />}
             </FirebaseContext.Consumer>
-        </div>
+        </Paper>
     );
 };
 

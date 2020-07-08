@@ -1,16 +1,10 @@
-.signup-box {
+#signup-box {
   margin: auto;
-  min-width: 200px;
+  min-width: 400px;
   width: 20%;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 3px 3px 5px;
 }
 
-.signup-box label {
-  font-size: 1.1rem;
-}
-
-.signup-box form div {
-  padding: 6px;
+#signup-box h5 {
+  text-align: center;
 }

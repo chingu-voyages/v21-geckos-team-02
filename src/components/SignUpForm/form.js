@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import useForm from "../../hooks/useForm";
-import { auth } from "firebase";
+import { Button, TextField, CardActions, Grid } from '@material-ui/core';
+// import { auth } from "firebase";
 
 export default (props) => {
     const initialState = {
@@ -26,29 +27,69 @@ export default (props) => {
     );
 
     return (
-
         <form onSubmit={handleSubmit}>
-            <div>
-                <label type="text">Email</label>
-                <input
-                    name="email"
-                    type="email"
-                    value={inputs.email}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <label type="text">Password</label>
-                <input
-                    name="password"
-                    type="password"
-                    value={inputs.password}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div>
-                <button type="submit">Submit</button>
-            </div>
+            <Grid container spacing={3}>
+                <Grid item xs={6}>
+                    <TextField
+                        name="firstName"
+                        type="text"
+                        label="First Name"
+                        value={inputs.firstName}
+                        onChange={handleInputChange}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField
+                        name="lastName"
+                        type="text"
+                        label="Last Name"
+                        value={inputs.lastName}
+                        onChange={handleInputChange}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        name="displayName"
+                        fullWidth
+                        type="text"
+                        label="Display Name"
+                        value={inputs.displayName}
+                        onChange={handleInputChange}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        name="email"
+                        fullWidth
+                        type="email"
+                        label="Email"
+                        value={inputs.email}
+                        onChange={handleInputChange}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField
+                        name="password"
+                        type="password"
+                        label="Password"
+                        value={inputs.password}
+                        onChange={handleInputChange}
+                    />
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField
+                        name="passwordConfirm"
+                        type="password"
+                        label="Re-enter Password"
+                        value={inputs.passwordCOnfirm}
+                        onChange={handleInputChange}
+                    />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Button variant="contained" fullWidth color="primary" type="submit">Submit</Button>
+                </Grid>
+            </Grid>
         </form>
 
     );
