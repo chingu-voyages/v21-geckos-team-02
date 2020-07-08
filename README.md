@@ -19,11 +19,18 @@ The design will resemble a dating application or social media website. Individua
 
 ## Setup
 
-![ERD](images/ChinguV21Gecko02.png)
+### Firebase
+
+This application makes use of Firebase for authorization and Firestore for database
+
+Before deploying, you will need to set the config variables in `/src/components/Firebase/Firebase.js`.
 
 ## Screenshots
 
 ## Dependencies
+
+- firebase
+- material-ui
 
 ## TODO
 
