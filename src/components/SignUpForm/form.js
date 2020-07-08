@@ -1,12 +1,16 @@
 import React from "react";
 import useForm from "../../hooks/useForm";
-import { Button, TextField, CardActions, Grid } from '@material-ui/core';
+import { Button, TextField, Grid } from '@material-ui/core';
 // import { auth } from "firebase";
 
 export default (props) => {
     const initialState = {
         email: "",
         password: "",
+        firstName: "",
+        lastName: "",
+        displayName: "",
+        passwordConfirmation: ""
     };
 
     const loginUser = () => {

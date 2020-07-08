@@ -9,10 +9,12 @@ export default (props) => {
 
     return (
         <Paper id="signup-box">
-            <Typography center variant="h5">Register</Typography>
-            <FirebaseContext.Consumer>
-                {firebase => <SignUpForm firebase={firebase} />}
-            </FirebaseContext.Consumer>
+            <Typography variant="h5">Register</Typography>
+            {!props.authUser &&
+                <FirebaseContext.Consumer>
+                    {firebase => <SignUpForm firebase={firebase} />}
+                </FirebaseContext.Consumer>}
+            {props.authUser && <div>Already signed in {props.authUser.email}</div>}
         </Paper>
     );
 };
