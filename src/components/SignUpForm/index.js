@@ -1,21 +1,32 @@
 import React from "react";
 import SignUpForm from "./form";
 import { FirebaseContext } from '../../components/Firebase'
-import { Paper, Typography } from '@material-ui/core'
+import { Paper, Typography, Snackbar, Button } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 
 import './style.css'
 
 export default (props) => {
 
     return (
-        <Paper id="signup-box">
-            <Typography variant="h5">Register</Typography>
-            {!props.authUser &&
-                <FirebaseContext.Consumer>
-                    {firebase => <SignUpForm firebase={firebase} />}
-                </FirebaseContext.Consumer>}
-            {props.authUser && <div>Already signed in {props.authUser.email}</div>}
-        </Paper>
+        <FirebaseContext.Consumer>
+            {firebase =>
+                <Paper id="signup-box">
+
+                    {!props.authUser && <>
+                        <Typography variant="h5">Register</Typography>
+                        <SignUpForm firebase={firebase} /></>}
+                    {props.authUser && <>
+                        <Typography variant="h5">Welcome</Typography>
+                        <Alert
+                            severity="info"
+                            action={<Button color="primary" variant="contained" onClick={firebase.doSignOut} size="small">Sign Out</Button>}>
+                            Signed in as  {props.authUser.email}
+                        </Alert></>
+                    }
+
+                </Paper>}
+        </FirebaseContext.Consumer>
     );
 };
 
