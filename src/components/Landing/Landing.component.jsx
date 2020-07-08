@@ -1,5 +1,15 @@
+import withRoot from "../../modules/withRoot";
 import React from "react";
+import NavBar from "../Navbar/Navbar.component";
+import ProductHero from "../ProductHero";
 
-const Landing = () => <h2>Landing page right here!</h2>;
+function Landing() {
+  return (
+    <React.Fragment>
+      <NavBar />
+      <ProductHero />
+    </React.Fragment>
+  );
+}
 
-export default Landing;
+export default withRoot(Landing);
