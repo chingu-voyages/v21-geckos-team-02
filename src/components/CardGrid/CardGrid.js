@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Note: CardGrid component must be wrapped in a Grid container in order to function properly
 const CardGrid = () => {
   const classes = useStyles();
 
