@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import SignUpForm from "./components/SignUpForm/";
+import LoginForm from "./components/LoginForm/";
 import { FirebaseContext } from './components/Firebase'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <div className="App">
       <h1>Hello World</h1>
       <SignUpForm authUser={authUser} />
+      <LoginForm authUser={authUser} />
     </div>
   );
 }
