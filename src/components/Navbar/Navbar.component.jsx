@@ -43,14 +43,14 @@ function NavBar(props) {
       <AppBar position="fixed" style={{ background: "#1d3557" }}>
         <ToolBar className={classes.toolbar}>
           <div className={classes.left} />
-          <Typography className={classes.root}>
+          <Typography>
             <Link
               variant="h6"
               underline="none"
               color="inherit"
               className={classes.title}
             >
-              Coding Buddies
+              {"Coding Buddies"}
             </Link>
           </Typography>
 
@@ -61,7 +61,7 @@ function NavBar(props) {
               underline="none"
               className={classes.rightLink}
             >
-              Sign In
+              {"Sign In"}
             </Link>
 
             <Link
@@ -70,7 +70,7 @@ function NavBar(props) {
               underline="none"
               className={clsx(classes.rightLink, classes.linkSecondary)}
             >
-              Sign Up
+              {"Sign Up"}
             </Link>
           </div>
         </ToolBar>

@@ -10,7 +10,7 @@ import heroImage from "../assets/images/heroImage.jpg";
 const styles = (theme) => ({
   background: {
     backgroundImage: `url(${heroImage})`,
-    backgroundColor: "#7fc7d9",
+    backgroundColor: "#c49c48",
     backgroundPosition: "center",
   },
   button: {
