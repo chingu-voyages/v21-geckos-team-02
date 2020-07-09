@@ -17,7 +17,6 @@ export default (props) => {
         props.firebase
             .doCreateUserWithEmailAndPassword(inputs.email, inputs.password)
             .then((authUser) => {
-                alert("Signed in " + authUser.user.uid)
                 console.log(authUser)
             })
             .catch((error) => {
