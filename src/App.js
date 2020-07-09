@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import Landing from "./components/Landing/Landing.component";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import SignUpForm from "./components/SignUpForm/";
 import { FirebaseContext } from "./components/Firebase";
+import LandingComponent from "./components/Landing/Landing.component";
 
 function App() {
   const [authUser, setAuthUser] = useState(null);
@@ -15,9 +17,17 @@ function App() {
 
   return (
     <div className="App">
-      <Landing />
-      {/* <h1>Hello World</h1>
-      <SignUpForm authUser={authUser} /> */}
+      <Router>
+        <Switch>
+          <Route path="/signup">
+            <SignUpForm authUser={authUser} />
+          </Route>
+
+          <Route path="/">
+            <LandingComponent />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
