@@ -3,6 +3,7 @@ import React from "react";
 import NavBar from "../Navbar/Navbar.component";
 import ProductHero from "../ProductHero";
 import ProductValues from "../ProductValues";
+import ProductExamplar from "../ProductExamplar";
 
 function Landing() {
   return (
@@ -10,6 +11,7 @@ function Landing() {
       <NavBar />
       <ProductHero />
       <ProductValues />
+      <ProductExamplar />
     </React.Fragment>
   );
 }

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import arrowDown from "../assets/images/arrowDown.jpg";
 
 const styles = (theme) => ({
   root: {
@@ -44,10 +43,6 @@ const styles = (theme) => ({
     backgroundRepeat: "no-repeat",
     zIndex: -2,
   },
-  arrowDown: {
-    position: "absolute",
-    bottom: theme.spacing(4),
-  },
 });
 
 function ProductHeroLayout(props) {
@@ -59,13 +54,6 @@ function ProductHeroLayout(props) {
         {children}
         <div className={classes.backdrop} />
         <div className={clsx(classes.background, backgroundClassName)} />
-        <img
-          className={classes.arrowDown}
-          src={arrowDown}
-          height="20"
-          width="15"
-          alt="arrow down"
-        />
       </Container>
     </section>
   );
