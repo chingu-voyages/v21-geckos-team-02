@@ -1,0 +1,10 @@
+#signup-box {
+  margin: auto;
+  min-width: 400px;
+  width: 20%;
+  padding: 20px;
+}
+
+#signup-box h5 {
+  text-align: center;
+}
