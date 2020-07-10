@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  BrowserRouter as Router,
+  Redirect,
+} from "react-router-dom";
 import SignUpForm from "./components/SignUpForm/";
 import LandingComponent from "./components/Landing/Landing.component";
 import LoginForm from "./components/LoginForm/";
@@ -33,6 +38,7 @@ function App() {
           <Route path="/">
             <LandingComponent />
           </Route>
+          <Route render={() => <Redirect to="/" />} />
         </Switch>
       </Router>
     </div>

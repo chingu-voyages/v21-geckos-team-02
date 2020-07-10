@@ -51,7 +51,7 @@ function NavBar(props) {
             component={RouterLink}
             to="/"
           >
-            {"Coding Buddies"}
+            {"Co-Coders"}
           </Link>
           <div className={classes.right}>
             <Link

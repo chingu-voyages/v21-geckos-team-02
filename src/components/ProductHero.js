@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import Typography from "../components/Typography";
 import ProductHeroLayout from "./ProductHeroLayout";
 import heroImage from "../assets/images/heroImage.jpg";
+import { Link } from "react-router-dom";
 
 const styles = (theme) => ({
   background: {
@@ -54,6 +55,8 @@ function ProductHero(props) {
         variant="contained"
         size="large"
         className="classes.button"
+        component={Link}
+        to="/signup"
       >
         Register
       </Button>
