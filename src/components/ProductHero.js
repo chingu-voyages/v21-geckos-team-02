@@ -5,8 +5,6 @@ import Button from "../components/Button";
 import Typography from "../components/Typography";
 import ProductHeroLayout from "./ProductHeroLayout";
 import heroImage from "../assets/images/heroImage.jpg";
-import { Link as RouterLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
 
 const styles = (theme) => ({
   background: {

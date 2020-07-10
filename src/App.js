@@ -3,6 +3,7 @@ import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import SignUpForm from "./components/SignUpForm/";
 import LandingComponent from "./components/Landing/Landing.component";
 import LoginForm from "./components/LoginForm/";
+import MockData from "./components/MockData";
 import { FirebaseContext } from "./components/Firebase";
 
 function App() {
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route path="/login">
             <LoginForm authUser={authUser} />
+          </Route>
+          <Route path="/mockdata">
+            <MockData authUser={authUser} />
           </Route>
           <Route path="/">
             <LandingComponent />
