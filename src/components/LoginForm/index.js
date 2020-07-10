@@ -12,7 +12,7 @@ export default (props) => {
     return (
         <FirebaseContext.Consumer>
             {firebase =>
-                <Paper id="login-box" spacing={3}>
+                <Paper id="login-box">
 
                     {!props.authUser && <Grid container spacing={3}>
                         <Grid item xs={12}>
