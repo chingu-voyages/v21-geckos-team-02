@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FirebaseContext } from "../Firebase";
 import { Grid } from "@material-ui/core";
-import MatchedUserCard from "./matched-user-card";
+import MatchedUserCard from "./cards";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +43,8 @@ const CardGrid = () => {
             key={`${i}-${user.name}`}
             index={i}
             picUrl={user.picUrl}
-            name={user.name}
+            firstName={user.firstName}
+            lastName={user.lastName}
             city={user.city}
             state={user.state}
             specialty={user.specialty}
