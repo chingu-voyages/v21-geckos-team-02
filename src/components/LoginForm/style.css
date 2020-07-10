@@ -1,10 +1,10 @@
-#signup-box {
+#login-box {
   /* margin: auto; */
-  /* min-width: 400px; */
+  /* min-width: 300px; */
   /* width: 20%; */
   padding: 20px;
 }
 
-#signup-box h5 {
+#login-box h5 {
   text-align: center;
 }

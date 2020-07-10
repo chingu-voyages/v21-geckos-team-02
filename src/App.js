@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import SignUpForm from "./components/SignUpForm/";
-import { FirebaseContext } from "./components/Firebase";
 import LandingComponent from "./components/Landing/Landing.component";
+import LoginForm from "./components/LoginForm/";
+import { FirebaseContext } from "./components/Firebase";
 
 function App() {
   const [authUser, setAuthUser] = useState(null);
@@ -22,7 +23,9 @@ function App() {
           <Route path="/signup">
             <SignUpForm authUser={authUser} />
           </Route>
-
+          <Route path="/login">
+            <LoginForm authUser={authUser} />
+          </Route>
           <Route path="/">
             <LandingComponent />
           </Route>

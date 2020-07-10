@@ -1,28 +1,28 @@
 import React from "react";
-import SignUpForm from "./form";
+import LoginForm from "./form";
 import { FirebaseContext } from '../../components/Firebase'
-import { Paper, Typography, Grid, Button } from '@material-ui/core'
+import { Paper, Typography, Button, Grid } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-import { Link } from "react-router-dom";
+
 import './style.css'
+import { Link } from "react-router-dom";
 
 export default (props) => {
 
     return (
         <FirebaseContext.Consumer>
             {firebase =>
-                <Paper id="signup-box">
+                <Paper id="login-box" spacing={3}>
 
                     {!props.authUser && <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <Typography variant="h5">Register</Typography>
+                            <Typography variant="h5">Log In</Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <SignUpForm firebase={firebase} />
+                            <LoginForm firebase={firebase} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography><Link to="/login">Already have an account? Log In!</Link></Typography>
-
+                            <Typography><Link to="/signup">Need an account? Sign Up!</Link></Typography>
                         </Grid>
                     </Grid>}
                     {props.authUser && <Grid container spacing={3}>
