@@ -7,17 +7,6 @@ export default (props) => {
   const fb = useContext(FirebaseContext);
   const [docs, setDocs] = useState([]);
 
-<<<<<<< HEAD
-    // Pass a callback to handle the data.  Don't forget the empty array as second parameter of useEffect.
-    useEffect(() =>
-        fb.doGetAllUsers(snapShot => {
-            const tempDocs = []
-            snapShot.forEach((doc) => {
-                tempDocs.push(doc.data())
-            })
-            setDocs([...tempDocs])
-        }), [fb])
-=======
   // Pass a callback to handle the data.  Don't forget the empty array as second parameter of useEffect.
   useEffect(
     () =>
@@ -30,7 +19,6 @@ export default (props) => {
       }),
     [fb]
   );
->>>>>>> development
 
   return (
     <Grid container spacing={3}>
