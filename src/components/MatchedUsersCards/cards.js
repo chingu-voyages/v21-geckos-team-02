@@ -94,13 +94,13 @@ const MatchedUserCard = (user) => {
                 aria-label="matched-user-profile-picture"
                 className={classes.avatar}
               >
-                {user.name.substring(0, 1)}
+                {user.firstName.substring(0, 1)}
               </Avatar>
             )
           }
           title={
             <Typography variant="body1" color="textPrimary" component="h1">
-              {`${user.name}`}
+              {`${user.firstName} ${user.lastName}`}
             </Typography>
           }
           subheader={
