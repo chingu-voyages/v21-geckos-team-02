@@ -26,7 +26,7 @@ const CardGrid = () => {
         });
         setDocs([...tempDocs]);
       }),
-    []
+    [fb]
   );
 
   return (

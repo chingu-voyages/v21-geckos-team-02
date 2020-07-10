@@ -5,6 +5,8 @@ import LoginForm from "./components/LoginForm/";
 import MockData from "./components/MockData";
 import { FirebaseContext } from "./components/Firebase";
 
+import CardGrid from "./components/MatchedUsersCards/card-grid";
+
 function App() {
   const [authUser, setAuthUser] = useState(null);
   const firebase = useContext(FirebaseContext);

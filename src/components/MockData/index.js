@@ -15,7 +15,7 @@ export default (props) => {
                 tempDocs.push(doc.data())
             })
             setDocs([...tempDocs])
-        }), [])
+        }), [fb])
 
     return (
         <Grid container spacing={3}>

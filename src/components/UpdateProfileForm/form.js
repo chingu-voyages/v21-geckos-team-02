@@ -5,34 +5,34 @@ import { Button, TextField, Grid } from "@material-ui/core";
 
 export default (props) => {
   const initialState = {
-    email: "",
-    password: "",
+    // TODO: if coming from SignUpForm, then pass these 3 initalStates
+    // as props to this component. if coming from user dashboard,
+    // pass all initialState as props from database
     firstName: "",
     lastName: "",
     displayName: "",
-    passwordConfirmation: "",
+    //============//
+    // TODO: figure out image upload/hosting
+    // hosting: imgbb.com
+    // compression: https://helloacm.com/images-compressor/
+    //===========//
+    city: "",
+    state: "",
+    preferredCodingTime: [],
+    frontendTechStack: [],
+    backendTechStack: [],
+    specialty: [],
+    preferredTechStack: [],
+    bio: "",
   };
 
-  const loginUser = () => {
-    props.firebase
-      .doCreateUserWithEmailAndPassword(inputs.email, inputs.password)
-      .then((authUser) => {
-        console.log(authUser);
-      })
-      .catch((error) => {
-        console.error(error.code, error.message);
-      });
-  };
-
-  const { handleSubmit, handleInputChange, inputs } = useForm(
-    initialState,
-    loginUser
-  );
+  const { handleSubmit, handleInputChange, inputs } = useForm(initialState);
 
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
-        <Grid item xs={6}>
+        {/* TODO: Create form UI and functionality */}
+        {/* <Grid item xs={6}>
           <TextField
             name="firstName"
             fullWidth
@@ -96,7 +96,7 @@ export default (props) => {
           <Button variant="contained" fullWidth color="primary" type="submit">
             Submit
           </Button>
-        </Grid>
+        </Grid> */}
       </Grid>
     </form>
   );
