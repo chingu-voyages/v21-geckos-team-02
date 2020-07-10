@@ -2,9 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import SignUpForm from "./components/SignUpForm/";
 import LoginForm from "./components/LoginForm/";
-import MockData from "./components/MockData"
-import { FirebaseContext } from './components/Firebase'
-
+import MockData from "./components/MockData";
+import { FirebaseContext } from "./components/Firebase";
 
 function App() {
   const [authUser, setAuthUser] = useState(null);
@@ -19,7 +18,6 @@ function App() {
 
   return (
     <div className="App">
-
       <Router>
         <Switch>
           <Route path="/signup">
