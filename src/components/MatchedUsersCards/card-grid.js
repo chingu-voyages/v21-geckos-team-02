@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { FirebaseContext } from "../Firebase";
 import { Grid } from "@material-ui/core";
-import ProfileCard from "./ProfileCard";
+import MatchedUserCard from "./matched-user-card";
 import { makeStyles } from "@material-ui/core/styles";
-import mockData from "../../data/mockData";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,7 +12,22 @@ const useStyles = makeStyles((theme) => ({
 
 // Note: CardGrid component must be wrapped in a Grid container in order to function properly
 const CardGrid = () => {
+  const fb = useContext(FirebaseContext);
+  const [docs, setDocs] = useState([]);
   const classes = useStyles();
+
+  // Pass a callback to handle the data.  Don't forget the empty array as second parameter of useEffect.
+  useEffect(
+    () =>
+      fb.doGetAllUsers((snapShot) => {
+        const tempDocs = [];
+        snapShot.forEach((doc) => {
+          tempDocs.push(doc.data());
+        });
+        setDocs([...tempDocs]);
+      }),
+    []
+  );
 
   return (
     <Grid item xs={9} className={classes.root}>
@@ -23,8 +38,8 @@ const CardGrid = () => {
         justify="flex-end"
         alignItems="center"
       >
-        {mockData.map((user, i) => (
-          <ProfileCard
+        {docs.map((user, i) => (
+          <MatchedUserCard
             key={`${i}-${user.name}`}
             index={i}
             picUrl={user.picUrl}
@@ -32,10 +47,10 @@ const CardGrid = () => {
             city={user.city}
             state={user.state}
             specialty={user.specialty}
-            frontEnd={user["Front-End Tech-Stack"]}
-            backEnd={user["Back-End Tech-Stack"]}
-            preferredTech={user["Preferred Tech-Stack"]}
-            codingTimes={user["Preferred Coding Time"]}
+            frontEnd={user.frontendTechStack}
+            backEnd={user.backendTechStack}
+            preferredTech={user.preferredTechStack}
+            codingTimes={user.preferredCodingTime}
             bio={user.bio}
           />
         ))}

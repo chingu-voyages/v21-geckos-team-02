@@ -10,7 +10,6 @@ import {
   Popover,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
 import {
   pink,
   red,
@@ -58,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfileCard = (user) => {
+const MatchedUserCard = (user) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -224,4 +223,4 @@ const ProfileCard = (user) => {
   );
 };
 
-export default ProfileCard;
+export default MatchedUserCard;
