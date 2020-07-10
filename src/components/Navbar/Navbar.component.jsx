@@ -5,7 +5,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import AppBar from "../AppBar";
 import ToolBar, { styles as toolbarStyles } from "../Toolbar";
-import Typography from "@material-ui/core/Typography";
+import { Link as RouterLink } from "react-router-dom";
 
 const styles = (theme) => ({
   title: {
@@ -43,23 +43,24 @@ function NavBar(props) {
       <AppBar position="fixed" style={{ background: "#1d3557" }}>
         <ToolBar className={classes.toolbar}>
           <div className={classes.left} />
-          <Typography>
-            <Link
-              variant="h6"
-              underline="none"
-              color="inherit"
-              className={classes.title}
-            >
-              {"Coding Buddies"}
-            </Link>
-          </Typography>
-
+          <Link
+            variant="h6"
+            underline="none"
+            color="inherit"
+            className={classes.title}
+            component={RouterLink}
+            to="/"
+          >
+            {"Coding Buddies"}
+          </Link>
           <div className={classes.right}>
             <Link
               color="inherit"
               variant="h6"
               underline="none"
               className={classes.rightLink}
+              component={RouterLink}
+              to="/login"
             >
               {"Sign In"}
             </Link>
@@ -69,6 +70,8 @@ function NavBar(props) {
               variant="h6"
               underline="none"
               className={clsx(classes.rightLink, classes.linkSecondary)}
+              component={RouterLink}
+              to="/signup"
             >
               {"Sign Up"}
             </Link>
