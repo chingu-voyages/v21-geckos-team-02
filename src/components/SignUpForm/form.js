@@ -35,6 +35,7 @@ export default (props) => {
                 <Grid item xs={6}>
                     <TextField
                         name="firstName"
+                        fullWidth
                         type="text"
                         label="First Name"
                         value={inputs.firstName}
@@ -44,6 +45,7 @@ export default (props) => {
                 <Grid item xs={6}>
                     <TextField
                         name="lastName"
+                        fullWidth
                         type="text"
                         label="Last Name"
                         value={inputs.lastName}
@@ -73,6 +75,7 @@ export default (props) => {
                 <Grid item xs={6}>
                     <TextField
                         name="password"
+                        fullWidth
                         type="password"
                         label="Password"
                         value={inputs.password}
@@ -82,6 +85,7 @@ export default (props) => {
                 <Grid item xs={6}>
                     <TextField
                         name="passwordConfirm"
+                        fullWidth
                         type="password"
                         label="Re-enter Password"
                         value={inputs.passwordCOnfirm}

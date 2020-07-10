@@ -3,7 +3,7 @@ import SignUpForm from "./form";
 import { FirebaseContext } from '../../components/Firebase'
 import { Paper, Typography, Grid, Button } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-
+import { Link } from "react-router-dom";
 import './style.css'
 
 export default (props) => {
@@ -14,14 +14,15 @@ export default (props) => {
                 <Paper id="signup-box">
 
                     {!props.authUser && <Grid container spacing={3}>
-                        <Grid item xs>
+                        <Grid item xs={12}>
                             <Typography variant="h5">Register</Typography>
                         </Grid>
-                        <Grid item>
+                        <Grid item xs={12}>
                             <SignUpForm firebase={firebase} />
                         </Grid>
-                        <Grid item xs>
-                            <Button fullWidth color="secondary">Already have an account? Log In!</Button>
+                        <Grid item xs={12}>
+                            <Typography><Link to="/login">Already have an account? Log In!</Link></Typography>
+
                         </Grid>
                     </Grid>}
                     {props.authUser && <Grid container spacing={3}>

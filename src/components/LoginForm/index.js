@@ -5,6 +5,7 @@ import { Paper, Typography, Button, Grid } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 
 import './style.css'
+import { Link } from "react-router-dom";
 
 export default (props) => {
 
@@ -14,14 +15,14 @@ export default (props) => {
                 <Paper id="login-box">
 
                     {!props.authUser && <Grid container spacing={3}>
-                        <Grid item xs>
+                        <Grid item xs={12}>
                             <Typography variant="h5">Log In</Typography>
                         </Grid>
-                        <Grid item>
+                        <Grid item xs={12}>
                             <LoginForm firebase={firebase} />
                         </Grid>
-                        <Grid item xs>
-                            <Button fullWidth color="secondary">Need an account? Sign Up!</Button>
+                        <Grid item xs={12}>
+                            <Typography><Link to="/signup">Need an account? Sign Up!</Link></Typography>
                         </Grid>
                     </Grid>}
                     {props.authUser && <Grid container spacing={3}>

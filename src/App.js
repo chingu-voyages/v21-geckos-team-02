@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import SignUpForm from "./components/SignUpForm/";
 import LoginForm from "./components/LoginForm/";
+import MockData from "./components/MockData"
 import { FirebaseContext } from './components/Firebase'
 
 
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/login">
             <LoginForm authUser={authUser} />
+          </Route>
+          <Route path="/mockdata">
+            <MockData authUser={authUser} />
           </Route>
           <Route path="/">
             <div>Landing Page goes here</div>
