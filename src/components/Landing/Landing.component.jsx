@@ -5,6 +5,7 @@ import ProductHero from "../ProductHero";
 import ProductValues from "../ProductValues";
 import ProductExamplar from "../ProductExamplar";
 import ProductHowItWorks from "../ProductHowItWorks";
+import Footer from "../Footer";
 
 function Landing() {
   return (
@@ -14,6 +15,7 @@ function Landing() {
       <ProductValues />
       <ProductExamplar />
       <ProductHowItWorks />
+      <Footer />
     </React.Fragment>
   );
 }

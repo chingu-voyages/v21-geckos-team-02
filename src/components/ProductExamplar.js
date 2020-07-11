@@ -8,7 +8,7 @@ const styles = (theme) => ({
   root: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(4),
-    // backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.palette.secondary.light,
   },
   container: {
     marginTop: theme.spacing(15),
