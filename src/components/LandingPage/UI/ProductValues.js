@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import Typography from "../components/Typography";
+import Typography from "./Typography";
 import searchEngine from "../../src/assets/images/searchEngine.png";
 import experience from "../../src/assets/images/experience.png";
 import filters from "../../src/assets/images/filters.jpg";

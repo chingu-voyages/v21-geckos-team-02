@@ -4,7 +4,9 @@ import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import AppBar from "../AppBar";
-import ToolBar, { styles as toolbarStyles } from "../Toolbar";
+import ToolBar, {
+  styles as toolbarStyles,
+} from "../../styles/components/Toolbar";
 import { Link as RouterLink } from "react-router-dom";
 
 const styles = (theme) => ({

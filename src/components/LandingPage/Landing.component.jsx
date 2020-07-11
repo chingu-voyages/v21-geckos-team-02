@@ -3,7 +3,7 @@ import React from "react";
 import NavBar from "../Navbar/Navbar.component";
 import ProductHero from "../ProductHero";
 import ProductValues from "../ProductValues";
-import ProductExamplar from "../ProductExamplar";
+import ProductExamplar from "./ProductExamplar";
 import ProductHowItWorks from "../ProductHowItWorks";
 import Footer from "../Footer";
 
