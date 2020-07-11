@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import Typography from "../components/Typography";
-import searchEngine from "../../src/assets/images/searchEngine.png";
-import experience from "../../src/assets/images/experience.png";
-import filters from "../../src/assets/images/filters.jpg";
+import Typography from "../UI/Typography";
+import searchEngine from "../../../assets/images/searchEngine.png";
+import experience from "../../../assets/images/experience.png";
+import filters from "../../../assets/images/filters.jpg";
 
 const styles = (theme) => ({
   root: {
@@ -53,15 +53,12 @@ function ProductValues(props) {
                 className={classes.image}
               />
               <Typography variant="h6" className={classes.title}>
-                Free, Easy, Optimal
+                Free, Easy, Optimized
               </Typography>
               <Typography variant="h5">
-                {
-                  "Make connections to other coders within your neighborhoods, city, state and country "
-                }
-                {
-                  ", who speak the same language and have quite similar time budget for coding."
-                }
+                Quickly find other coders with similar tech-stacks, experience,
+                and personal interests. Whether in the same neighborhood or
+                across the world, you can connect and make things happen!
               </Typography>
             </div>
           </Grid>
@@ -73,15 +70,12 @@ function ProductValues(props) {
                 className={classes.image}
               />
               <Typography variant="h6" className={classes.title}>
-                Various criteria
+                Specific or broad criteria
               </Typography>
               <Typography variant="h5">
-                {
-                  "Easily search by location, spoken language, expertise, preferred tech-stack and time budget "
-                }
-                {
-                  ", or by goal of learning a new tech-stack and upgrading your skillsets."
-                }
+                Easily search by location, spoken language, expertise, preferred
+                tech-stack, or time budget... or even with the goal of learning
+                a new tech-stack and upgrading your skillset.
               </Typography>
             </div>
           </Grid>
@@ -93,13 +87,11 @@ function ProductValues(props) {
                 className={classes.image}
               />
               <Typography variant="h6" className={classes.title}>
-                New experience
+                New experiences
               </Typography>
               <Typography variant="h5">
-                {
-                  "Make new friends, experience pair-programming or working in a team "
-                }
-                {", learn new things and good practice from your team-members."}
+                Pair-program or work in a team, learn new tech and best
+                practices, and make new friends!
               </Typography>
             </div>
           </Grid>

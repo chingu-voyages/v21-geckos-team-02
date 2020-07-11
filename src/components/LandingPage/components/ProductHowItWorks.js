@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import Button from "../components/Button";
-import Typography from "../components/Typography";
-import account from "../assets/images/account.jpg";
-import signin from "../assets/images/signin.jpg";
-import searchConnect from "../assets/images/searchConnect.jpg";
+import Button from "../UI/Button";
+import Typography from "../UI/Typography";
+import account from "../../../assets/images/account.jpg";
+import signin from "../../../assets/images/signin.jpg";
+import searchConnect from "../../../assets/images/searchConnect.jpg";
 import { Link } from "react-router-dom";
 
 const styles = (theme) => ({
@@ -28,6 +28,7 @@ const styles = (theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    textAlign: "center",
     padding: theme.spacing(0, 5),
     backgroundColor: "lavenderBlush",
   },
@@ -81,9 +82,7 @@ function ProductHowItWorks(props) {
               <div className={classes.item}>
                 <div className={classes.number}>2.</div>
                 <img src={signin} alt="sign in" className={classes.image} />
-                <Typography>
-                  Sign In and Create Your Profile. Update your search criteria.
-                </Typography>
+                <Typography>Sign In and create Your Profile.</Typography>
               </div>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -95,7 +94,8 @@ function ProductHowItWorks(props) {
                   className={classes.image}
                 />
                 <Typography>
-                  Ready to make connections to your search results.
+                  Update your search criteria to match your wants and needs.
+                  Search for developers and make connections, fast!
                 </Typography>
               </div>
             </Grid>

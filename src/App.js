@@ -6,7 +6,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import SignUpForm from "./components/SignUpForm/";
-import LandingComponent from "./components/Landing/Landing.component";
+import LandingComponent from "./components/LandingPage/Landing.component";
 import LoginForm from "./components/LoginForm/";
 import MockData from "./components/MockData";
 import { FirebaseContext } from "./components/Firebase";

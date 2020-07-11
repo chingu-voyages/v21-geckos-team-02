@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "../components/Button";
-import Typography from "../components/Typography";
+import Button from "../UI/Button";
+import Typography from "../UI/Typography";
 import ProductHeroLayout from "./ProductHeroLayout";
-import heroImage from "../assets/images/heroImage.jpg";
+import heroImage from "../../../assets/images/heroImage.jpg";
 import { Link } from "react-router-dom";
 
 const styles = (theme) => ({
@@ -39,7 +39,7 @@ function ProductHero(props) {
         alt="increase priority"
       />
       <Typography color="inherit" align="center" variant="h2" marked="center">
-        Expand Coding Network!
+        Expand Your Coding Network!
       </Typography>
       <Typography
         color="inherit"
@@ -47,9 +47,8 @@ function ProductHero(props) {
         variant="h5"
         className={classes.h5}
       >
-        Search for Co-Coders to work together for free!
+        Find the perfect local or remote developer for the job.
       </Typography>
-
       <Button
         color="secondary"
         variant="contained"
@@ -61,7 +60,7 @@ function ProductHero(props) {
         Register
       </Button>
       <Typography variant="body2" color="inherit" className={classes.more}>
-        Discover the experience
+        Enjoy a seamless matchmaking experience
       </Typography>
     </ProductHeroLayout>
   );
