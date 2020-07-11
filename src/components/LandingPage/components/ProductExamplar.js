@@ -33,7 +33,7 @@ const ProductExamplar = (props) => {
   return (
     <Container className={classes.root}>
       <Typography variant="h4" marked="center" align="center" component="h2">
-        Best Tech-Stack Search Engine
+        The Best Tech-Stack Search Engine Around
       </Typography>
       <Typography
         color="inherit"
@@ -41,8 +41,8 @@ const ProductExamplar = (props) => {
         variant="h5"
         className={classes.h5}
       >
-        Exclusively built for developers to connect to other people with similar
-        skills.
+        Exclusively built for developers, by developers, Co-Coders aims to
+        connect software engineers with similar skills to one another.
       </Typography>
       <img
         src={bestSearch}

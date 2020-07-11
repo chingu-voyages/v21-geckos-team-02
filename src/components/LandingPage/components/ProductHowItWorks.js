@@ -28,6 +28,7 @@ const styles = (theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    textAlign: "center",
     padding: theme.spacing(0, 5),
     backgroundColor: "lavenderBlush",
   },
@@ -81,9 +82,7 @@ function ProductHowItWorks(props) {
               <div className={classes.item}>
                 <div className={classes.number}>2.</div>
                 <img src={signin} alt="sign in" className={classes.image} />
-                <Typography>
-                  Sign In and Create Your Profile. Update your search criteria.
-                </Typography>
+                <Typography>Sign In and create Your Profile.</Typography>
               </div>
             </Grid>
             <Grid item xs={12} md={4}>
@@ -95,7 +94,8 @@ function ProductHowItWorks(props) {
                   className={classes.image}
                 />
                 <Typography>
-                  Ready to make connections to your search results.
+                  Update your search criteria to match your wants and needs.
+                  Search for developers and make connections, fast!
                 </Typography>
               </div>
             </Grid>
