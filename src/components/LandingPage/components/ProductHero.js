@@ -47,7 +47,7 @@ function ProductHero(props) {
         variant="h5"
         className={classes.h5}
       >
-        Find the perfect local or remote developer for your project.
+        Find the perfect local or remote developer for the job.
       </Typography>
       <Button
         color="secondary"
