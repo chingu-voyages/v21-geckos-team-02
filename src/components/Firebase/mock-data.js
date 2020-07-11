@@ -2,7 +2,8 @@ export const mockData = [
   {
     uid: "8fbfbe6a95d244bfb0dd7f730ca0e515",
     picUrl: "https://randomuser.me/api/portraits/men/32.jpg",
-    name: "Will Byers",
+    firstName: "Will",
+    lastName: "Byers",
     city: "Chicago",
     state: "IL",
     preferredCodingTime: ["morning", "afternoon", "evening"],
@@ -32,7 +33,8 @@ export const mockData = [
   {
     uid: "854f28eca5994947896e636f99ae",
     picUrl: "https://randomuser.me/api/portraits/women/44.jpg",
-    name: "Kimberly Montgomery",
+    firstName: "Kimberly",
+    lastName: "Montgomery",
     city: "Phoenix",
     state: "AR",
     preferredCodingTime: ["morning", "evening"],
@@ -45,7 +47,8 @@ export const mockData = [
   {
     uid: "04498af32898437bb72bbba9b74d",
     picUrl: "https://randomuser.me/api/portraits/men/12.jpg",
-    name: "Andrew Carter",
+    firstName: "Andrew",
+    lastName: "Carter",
     city: "Seattle",
     state: "WA",
     preferredCodingTime: ["afternoon"],
@@ -67,7 +70,8 @@ export const mockData = [
   {
     uid: "39a696ec2dae49f9885fe5b1f0b9",
     picUrl: "https://randomuser.me/api/portraits/women/14.jpg",
-    name: "Joyce Harvey",
+    firstName: "Joyce",
+    lastName: "Harvey",
     city: "Manhattan",
     state: "NY ",
     preferredCodingTime: ["morning"],
@@ -81,7 +85,8 @@ export const mockData = [
   {
     uid: "ef54de16b1bc4cde9b9d4dc1eb1b",
     picUrl: "https://randomuser.me/api/portraits/women/20.jpg",
-    name: "Margaret Ortiz",
+    firstName: "Margaret",
+    lastName: "Ortiz",
     city: "Miami",
     state: "FL",
     preferredCodingTime: ["afternoon", "evening"],
@@ -107,7 +112,8 @@ export const mockData = [
   {
     uid: "3eed885a378649318ad693ff26fe",
     picUrl: "https://randomuser.me/api/portraits/men/33.jpg",
-    name: "Matthew Lewis",
+    firstName: "Matthew",
+    lastName: "Lewis",
     city: "Indianapolis",
     state: "IN",
     preferredCodingTime: ["evening"],
@@ -131,7 +137,8 @@ export const mockData = [
   {
     uid: "6c6331781c9b46429bee110a3909",
     picUrl: "https://randomuser.me/api/portraits/women/10.jpg",
-    name: "Susan Greene",
+    firstName: "Susan",
+    lastName: "Greene",
     city: "Chicago",
     state: "IL",
     preferredCodingTime: ["afternoon"],
@@ -153,7 +160,8 @@ export const mockData = [
   {
     uid: "c95f4d95cb044129b32ca3791d67",
     picUrl: "https://randomuser.me/api/portraits/women/34.jpg",
-    name: "Debra Ford",
+    firstName: "Debra",
+    lastName: "Ford",
     city: "New Orleans",
     state: "LA",
     preferredCodingTime: ["morning", "evening"],
@@ -166,7 +174,8 @@ export const mockData = [
   {
     uid: "0799d94461a74909926f30b955be",
     picUrl: "https://randomuser.me/api/portraits/men/23.jpg",
-    name: "Ralph Ramos",
+    firstName: "Ralph",
+    lastName: "Ramos",
     city: "Los Angeles",
     state: "CA",
     preferredCodingTime: ["afternoon"],
@@ -188,7 +197,8 @@ export const mockData = [
   {
     uid: "059c5bffa91d495b9850a5ea532d",
     picUrl: "https://randomuser.me/api/portraits/women/21.jpg",
-    name: "Carol Woods",
+    firstName: "Carol",
+    lastName: "Woods",
     city: "San Francisco",
     state: "CA",
     preferredCodingTime: ["morning"],
