@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import Typography from "./Typography";
-import searchEngine from "../../src/assets/images/searchEngine.png";
-import experience from "../../src/assets/images/experience.png";
-import filters from "../../src/assets/images/filters.jpg";
+import Typography from "../UI/Typography";
+import searchEngine from "../../../assets/images/searchEngine.png";
+import experience from "../../../assets/images/experience.png";
+import filters from "../../../assets/images/filters.jpg";
 
 const styles = (theme) => ({
   root: {

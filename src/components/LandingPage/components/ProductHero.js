@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "../components/Button";
-import Typography from "../components/Typography";
+import Button from "../UI/Button";
+import Typography from "../UI/Typography";
 import ProductHeroLayout from "./ProductHeroLayout";
-import heroImage from "../assets/images/heroImage.jpg";
+import heroImage from "../../../assets/images/heroImage.jpg";
 import { Link } from "react-router-dom";
 
 const styles = (theme) => ({
