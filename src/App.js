@@ -6,9 +6,9 @@ import {
   Redirect,
 } from "react-router-dom";
 import LandingComponent from "./components/LandingPage/Landing.component";
-import EditProfileForms from "./components/EditProfileForms";
 import MockData from "./components/MockData";
 import { FirebaseContext } from "./components/Firebase";
+import AuthUserContext from "./components/Firebase/AuthUser/AuthUserContext";
 
 function App() {
   const [authUser, setAuthUser] = useState(null);
@@ -23,20 +23,19 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/home">
-            <LandingComponent authUser={authUser} />
-          </Route>
-          <Route path="/edit-profile">
-            <EditProfileForms authUser={authUser} />
-          </Route>
-          <Route path="/mockdata">
-            <MockData authUser={authUser} />
-          </Route>
-          <Route render={() => <Redirect to="/home" />} />
-        </Switch>
-      </Router>
+      <AuthUserContext.Provider value={authUser}>
+        <Router>
+          <Switch>
+            <Route path="/home">
+              <LandingComponent />
+            </Route>
+            <Route path="/mockdata">
+              <MockData authUser={authUser} />
+            </Route>
+            <Route render={() => <Redirect to="/home" />} />
+          </Switch>
+        </Router>
+      </AuthUserContext.Provider>
     </div>
   );
 }

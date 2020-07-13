@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 
 import ModalComponentWrapper from "../../ModalComponentWrapper";
@@ -12,6 +12,7 @@ import Typography from "../UI/Typography";
 import ProductHeroLayout from "./ProductHeroLayout";
 import heroImage from "../../../assets/images/heroImage.jpg";
 import { Route, Link, Redirect } from "react-router-dom";
+import AuthUserContext from "../../Firebase/AuthUser/AuthUserContext";
 
 const styles = (theme) => ({
   background: {
@@ -34,8 +35,9 @@ const styles = (theme) => ({
   },
 });
 
-const ProductHero = ({ authUser, ...props }) => {
+const ProductHero = (props) => {
   const { classes } = props;
+  const authUser = useContext(AuthUserContext);
   const [openSignUp, setOpenSignUp] = useState(false);
 
   const handleSignUpOpen = () => {
