@@ -5,11 +5,10 @@ import {
   BrowserRouter as Router,
   Redirect,
 } from "react-router-dom";
-import SignUpForm from "./components/SignUpForm/";
 import LandingComponent from "./components/LandingPage/Landing.component";
-import LoginForm from "./components/LoginForm/";
 import MockData from "./components/MockData";
 import { FirebaseContext } from "./components/Firebase";
+import AuthUserContext from "./components/Firebase/AuthUser/AuthUserContext";
 
 function App() {
   const [authUser, setAuthUser] = useState(null);
@@ -24,23 +23,19 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/signup">
-            <SignUpForm authUser={authUser} />
-          </Route>
-          <Route path="/login">
-            <LoginForm authUser={authUser} />
-          </Route>
-          <Route path="/mockdata">
-            <MockData authUser={authUser} />
-          </Route>
-          <Route path="/">
-            <LandingComponent />
-          </Route>
-          <Route render={() => <Redirect to="/" />} />
-        </Switch>
-      </Router>
+      <AuthUserContext.Provider value={authUser}>
+        <Router>
+          <Switch>
+            <Route path="/home">
+              <LandingComponent />
+            </Route>
+            <Route path="/mockdata">
+              <MockData authUser={authUser} />
+            </Route>
+            <Route render={() => <Redirect to="/home" />} />
+          </Switch>
+        </Router>
+      </AuthUserContext.Provider>
     </div>
   );
 }

@@ -57,7 +57,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MatchedUserCard = (user) => {
+const MatchedUserCard = ({
+  index,
+  picUrl,
+  firstName,
+  lastName,
+  city,
+  state,
+  specialty,
+  frontEnd,
+  backEnd,
+  preferredTech,
+  codingTimes,
+  bio,
+}) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -79,35 +92,35 @@ const MatchedUserCard = (user) => {
           avatar={
             // Can change these ternary operators to reflect
             // when a user profile image is found (or not found) on the server
-            user.picUrl !== null && user.picUrl !== undefined ? (
+            picUrl !== null && picUrl !== undefined ? (
               <Avatar
                 variant="rounded"
-                alt={`Matched User ${user.index}`}
+                alt={`Matched User ${index}`}
                 aria-label="matched-user-profile-picture"
                 className={classes.avatar}
-                src={`${user.picUrl}`}
+                src={`${picUrl}`}
               />
             ) : (
               <Avatar
                 variant="rounded"
-                alt={`Matched User ${user.index}`}
+                alt={`Matched User ${index}`}
                 aria-label="matched-user-profile-picture"
                 className={classes.avatar}
               >
-                {user.firstName.substring(0, 1)}
+                {firstName.substring(0, 1)}
               </Avatar>
             )
           }
           title={
             <Typography variant="body1" color="textPrimary" component="h1">
-              {`${user.firstName} ${user.lastName}`}
+              {`${firstName} ${lastName}`}
             </Typography>
           }
           subheader={
             // React.Fragment acts as a container without rendering a div to the HTML document
             <Fragment>
               <Typography variant="body2" color="textSecondary" component="h2">
-                {`${user.city}, ${user.state}`}
+                {`${city}, ${state}`}
               </Typography>
               <Typography
                 variant="body2"
@@ -122,15 +135,15 @@ const MatchedUserCard = (user) => {
             <u>
               <b>Specialty</b>
             </u>
-            : {user.specialty}
+            : {specialty}
           </Typography>
           <Typography variant="body2" color="textPrimary" component="p">
             <u>
               <b>Front-End</b>
             </u>
             :{" "}
-            {user.frontEnd.map((tech, i) => {
-              return i !== user.frontEnd.length - 1 ? `${tech}, ` : `${tech}`;
+            {frontEnd.map((tech, i) => {
+              return i !== frontEnd.length - 1 ? `${tech}, ` : `${tech}`;
             })}
           </Typography>
           <Typography variant="body2" color="textPrimary" component="p">
@@ -138,8 +151,8 @@ const MatchedUserCard = (user) => {
               <b>Back-End</b>
             </u>
             :{" "}
-            {user.backEnd.map((tech, i) => {
-              return i !== user.backEnd.length - 1 ? `${tech}, ` : `${tech}`;
+            {backEnd.map((tech, i) => {
+              return i !== backEnd.length - 1 ? `${tech}, ` : `${tech}`;
             })}
           </Typography>
           <br />
@@ -176,7 +189,7 @@ const MatchedUserCard = (user) => {
                       color="textPrimary"
                       component="p"
                     >
-                      {user.bio}
+                      {bio}
                     </Typography>
                     <br />
                     <Typography
@@ -188,8 +201,8 @@ const MatchedUserCard = (user) => {
                         <b>Favorite Tech</b>
                       </u>
                       :{" "}
-                      {user.preferredTech.map((tech, i) => {
-                        return i !== user.preferredTech.length - 1
+                      {preferredTech.map((tech, i) => {
+                        return i !== preferredTech.length - 1
                           ? `${tech}, `
                           : `${tech}`;
                       })}
@@ -202,12 +215,12 @@ const MatchedUserCard = (user) => {
                       <u>
                         <b>Prefers coding in the...</b>
                       </u>{" "}
-                      {user.codingTimes.map((codingTime, i) => {
-                        return user.codingTimes.length > 2 &&
-                          i !== user.codingTimes.length - 1 &&
-                          i !== user.codingTimes.length - 2
+                      {codingTimes.map((codingTime, i) => {
+                        return codingTimes.length > 2 &&
+                          i !== codingTimes.length - 1 &&
+                          i !== codingTimes.length - 2
                           ? `${codingTime}, `
-                          : i !== user.codingTimes.length - 1
+                          : i !== codingTimes.length - 1
                           ? `${codingTime} & `
                           : `${codingTime}.`;
                       })}

@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
+
+import ModalComponentWrapper from "../../ModalComponentWrapper";
+import SignUpForm from "../../SignUpForm";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+
 import { withStyles } from "@material-ui/core/styles";
 import Button from "../UI/Button";
 import Typography from "../UI/Typography";
 import ProductHeroLayout from "./ProductHeroLayout";
 import heroImage from "../../../assets/images/heroImage.jpg";
-import { Link } from "react-router-dom";
+import { Route, Link, Redirect } from "react-router-dom";
+import AuthUserContext from "../../Firebase/AuthUser/AuthUserContext";
 
 const styles = (theme) => ({
   background: {
@@ -28,8 +35,29 @@ const styles = (theme) => ({
   },
 });
 
-function ProductHero(props) {
+const ProductHero = (props) => {
   const { classes } = props;
+  const authUser = useContext(AuthUserContext);
+  const [openSignUp, setOpenSignUp] = useState(false);
+
+  const handleSignUpOpen = () => {
+    setOpenSignUp(true);
+  };
+
+  const handleSignUpClose = () => {
+    setOpenSignUp(false);
+  };
+
+  useEffect(() => {
+    if (
+      window.location.pathname === "/home/signup" ||
+      window.location.pathname === "/home/signup/"
+    ) {
+      setOpenSignUp(true);
+    } else {
+      setOpenSignUp(false);
+    }
+  }, []);
 
   return (
     <ProductHeroLayout backgroundClassName={classes.background}>
@@ -55,16 +83,55 @@ function ProductHero(props) {
         size="large"
         className="classes.button"
         component={Link}
-        to="/signup"
+        to="/home/signup"
+        onClick={handleSignUpOpen}
       >
         Register
       </Button>
       <Typography variant="body2" color="inherit" className={classes.more}>
         Enjoy a seamless matchmaking experience
       </Typography>
+      <Route
+        path="/home/signup"
+        render={() => {
+          return (
+            <ModalComponentWrapper>
+              <Modal
+                aria-labelledby="signup-form"
+                aria-describedby="registration-form-for-co-coders"
+                open={openSignUp}
+                onClose={handleSignUpClose}
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+                disableBackdropClick
+                disableEscapeKeyDown
+              >
+                <SignUpForm authUser={authUser} />
+              </Modal>
+            </ModalComponentWrapper>
+          );
+        }}
+      />
+      <Route
+        render={() =>
+          window.location.pathname.includes("/signup/") ||
+          window.location.pathname === "/home/signup" ||
+          window.location.pathname === "/home/signup/" ? (
+            <Redirect to="/home/signup" />
+          ) : window.location.pathname.includes("/login/") ||
+            window.location.pathname === "/home/login" ||
+            window.location.pathname === "/home/login/" ? (
+            <Redirect to="/home/login" />
+          ) : (
+            <Redirect to="/home" />
+          )
+        }
+      />
     </ProductHeroLayout>
   );
-}
+};
 
 ProductHero.propTypes = {
   classes: PropTypes.object.isRequired,
