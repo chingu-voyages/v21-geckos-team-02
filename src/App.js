@@ -28,12 +28,6 @@ function App() {
           <Route path="/home">
             <LandingComponent authUser={authUser} />
           </Route>
-          {/* <Route path="/signup">
-            <SignUpForm authUser={authUser} />
-          </Route> */}
-          {/* <Route path="/login">
-            <LoginForm authUser={authUser} />
-          </Route> */}
           <Route path="/edit-profile">
             <EditProfileForms authUser={authUser} />
           </Route>
