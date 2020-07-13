@@ -5,9 +5,7 @@ import {
   BrowserRouter as Router,
   Redirect,
 } from "react-router-dom";
-import SignUpForm from "./components/SignUpForm/";
 import LandingComponent from "./components/LandingPage/Landing.component";
-import LoginForm from "./components/LoginForm/";
 import EditProfileForms from "./components/EditProfileForms";
 import MockData from "./components/MockData";
 import { FirebaseContext } from "./components/Firebase";
@@ -27,20 +25,22 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/" component={LandingComponent} />
-          <Route path="/signup">
+          <Route path="/home">
+            <LandingComponent authUser={authUser} />
+          </Route>
+          {/* <Route path="/signup">
             <SignUpForm authUser={authUser} />
-          </Route>
-          <Route path="/login">
+          </Route> */}
+          {/* <Route path="/login">
             <LoginForm authUser={authUser} />
-          </Route>
+          </Route> */}
           <Route path="/edit-profile">
             <EditProfileForms authUser={authUser} />
           </Route>
-          {/* <Route path="/mockdata">
+          <Route path="/mockdata">
             <MockData authUser={authUser} />
-          </Route> */}
-          <Route render={() => <Redirect to="/" />} />
+          </Route>
+          <Route render={() => <Redirect to="/home" />} />
         </Switch>
       </Router>
     </div>

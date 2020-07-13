@@ -7,11 +7,11 @@ import ProductExamplar from "./components/ProductExamplar";
 import ProductHowItWorks from "./components/ProductHowItWorks";
 import Footer from "./components/Footer";
 
-function Landing() {
+function Landing({ authUser }) {
   return (
     <React.Fragment>
-      <NavBar />
-      <ProductHero />
+      <NavBar authUser={authUser} />
+      <ProductHero authUser={authUser} />
       <ProductValues />
       <ProductExamplar />
       <ProductHowItWorks />
