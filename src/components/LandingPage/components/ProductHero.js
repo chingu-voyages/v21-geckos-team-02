@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+
+import ModalComponentWrapper from "../../ModalComponentWrapper";
+import SignUpForm from "../../SignUpForm";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+
 import { withStyles } from "@material-ui/core/styles";
 import Button from "../UI/Button";
 import Typography from "../UI/Typography";
 import ProductHeroLayout from "./ProductHeroLayout";
 import heroImage from "../../../assets/images/heroImage.jpg";
-import { Link } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 
 const styles = (theme) => ({
   background: {
@@ -28,8 +34,17 @@ const styles = (theme) => ({
   },
 });
 
-function ProductHero(props) {
+const ProductHero = (props) => {
   const { classes } = props;
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <ProductHeroLayout backgroundClassName={classes.background}>
@@ -56,15 +71,39 @@ function ProductHero(props) {
         className="classes.button"
         component={Link}
         to="/signup"
+        onClick={handleOpen}
       >
         Register
       </Button>
+      <Route
+        path="/signup"
+        render={() => {
+          return (
+            <ModalComponentWrapper>
+              <Modal
+                aria-labelledby="signup-form"
+                aria-describedby="registration-form-for-co-coders"
+                open={open}
+                onClose={handleClose}
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+                disableBackdropClick
+                disableEscapeKeyDown
+              >
+                <SignUpForm />
+              </Modal>
+            </ModalComponentWrapper>
+          );
+        }}
+      />
       <Typography variant="body2" color="inherit" className={classes.more}>
         Enjoy a seamless matchmaking experience
       </Typography>
     </ProductHeroLayout>
   );
-}
+};
 
 ProductHero.propTypes = {
   classes: PropTypes.object.isRequired,

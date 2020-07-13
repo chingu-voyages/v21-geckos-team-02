@@ -64,7 +64,6 @@ function NavBar(props) {
             >
               {"Sign In"}
             </Link>
-
             <Link
               color="inherit"
               variant="h6"

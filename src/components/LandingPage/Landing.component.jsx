@@ -1,6 +1,6 @@
 import withRoot from "../../modules/withRoot";
 import React from "react";
-import NavBar from "../Navbar/Navbar.component";
+import NavBar from "./components/Navbar/Navbar.component";
 import ProductHero from "./components/ProductHero";
 import ProductValues from "./components/ProductValues";
 import ProductExamplar from "./components/ProductExamplar";

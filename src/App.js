@@ -27,6 +27,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
+          <Route path="/" component={LandingComponent} />
           <Route path="/signup">
             <SignUpForm authUser={authUser} />
           </Route>
@@ -36,12 +37,9 @@ function App() {
           <Route path="/edit-profile">
             <EditProfileForms authUser={authUser} />
           </Route>
-          <Route path="/mockdata">
+          {/* <Route path="/mockdata">
             <MockData authUser={authUser} />
-          </Route>
-          <Route path="/">
-            <LandingComponent />
-          </Route>
+          </Route> */}
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </Router>
