@@ -1,5 +1,5 @@
 import React from "react";
-import useForm from "../../hooks/useForm";
+import useForm from "../../../hooks/useForm";
 import { Button, TextField, Grid } from "@material-ui/core";
 // import { auth } from "firebase";
 
@@ -32,7 +32,7 @@ export default (props) => {
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
         {/* TODO: Create form UI and functionality */}
-        {/* <Grid item xs={6}>
+        <Grid item xs={6}>
           <TextField
             name="firstName"
             fullWidth
@@ -92,11 +92,11 @@ export default (props) => {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={4}>
           <Button variant="contained" fullWidth color="primary" type="submit">
-            Submit
+            Confirm Changes
           </Button>
-        </Grid> */}
+        </Grid>
       </Grid>
     </form>
   );

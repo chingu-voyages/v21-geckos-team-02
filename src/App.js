@@ -8,6 +8,7 @@ import {
 import SignUpForm from "./components/SignUpForm/";
 import LandingComponent from "./components/LandingPage/Landing.component";
 import LoginForm from "./components/LoginForm/";
+import EditProfileForms from "./components/EditProfileForms";
 import MockData from "./components/MockData";
 import { FirebaseContext } from "./components/Firebase";
 
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path="/login">
             <LoginForm authUser={authUser} />
+          </Route>
+          <Route path="/edit-profile">
+            <EditProfileForms authUser={authUser} />
           </Route>
           <Route path="/mockdata">
             <MockData authUser={authUser} />
