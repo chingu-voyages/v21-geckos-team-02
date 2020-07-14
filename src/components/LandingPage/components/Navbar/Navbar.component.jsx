@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
@@ -7,7 +7,6 @@ import AppBar from "./AppBar";
 import ToolBar, { styles as toolbarStyles } from "./Toolbar";
 import { Link as RouterLink } from "react-router-dom";
 import { Route, Redirect } from "react-router-dom";
-import AuthUserContext from "../../../Firebase/AuthUser/AuthUserContext";
 
 import ModalComponentWrapper from "../../../ModalComponentWrapper";
 import SignUpForm from "../../../SignUpForm";
@@ -46,7 +45,6 @@ const styles = (theme) => ({
 
 function NavBar(props) {
   const { classes } = props;
-  const authUser = useContext(AuthUserContext);
   const [openSignUp, setOpenSignUp] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
 
@@ -142,7 +140,7 @@ function NavBar(props) {
                 disableBackdropClick
                 disableEscapeKeyDown
               >
-                <LoginForm authUser={authUser} />
+                <LoginForm />
               </Modal>
             </ModalComponentWrapper>
           );
@@ -165,7 +163,7 @@ function NavBar(props) {
                 disableBackdropClick
                 disableEscapeKeyDown
               >
-                <SignUpForm authUser={authUser} />
+                <SignUpForm />
               </Modal>
             </ModalComponentWrapper>
           );

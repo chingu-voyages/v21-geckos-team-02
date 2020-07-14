@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import LoginForm from "./form";
 import { FirebaseContext } from "../../components/Firebase";
+import AuthUserContext from "../Firebase/AuthUser/AuthUserContext";
 import { Paper, Typography, Button, Grid } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
@@ -8,12 +9,14 @@ import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import "./style.css";
 import { Link } from "react-router-dom";
 
-export default (props) => {
+export default () => {
+  const authUser = useContext(AuthUserContext);
+
   return (
     <FirebaseContext.Consumer>
       {(firebase) => (
         <Paper id="login-box">
-          {!props.authUser && (
+          {!authUser && (
             <Grid container spacing={3}>
               <Grid item xs={2}>
                 <Link to="/home">
@@ -28,12 +31,12 @@ export default (props) => {
               </Grid>
               <Grid item xs={12}>
                 <Typography>
-                  <Link to="/home/signup">Need an account? Sign Up!</Link>
+                  <Link to="signup">Need an account? Sign Up!</Link>
                 </Typography>
               </Grid>
             </Grid>
           )}
-          {props.authUser && (
+          {authUser && (
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Typography variant="h5">Welcome</Typography>
@@ -52,7 +55,7 @@ export default (props) => {
                     </Button>
                   }
                 >
-                  Signed in as {props.authUser.email}
+                  Signed in as {authUser.email}
                 </Alert>
               </Grid>
             </Grid>
