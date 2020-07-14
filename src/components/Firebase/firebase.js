@@ -23,6 +23,7 @@ class Firebase {
 
     doCreateUserWithEmailAndPassword = (inputs) => {
         const { email, password, firstName, lastName } = inputs
+        const displayName = email.split('@')[0]
 
         return this.auth
             .createUserWithEmailAndPassword(email, password)
@@ -30,7 +31,7 @@ class Firebase {
                 this.db
                     .collection("users")
                     .doc(user.user.uid)
-                    .set({ firstName, lastName })
+                    .set({ firstName, lastName, displayName })
             })
             .catch(error => console.error("Error: ", error))
     }
