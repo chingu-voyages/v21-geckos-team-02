@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import SignUpForm from "./form";
 import { FirebaseContext } from "../../components/Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
+import { LoginModalContext } from "../ModalComponentWrapper/ModalsContext/LoginModalContext";
+import { SignUpModalContext } from "../ModalComponentWrapper/ModalsContext/SignUpModalContext";
 import { Paper, Typography, Grid, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Link } from "react-router-dom";
@@ -11,6 +13,8 @@ import "./style.css";
 
 export default () => {
   const authUser = useContext(AuthUserContext);
+  const [, setSignUpModalOpen] = useContext(SignUpModalContext);
+  const [, setLoginModalOpen] = useContext(LoginModalContext);
 
   return (
     <FirebaseContext.Consumer>
@@ -31,7 +35,15 @@ export default () => {
               </Grid>
               <Grid item xs={12}>
                 <Typography>
-                  <Link to="login">Already have an account? Log In!</Link>
+                  <Link
+                    to="login"
+                    onClick={() => {
+                      setSignUpModalOpen(false);
+                      setLoginModalOpen(true);
+                    }}
+                  >
+                    Already have an account? Log In!
+                  </Link>
                 </Typography>
               </Grid>
             </Grid>
