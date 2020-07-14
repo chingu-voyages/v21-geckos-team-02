@@ -1,5 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
-const LoginModalContext = React.createContext(null);
+const LoginModalContext = React.createContext([{}, () => {}]);
 
-export default LoginModalContext;
+const LoginModalProvider = ({ children }) => {
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+  return (
+    <LoginModalContext.Provider value={[loginModalOpen, setLoginModalOpen]}>
+      {children}
+    </LoginModalContext.Provider>
+  );
+};
+
+export { LoginModalContext, LoginModalProvider };

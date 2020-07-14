@@ -3,7 +3,7 @@ import { FirebaseContext } from "../../components/Firebase";
 import { Button, Paper, Grid } from "@material-ui/core";
 import "./style.css";
 
-export default (props) => {
+export default () => {
   const fb = useContext(FirebaseContext);
   const [docs, setDocs] = useState([]);
 

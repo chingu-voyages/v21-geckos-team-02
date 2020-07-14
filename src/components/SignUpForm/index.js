@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import SignUpForm from "./form";
 import { FirebaseContext } from "../../components/Firebase";
-import AuthUserContext from "../Firebase/AuthUser/AuthUserContext";
+import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 import { Paper, Typography, Grid, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Link } from "react-router-dom";

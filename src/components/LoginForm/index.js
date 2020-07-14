@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import LoginForm from "./form";
 import { FirebaseContext } from "../../components/Firebase";
-import AuthUserContext from "../Firebase/AuthUser/AuthUserContext";
+import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 import { Paper, Typography, Button, Grid } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
