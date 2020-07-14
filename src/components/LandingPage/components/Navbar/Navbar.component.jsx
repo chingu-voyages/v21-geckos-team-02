@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
@@ -7,13 +7,14 @@ import AppBar from "./AppBar";
 import ToolBar, { styles as toolbarStyles } from "./Toolbar";
 import { Link as RouterLink } from "react-router-dom";
 import { Route, Redirect } from "react-router-dom";
-import AuthUserContext from "../../../Firebase/AuthUser/AuthUserContext";
 
 import ModalComponentWrapper from "../../../ModalComponentWrapper";
+import LoginForm from "../../../LoginForm";
+import { LoginModalContext } from "../../../ModalComponentWrapper/ModalsContext/LoginModalContext";
 import SignUpForm from "../../../SignUpForm";
+import { SignUpModalContext } from "../../../ModalComponentWrapper/ModalsContext/SignUpModalContext";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import LoginForm from "../../../LoginForm";
 
 const styles = (theme) => ({
   title: {
@@ -46,24 +47,23 @@ const styles = (theme) => ({
 
 function NavBar(props) {
   const { classes } = props;
-  const authUser = useContext(AuthUserContext);
-  const [openSignUp, setOpenSignUp] = useState(false);
-  const [openLogin, setOpenLogin] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useContext(LoginModalContext);
+  const [signUpModalOpen, setSignUpModalOpen] = useContext(SignUpModalContext);
 
   const handleSignUpOpen = () => {
-    setOpenSignUp(true);
+    setSignUpModalOpen(true);
   };
 
   const handleSignUpClose = () => {
-    setOpenSignUp(false);
+    setSignUpModalOpen(false);
   };
 
   const handleLoginOpen = () => {
-    setOpenLogin(true);
+    setLoginModalOpen(true);
   };
 
   const handleLoginClose = () => {
-    setOpenLogin(false);
+    setLoginModalOpen(false);
   };
 
   useEffect(() => {
@@ -71,16 +71,17 @@ function NavBar(props) {
       window.location.pathname === "/home/signup" ||
       window.location.pathname === "/home/signup/"
     ) {
-      setOpenSignUp(true);
+      setSignUpModalOpen(true);
     } else if (
       window.location.pathname === "/home/login" ||
       window.location.pathname === "/home/login/"
     ) {
-      setOpenLogin(true);
+      setLoginModalOpen(true);
     } else {
-      setOpenSignUp(false);
-      setOpenLogin(false);
+      setSignUpModalOpen(false);
+      setLoginModalOpen(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -133,7 +134,7 @@ function NavBar(props) {
               <Modal
                 aria-labelledby="login-form"
                 aria-describedby="login-form-for-co-coders"
-                open={openLogin}
+                open={loginModalOpen}
                 onClose={handleLoginClose}
                 BackdropComponent={Backdrop}
                 BackdropProps={{
@@ -142,7 +143,7 @@ function NavBar(props) {
                 disableBackdropClick
                 disableEscapeKeyDown
               >
-                <LoginForm authUser={authUser} />
+                <LoginForm />
               </Modal>
             </ModalComponentWrapper>
           );
@@ -156,7 +157,7 @@ function NavBar(props) {
               <Modal
                 aria-labelledby="signup-form"
                 aria-describedby="registration-form-for-co-coders"
-                open={openSignUp}
+                open={signUpModalOpen}
                 onClose={handleSignUpClose}
                 BackdropComponent={Backdrop}
                 BackdropProps={{
@@ -165,7 +166,7 @@ function NavBar(props) {
                 disableBackdropClick
                 disableEscapeKeyDown
               >
-                <SignUpForm authUser={authUser} />
+                <SignUpForm />
               </Modal>
             </ModalComponentWrapper>
           );

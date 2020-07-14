@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 
 import ModalComponentWrapper from "../../ModalComponentWrapper";
 import SignUpForm from "../../SignUpForm";
+import { SignUpModalContext } from "../../ModalComponentWrapper/ModalsContext/SignUpModalContext";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 
@@ -12,7 +13,6 @@ import Typography from "../UI/Typography";
 import ProductHeroLayout from "./ProductHeroLayout";
 import heroImage from "../../../assets/images/heroImage.jpg";
 import { Route, Link, Redirect } from "react-router-dom";
-import AuthUserContext from "../../Firebase/AuthUser/AuthUserContext";
 
 const styles = (theme) => ({
   background: {
@@ -37,15 +37,14 @@ const styles = (theme) => ({
 
 const ProductHero = (props) => {
   const { classes } = props;
-  const authUser = useContext(AuthUserContext);
-  const [openSignUp, setOpenSignUp] = useState(false);
+  const [signUpModalOpen, setSignUpModalOpen] = useContext(SignUpModalContext);
 
   const handleSignUpOpen = () => {
-    setOpenSignUp(true);
+    setSignUpModalOpen(true);
   };
 
   const handleSignUpClose = () => {
-    setOpenSignUp(false);
+    setSignUpModalOpen(false);
   };
 
   useEffect(() => {
@@ -53,10 +52,11 @@ const ProductHero = (props) => {
       window.location.pathname === "/home/signup" ||
       window.location.pathname === "/home/signup/"
     ) {
-      setOpenSignUp(true);
+      setSignUpModalOpen(true);
     } else {
-      setOpenSignUp(false);
+      setSignUpModalOpen(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -99,7 +99,7 @@ const ProductHero = (props) => {
               <Modal
                 aria-labelledby="signup-form"
                 aria-describedby="registration-form-for-co-coders"
-                open={openSignUp}
+                open={signUpModalOpen}
                 onClose={handleSignUpClose}
                 BackdropComponent={Backdrop}
                 BackdropProps={{
@@ -108,7 +108,7 @@ const ProductHero = (props) => {
                 disableBackdropClick
                 disableEscapeKeyDown
               >
-                <SignUpForm authUser={authUser} />
+                <SignUpForm />
               </Modal>
             </ModalComponentWrapper>
           );

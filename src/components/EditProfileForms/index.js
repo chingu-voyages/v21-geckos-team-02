@@ -2,9 +2,7 @@ import React from "react";
 import UpdateProfileForm from "./UpdateProfileForm/form";
 import CreateProfileForm from "./CreateProfileForm/form";
 import { FirebaseContext } from "../Firebase";
-import { Paper, Typography, Grid, Button } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
-import { Link } from "react-router-dom";
+import { Paper, Typography, Grid } from "@material-ui/core";
 import "./style.css";
 
 // TODO: Create form container below
@@ -26,24 +24,10 @@ const EditProfileDisplay = ({ authUser }) => {
           {authUser && (
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Typography variant="h5">Welcome</Typography>
+                <Typography variant="h5">Create Your Profile</Typography>
               </Grid>
               <Grid item xs={12}>
-                <Alert
-                  severity="info"
-                  action={
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      onClick={firebase.doSignOut}
-                      size="small"
-                    >
-                      Sign Out
-                    </Button>
-                  }
-                >
-                  Signed in as {authUser.email}
-                </Alert>
+                <UpdateProfileForm firebase={firebase} />
               </Grid>
             </Grid>
           )}
