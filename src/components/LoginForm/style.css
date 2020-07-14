@@ -1,7 +1,7 @@
 #login-box {
-  /* margin: auto; */
-  /* min-width: 300px; */
-  /* width: 20%; */
+  margin: 40px auto;
+  min-width: 400px;
+  width: 90%;
   padding: 20px;
 }
 
