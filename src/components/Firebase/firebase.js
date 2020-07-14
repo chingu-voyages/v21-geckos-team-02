@@ -23,15 +23,19 @@ class Firebase {
 
     doCreateUserWithEmailAndPassword = (inputs) => {
         const { email, password, firstName, lastName } = inputs
-        const displayName = email.split('@')[0]
 
         return this.auth
             .createUserWithEmailAndPassword(email, password)
             .then(user => {
-                this.db
+                const displayName = user.user.email.split('@')[0]
+                return this.auth.currentUser.updateProfile({ displayName })
+            })
+            .then(() => {
+                console.log(this.auth.currentUser);
+                return this.db
                     .collection("users")
-                    .doc(user.user.uid)
-                    .set({ firstName, lastName, displayName })
+                    .doc(this.auth.currentUser.uid)
+                    .set({ firstName, lastName })
             })
             .catch(error => console.error("Error: ", error))
     }
