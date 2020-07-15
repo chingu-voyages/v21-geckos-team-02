@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import { withFirebase } from "../Firebase/index";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
+import SharedNavBar from "../shared/SharedNav";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -85,6 +86,7 @@ function PasswordForgetFormBase(props) {
 
   return (
     <React.Fragment>
+      <SharedNavBar />
       <div className={classes.root}>
         <form
           onSubmit={handleSubmit(onSubmit)}

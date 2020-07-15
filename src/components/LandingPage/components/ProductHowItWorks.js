@@ -8,7 +8,8 @@ import Typography from "../UI/Typography";
 import account from "../../../assets/images/account.jpg";
 import signin from "../../../assets/images/signin.jpg";
 import searchConnect from "../../../assets/images/searchConnect.jpg";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import Link from "@material-ui/core/Link";
 
 const styles = (theme) => ({
   root: {
@@ -106,8 +107,8 @@ function ProductHowItWorks(props) {
           size="large"
           variant="contained"
           className={classes.button}
-          component={Link}
-          to="/signup"
+          component={RouterLink}
+          to="/home/signup"
         >
           Get started
         </Button>
