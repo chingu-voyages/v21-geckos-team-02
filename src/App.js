@@ -8,6 +8,7 @@ import {
 import LandingComponent from "./components/LandingPage/Landing.component";
 // import MockData from "./components/MockData";
 import { AuthUserProvider } from "./components/Firebase/AuthUser/AuthUserContext";
+import { PasswordForgetForm } from "./components/PasswordForget/form";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             {/* <Route path="/mockdata">
               <MockData />
             </Route> */}
+            <Route path="/pw-forget" component={PasswordForgetForm} />
             <Route render={() => <Redirect to="/home" />} />
           </Switch>
         </Router>
