@@ -21,13 +21,29 @@ class Firebase {
         this.db = app.firestore();
     }
 
-    doCreateUserWithEmailAndPassword = (email, password) =>
-        this.auth
+    doCreateUserWithEmailAndPassword = (inputs) => {
+        const { email, password, firstName, lastName } = inputs
+
+        return this.auth
             .createUserWithEmailAndPassword(email, password)
+            .then(user => {
+                const displayName = user.user.email.split('@')[0]
+                return this.auth.currentUser.updateProfile({ displayName })
+            })
+            .then(() => {
+                console.log(this.auth.currentUser);
+                return this.db
+                    .collection("users")
+                    .doc(this.auth.currentUser.uid)
+                    .set({ firstName, lastName })
+            })
+            .catch(error => console.error("Error: ", error))
+    }
 
 
     doSignInWithEmailAndPassword = (email, password) =>
-        this.auth.signInWithEmailAndPassword(email, password);
+        this.auth.signInWithEmailAndPassword(email, password)
+            .catch(error => console.error("Error: ", error))
 
     doSignOut = () => this.auth.signOut();
 
