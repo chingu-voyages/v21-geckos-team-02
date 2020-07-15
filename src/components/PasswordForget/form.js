@@ -7,10 +7,6 @@ import TextField from "@material-ui/core/TextField";
 import { withFirebase } from "../Firebase/index";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
-import { AppBar } from "@material-ui/core";
-import { Container } from "@material-ui/core";
-import { Toolbar } from "@material-ui/core";
-import Copyright from "../LandingPage/components/Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -137,21 +133,6 @@ function PasswordForgetFormBase(props) {
             Send Reset Link
           </button>
         </form>
-      </div>
-      <div style={styles}>
-        <AppBar
-          position="static"
-          style={{ background: "#1d3557" }}
-          className={classes.appBar}
-        >
-          <Container maxWidth="md">
-            <Toolbar style={styles}>
-              <Typography variant="body1" align="center" component={"span"}>
-                <Copyright />
-              </Typography>
-            </Toolbar>
-          </Container>
-        </AppBar>
       </div>
     </React.Fragment>
   );

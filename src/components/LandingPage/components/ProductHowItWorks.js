@@ -23,6 +23,7 @@ const styles = (theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    backgroundColor: "lavenderBlush",
   },
   item: {
     display: "flex",
@@ -30,7 +31,6 @@ const styles = (theme) => ({
     alignItems: "center",
     textAlign: "center",
     padding: theme.spacing(0, 5),
-    backgroundColor: "lavenderBlush",
   },
   title: {
     marginBottom: theme.spacing(14),
