@@ -5,7 +5,6 @@ import ProductHero from "./components/ProductHero";
 import ProductValues from "./components/ProductValues";
 import ProductExamplar from "./components/ProductExamplar";
 import ProductHowItWorks from "./components/ProductHowItWorks";
-import Footer from "./components/Footer";
 
 function Landing() {
   return (
@@ -15,7 +14,6 @@ function Landing() {
       <ProductValues />
       <ProductExamplar />
       <ProductHowItWorks />
-      <Footer />
     </React.Fragment>
   );
 }

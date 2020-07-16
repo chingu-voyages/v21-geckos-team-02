@@ -5,7 +5,7 @@ import { Toolbar } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 
-function Copyright() {
+export function Copyright() {
   return (
     <React.Fragment>
       {"© "}
@@ -26,11 +26,12 @@ export default function Footer() {
     dislay: "flex",
     justifyContent: "center",
   };
+
   return (
     <div style={styles}>
       <AppBar position="static" style={{ background: "#1d3557" }}>
         <Container maxWidth="md">
-          <Toolbar justifyContent="center">
+          <Toolbar style={styles}>
             <Typography variant="body1" align="center">
               <Copyright />
             </Typography>

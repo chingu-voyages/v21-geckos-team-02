@@ -19,13 +19,13 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(22),
     display: "flex",
     position: "relative",
+    backgroundColor: "lavenderBlush",
   },
   item: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     padding: theme.spacing(0, 5),
-    backgroundColor: "lavenderBlush",
   },
   title: {
     marginTop: theme.spacing(5),
