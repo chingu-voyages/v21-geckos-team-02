@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import useForm from "../../../hooks/useForm";
 import {
   Button,
@@ -9,35 +9,25 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core";
-// import { auth } from "firebase";
+import { UserProfileContext } from "../UserProfile/UserProfileContext";
 
 export default (props) => {
-  const initialState = {
-    // TODO: pass values from SignUpForm into these 3 states
-    firstName: "",
-    lastName: "",
-    displayName: "",
-    //============//
-    city: "",
-    state: "",
-    preferredCodingTime: [],
-    frontendTechStack: [],
-    backendTechStack: [],
-    specialty: [],
-    preferredTechStack: [],
-    bio: "",
-  };
+  const [userProfileParams, setUserProfileParams] = useContext(
+    UserProfileContext
+  );
+
+  const initialState = userProfileParams;
+
+  const { handleSubmit, handleInputChange, inputs } = useForm(initialState);
 
   const handleChange = (event) => {
     // (event.target.value);
   };
 
-  const { handleSubmit, handleInputChange, inputs } = useForm(initialState);
-
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             name="firstName"
             fullWidth
@@ -47,7 +37,7 @@ export default (props) => {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             name="lastName"
             fullWidth
@@ -57,7 +47,7 @@ export default (props) => {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={4}>
+        {/* <Grid item xs={4}>
           <TextField
             name="displayName"
             fullWidth
@@ -66,7 +56,7 @@ export default (props) => {
             value={inputs.displayName}
             onChange={handleInputChange}
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={6}>
           <TextField
             name="city"

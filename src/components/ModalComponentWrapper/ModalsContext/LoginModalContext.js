@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const LoginModalContext = React.createContext([{}, () => {}]);
 
 const LoginModalProvider = ({ children }) => {
-  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState();
 
   return (
     <LoginModalContext.Provider value={[loginModalOpen, setLoginModalOpen]}>
