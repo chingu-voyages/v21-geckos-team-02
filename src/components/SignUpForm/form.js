@@ -9,15 +9,14 @@ export default (props) => {
     password: "",
     firstName: "",
     lastName: "",
-    displayName: "",
-    passwordConfirmation: "",
+    passwordConfirm: "",
   };
 
   const loginUser = () => {
     props.firebase
-      .doCreateUserWithEmailAndPassword(inputs.email, inputs.password)
+      .doCreateUserWithEmailAndPassword(inputs)
       .then((authUser) => {
-        console.log(authUser);
+        console.log('authUser: ', authUser);
       })
       .catch((error) => {
         console.error(error.code, error.message);
@@ -49,16 +48,6 @@ export default (props) => {
             type="text"
             label="Last Name"
             value={inputs.lastName}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            name="displayName"
-            fullWidth
-            type="text"
-            label="Display Name"
-            value={inputs.displayName}
             onChange={handleInputChange}
           />
         </Grid>
