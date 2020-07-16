@@ -6,7 +6,11 @@ import "./style.css";
 export default () => {
   const fb = useContext(FirebaseContext);
   const [docs, setDocs] = useState([]);
-
+  if (fb.auth.currentUser) {
+    fb.doGetUserProfile(fb.auth.currentUser.uid, (doc) => {
+      console.log("profile:", doc.data());
+    });
+  }
   // Pass a callback to handle the data.  Don't forget the empty array as second parameter of useEffect.
   useEffect(
     () =>
@@ -75,10 +79,10 @@ export default () => {
               </div>
             ))
           ) : (
-            <div>
-              <p>No users found.</p>
-            </div>
-          )}
+              <div>
+                <p>No users found.</p>
+              </div>
+            )}
         </Paper>
       </Grid>
     </Grid>
