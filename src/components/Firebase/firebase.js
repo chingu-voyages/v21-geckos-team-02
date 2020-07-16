@@ -81,6 +81,13 @@ class Firebase {
 
     }
 
+    doGetUserProfile = (uid, callback) => {
+        return this.db
+            .collection("users")
+            .doc(uid)
+            .get()
+            .then(callback)
+    }
 }
 
 export default Firebase;
