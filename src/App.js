@@ -8,6 +8,7 @@ import {
 import LandingComponent from "./components/LandingPage/Landing.component";
 // import MockData from "./components/MockData";
 import { AuthUserProvider } from "./components/Firebase/AuthUser/AuthUserContext";
+import EditProfileForms from "./components/EditProfileForms";
 
 function App() {
   return (
@@ -17,6 +18,12 @@ function App() {
           <Switch>
             <Route path="/home">
               <LandingComponent />
+            </Route>
+            <Route path="/home">
+              <LandingComponent />
+            </Route>
+            <Route path="/edit-forms">
+              <EditProfileForms />
             </Route>
             {/* <Route path="/mockdata">
               <MockData />

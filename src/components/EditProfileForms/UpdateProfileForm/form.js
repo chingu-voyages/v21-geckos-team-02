@@ -5,17 +5,10 @@ import { Button, TextField, Grid } from "@material-ui/core";
 
 export default (props) => {
   const initialState = {
-    // TODO: if coming from SignUpForm, then pass these 3 initalStates
-    // as props to this component. if coming from user dashboard,
-    // pass all initialState as props from database
+    // Fill these fields with existing user data
     firstName: "",
     lastName: "",
     displayName: "",
-    //============//
-    // TODO: figure out image upload/hosting
-    // hosting: imgbb.com
-    // compression: https://helloacm.com/images-compressor/
-    //===========//
     city: "",
     state: "",
     preferredCodingTime: [],
@@ -31,7 +24,6 @@ export default (props) => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
-        {/* TODO: Create form UI and functionality */}
         <Grid item xs={6}>
           <TextField
             name="firstName"
@@ -101,3 +93,7 @@ export default (props) => {
     </form>
   );
 };
+
+// TODO: figure out image upload/hosting
+// hosting: imgbb.com
+// compression: https://helloacm.com/images-compressor/
