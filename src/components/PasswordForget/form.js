@@ -56,10 +56,6 @@ const useStyles = makeStyles((theme) => ({
 
 function PasswordForgetFormBase(props) {
   const classes = useStyles();
-  const styles = {
-    dislay: "flex",
-    justifyContent: "center",
-  };
 
   useEffect(() => {
     register({ emailRequired: "emailRequired" }, { required: true });
