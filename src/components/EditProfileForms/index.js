@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import UpdateProfileForm from "./UpdateProfileForm/form";
 import CreateProfileForm from "./CreateProfileForm/form";
 import { FirebaseContext } from "../Firebase";
@@ -7,6 +7,15 @@ import "./style.css";
 
 // TODO: Create form container below
 const EditProfileDisplay = ({ authUser }) => {
+  const fb = useContext(FirebaseContext);
+  // const [docs, setDocs] = useState([]);
+
+  if (fb.auth.currentUser) {
+    fb.doGetUserProfile(fb.auth.currentUser.uid, (doc) => {
+      console.log("profile:", doc.data());
+    });
+  }
+
   return (
     <FirebaseContext.Consumer>
       {(firebase) => (

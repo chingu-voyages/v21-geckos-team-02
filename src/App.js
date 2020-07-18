@@ -6,7 +6,6 @@ import {
   Redirect,
 } from "react-router-dom";
 import LandingComponent from "./components/LandingPage/Landing.component";
-// import MockData from "./components/MockData";
 import { AuthUserProvider } from "./components/Firebase/AuthUser/AuthUserContext";
 import EditProfileForms from "./components/EditProfileForms";
 import { PasswordForgetForm } from "./components/PasswordForget/form";
