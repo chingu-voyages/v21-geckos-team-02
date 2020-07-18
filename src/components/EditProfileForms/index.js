@@ -1,20 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import UpdateProfileForm from "./UpdateProfileForm/form";
 import CreateProfileForm from "./CreateProfileForm/form";
 import { FirebaseContext } from "../Firebase";
+import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 import { Paper, Typography, Grid } from "@material-ui/core";
 import "./style.css";
 
 // TODO: Create form container below
-const EditProfileDisplay = ({ authUser }) => {
-  const fb = useContext(FirebaseContext);
-  // const [docs, setDocs] = useState([]);
-
-  if (fb.auth.currentUser) {
-    fb.doGetUserProfile(fb.auth.currentUser.uid, (doc) => {
-      console.log("profile:", doc.data());
-    });
-  }
+const EditProfileDisplay = () => {
+  const authUser = useContext(AuthUserContext);
 
   return (
     <FirebaseContext.Consumer>

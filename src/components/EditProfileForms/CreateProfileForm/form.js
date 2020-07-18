@@ -4,10 +4,10 @@ import {
   Button,
   TextField,
   Grid,
-  FormControl,
-  FormControlLabel,
-  RadioGroup,
-  Radio,
+  // FormControl,
+  // FormControlLabel,
+  // RadioGroup,
+  // Radio,
 } from "@material-ui/core";
 
 export default (props) => {
@@ -46,7 +46,7 @@ export default (props) => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             name="firstName"
             fullWidth
@@ -56,23 +56,13 @@ export default (props) => {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <TextField
             name="lastName"
             fullWidth
             type="text"
             label="Last Name"
             value={inputs.lastName}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            name="displayName"
-            fullWidth
-            type="text"
-            label="Display Name"
-            value={inputs.displayName}
             onChange={handleInputChange}
           />
         </Grid>
