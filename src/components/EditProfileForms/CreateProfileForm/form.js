@@ -1,33 +1,52 @@
-import React, { useContext } from "react";
+import React from "react";
 import useForm from "../../../hooks/useForm";
 import {
   Button,
   TextField,
   Grid,
   FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
 } from "@material-ui/core";
-import { UserProfileContext } from "../UserProfile/UserProfileContext";
 
 export default (props) => {
-  const [userProfileParams, setUserProfileParams] = useContext(
-    UserProfileContext
-  );
-
-  const initialState = userProfileParams;
-
-  const { handleSubmit, handleInputChange, inputs } = useForm(initialState);
-
-  const handleChange = (event) => {
-    // (event.target.value);
+  // TODO: get firstName, lastName, displayName, etc. from user state (context?)
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    displayName: "",
+    city: "",
+    state: "",
+    preferredCodingTime: [],
+    frontendTechStack: [],
+    backendTechStack: [],
+    specialty: [],
+    preferredTechStack: [],
+    bio: "",
   };
+
+  // TODO: fix this function!
+  const fetchUser = () => {
+    props.firebase
+      .doGetUserProfile(inputs.email, inputs.password)
+      .then((authUser) => {
+        console.log(authUser);
+      })
+      .catch((error) => {
+        console.error(error.code, error.message);
+      });
+  };
+
+  const { handleSubmit, handleInputChange, inputs } = useForm(
+    initialState,
+    fetchUser
+  );
 
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <TextField
             name="firstName"
             fullWidth
@@ -37,7 +56,7 @@ export default (props) => {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <TextField
             name="lastName"
             fullWidth
@@ -47,7 +66,7 @@ export default (props) => {
             onChange={handleInputChange}
           />
         </Grid>
-        {/* <Grid item xs={4}>
+        <Grid item xs={4}>
           <TextField
             name="displayName"
             fullWidth
@@ -56,7 +75,7 @@ export default (props) => {
             value={inputs.displayName}
             onChange={handleInputChange}
           />
-        </Grid> */}
+        </Grid>
         <Grid item xs={6}>
           <TextField
             name="city"
@@ -77,22 +96,6 @@ export default (props) => {
             onChange={handleInputChange}
           />
         </Grid>
-        <FormControl variant="outlined">
-          <InputLabel id="demo-simple-select-outlined-label">
-            Specialty
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
-            // value={age}
-            // onChange={handleChange}
-            label="Specialty"
-          >
-            <MenuItem value="Front-End">Front-End</MenuItem>
-            <MenuItem value="Back-End">Back-End</MenuItem>
-            <MenuItem value="Full-Stack">Front-Stack</MenuItem>
-          </Select>
-        </FormControl>
         <Grid item xs={4}></Grid>
         <Grid item xs={4}>
           <Button variant="contained" fullWidth color="primary" type="submit">
