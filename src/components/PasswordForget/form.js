@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
 import { ErrorMessage } from "@hookform/error-message";
@@ -8,19 +8,20 @@ import { withFirebase } from "../Firebase/index";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import SharedNavBar from "../shared/SharedNav";
+import SuccessMessage from "../shared/SuccessSnackbars";
+import ErrorMessages from "../shared/ErrorSnackBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   form: {
     marginTop: theme.spacing(6),
     background: "lavenderblush",
-    width: "500px",
-    height: "400px",
-    padding: "40px",
+    padding: "20px",
   },
   input: {
     display: "block",
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     borderRadius: "4px",
     padding: "10px 5px",
-    marginBottom: "10px",
+    marginBottom: "50px",
     marginTop: "30px",
     fontSize: "14px",
     background: "#ec5990",
@@ -46,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "&:disable": {
       opacity: "0.4",
+      background: "grey",
     },
   },
   appBar: {
@@ -57,26 +59,41 @@ const useStyles = makeStyles((theme) => ({
 function PasswordForgetFormBase(props) {
   const classes = useStyles();
 
-  useEffect(() => {
-    register({ emailRequired: "emailRequired" }, { required: true });
-  });
+  const [email, setEmail] = useState([]);
+  const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
+  const [error, setError] = useState(null);
 
-  const [email, setEmail] = useState("");
+  const onChangeHandler = (event) => {
+    const { name, value } = event.currentTarget;
 
-  const onSubmit = ({ emailRequired }) => {
+    if (name === "emailRequired") {
+      setEmail(value);
+    }
+  };
+
+  const sendResetEmail = () => {
     props.firebase
-      .doPasswordReset(emailRequired)
+      .doPasswordReset(email)
       .then(() => {
-        setEmail({ ...email });
-        alert("Your email has been submitted!");
-        props.history.push("/home");
+        setEmailHasBeenSent(true);
+        setTimeout(() => {
+          setEmailHasBeenSent(false);
+          setError(null);
+        }, 6000);
       })
       .catch((error) => {
-        console.error(error.code, error.message);
+        setTimeout(() => {
+          setError(null);
+        }, 5000);
+        setError(error.message);
       });
   };
 
-  const { register, handleSubmit, setValue, errors } = useForm({
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  const { register, handleSubmit, errors } = useForm({
     criteriaMode: "all",
   });
 
@@ -89,6 +106,7 @@ function PasswordForgetFormBase(props) {
           className={classes.form}
           autoComplete="off"
           noValidate
+          action=""
         >
           <React.Fragment>
             <Typography
@@ -118,18 +136,27 @@ function PasswordForgetFormBase(props) {
             inputRef={register({
               required: "Email is required.",
               pattern: {
+                //eslint-disable-next-line
                 value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                 message: "Email must be valid.",
               },
             })}
             name="emailRequired"
-            onChange={(event) => setValue("emailRequired", event.target.value)}
+            onChange={onChangeHandler}
           />
           <ErrorMessage errors={errors} name="emailRequired" />
 
-          <button className={classes.input} type="submit">
+          <button
+            className={classes.input}
+            type="submit"
+            onClick={() => {
+              sendResetEmail();
+            }}
+          >
             Send Reset Link
           </button>
+          {emailHasBeenSent && <SuccessMessage />}
+          {error !== null && <ErrorMessages error={error} />}
         </form>
       </div>
     </React.Fragment>

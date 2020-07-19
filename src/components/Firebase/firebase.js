@@ -23,11 +23,11 @@ class Firebase {
 
   doCreateUserWithEmailAndPassword = (inputs) => {
     const { email, password, firstName, lastName } = inputs;
-
     return this.auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
         const displayName = user.user.email.split("@")[0];
+
         return this.auth.currentUser.updateProfile({ displayName });
       })
       .then(() => {

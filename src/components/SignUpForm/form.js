@@ -93,6 +93,7 @@ function SignUpFormBase(props) {
             inputRef={register({
               required: "Email is required.",
               pattern: {
+                //eslint-disable-next-line
                 value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                 message: "Email must be valid.",
               },
