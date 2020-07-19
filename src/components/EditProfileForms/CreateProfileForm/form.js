@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import useForm from "../../../hooks/useForm";
-import { Button, TextField, Grid } from "@material-ui/core";
-// import { auth } from "firebase";
+import { AuthUserContext } from "../../Firebase/AuthUser/AuthUserContext";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Button,
+  TextField,
+  Grid,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@material-ui/core";
 
-export default (props) => {
+import statesInUsaData from "../data/statesInUsaData";
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+}));
+
+export default ({ firebase, user }) => {
+  const classes = useStyles();
+  const authUser = useContext(AuthUserContext);
+
   const initialState = {
-    // TODO: if coming from SignUpForm, then pass these 3 initalStates
-    // as props to this component. if coming from user dashboard,
-    // pass all initialState as props from database
-    firstName: "",
-    lastName: "",
-    displayName: "",
-    //============//
-    // TODO: figure out image upload/hosting
-    // hosting: imgbb.com
-    // compression: https://helloacm.com/images-compressor/
-    //===========//
+    firstName: user.firstName,
+    lastName: user.lastName,
     city: "",
     state: "",
     preferredCodingTime: [],
@@ -24,17 +36,44 @@ export default (props) => {
     specialty: [],
     preferredTechStack: [],
     bio: "",
+    newUser: false,
   };
 
-  const { handleSubmit, handleInputChange, inputs } = useForm(initialState);
+  const createUser = () => {
+    firebase
+      .doProfileUpdate(inputs)
+      .then((authUser) => {
+        console.log("authUser: ", authUser);
+      })
+      .catch((error) => {
+        console.error(error.code, error.message);
+      });
+  };
+
+  const { handleSubmit, handleInputChange, inputs } = useForm(
+    initialState,
+    createUser
+  );
+
+  // Reload page after user creates profile
+  useEffect(() => {
+    if (user !== initialState) {
+      firebase.doGetUserProfile(authUser.uid, (user) => {
+        if (user.data().newUser === false) {
+          window.location.reload(false);
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputs]);
 
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
-        {/* TODO: Create form UI and functionality */}
         <Grid item xs={6}>
           <TextField
             name="firstName"
+            required
             fullWidth
             type="text"
             label="First Name"
@@ -45,6 +84,7 @@ export default (props) => {
         <Grid item xs={6}>
           <TextField
             name="lastName"
+            required
             fullWidth
             type="text"
             label="Last Name"
@@ -52,54 +92,54 @@ export default (props) => {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <TextField
-            name="displayName"
+            name="city"
+            required
             fullWidth
             type="text"
-            label="Display Name"
-            value={inputs.displayName}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            name="email"
-            fullWidth
-            type="email"
-            label="Email"
-            value={inputs.email}
+            label="City"
+            value={inputs.city}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            name="password"
-            fullWidth
-            type="password"
-            label="Password"
-            value={inputs.password}
-            onChange={handleInputChange}
-          />
+          <FormControl className={classes.formControl}>
+            <InputLabel id="state-selector-label">State</InputLabel>
+            <Select
+              labelId="state-selector-label"
+              id="state-selector"
+              value={inputs.state}
+              onChange={handleInputChange}
+            >
+              {statesInUsaData.map((location) => (
+                <MenuItem value={location.abbreviation}>
+                  {location.abbreviation}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
-        <Grid item xs={6}>
-          <TextField
-            name="passwordConfirm"
+        {/* <TextField
+            name="state"
+            required
             fullWidth
-            type="password"
-            label="Re-enter Password"
-            value={inputs.passwordCOnfirm}
+            type="text"
+            label="State"
+            value={inputs.state}
             onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item xs={4} />
+          /> */}
+        <Grid item xs={4}></Grid>
         <Grid item xs={4}>
           <Button variant="contained" fullWidth color="primary" type="submit">
-            Submit
+            Create Profile
           </Button>
         </Grid>
-        <Grid item xs={4} />
       </Grid>
     </form>
   );
 };
+
+// TODO: figure out image upload/hosting
+// hosting: imgbb.com
+// compression: https://helloacm.com/images-compressor/

@@ -58,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
 
 function PasswordForgetFormBase(props) {
   const classes = useStyles();
+  // const styles = {
+  //   dislay: "flex",
+  //   justifyContent: "center",
+  // };
 
   const [email, setEmail] = useState([]);
   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
@@ -122,7 +126,6 @@ function PasswordForgetFormBase(props) {
                 "send you a link to reset your password."}
             </Typography>
           </React.Fragment>
-
           <TextField
             required
             id="filled-full-width"
@@ -138,6 +141,7 @@ function PasswordForgetFormBase(props) {
               pattern: {
                 //eslint-disable-next-line
                 value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                 message: "Email must be valid.",
               },
             })}

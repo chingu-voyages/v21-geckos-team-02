@@ -7,7 +7,6 @@ const useForm = (initialState, updateState) => {
     if (event) {
       event.preventDefault();
     }
-
     updateState();
     setInputs({ ...initialState });
   };

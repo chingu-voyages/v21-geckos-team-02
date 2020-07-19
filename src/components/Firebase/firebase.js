@@ -22,12 +22,12 @@ class Firebase {
   }
 
   doCreateUserWithEmailAndPassword = (inputs) => {
-    const { email, password, firstName, lastName } = inputs;
+    const { email, password, firstName, lastName, newUser } = inputs;
+
     return this.auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
         const displayName = user.user.email.split("@")[0];
-
         return this.auth.currentUser.updateProfile({ displayName });
       })
       .then(() => {
@@ -35,7 +35,7 @@ class Firebase {
         return this.db
           .collection("users")
           .doc(this.auth.currentUser.uid)
-          .set({ firstName, lastName });
+          .set({ firstName, lastName, newUser });
       })
       .catch((error) => console.error("Error: ", error));
   };
@@ -45,10 +45,11 @@ class Firebase {
       .signInWithEmailAndPassword(email, password)
       .catch((error) => console.error("Error: ", error));
 
-  doSignOut = () => this.auth.signOut();
+  doSignOut = () => {
+    this.auth.signOut();
+  };
 
   doPasswordReset = (email) => this.auth.sendPasswordResetEmail(email);
-  git;
 
   doPasswordUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
@@ -74,11 +75,12 @@ class Firebase {
     }
   };
 
-  doGetUserProfile = (uid, callback) => {
-    return this.db.collection("users").doc(uid).get().then(callback);
-  };
   doGetAllUsers = (callback) => {
     this.db.collection("users").get().then(callback);
+  };
+
+  doGetUserProfile = (uid, callback) => {
+    return this.db.collection("users").doc(uid).get().then(callback);
   };
 }
 

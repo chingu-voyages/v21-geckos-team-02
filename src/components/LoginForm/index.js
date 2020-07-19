@@ -53,7 +53,12 @@ export default () => {
           )}
           {authUser && (
             <Grid container spacing={3}>
-              <Grid item xs={12}>
+              <Grid item xs={2}>
+                <Link to="/home">
+                  <CloseRoundedIcon color="primary" />
+                </Link>
+              </Grid>
+              <Grid item xs={8}>
                 <Typography variant="h5">Welcome</Typography>
               </Grid>
               <Grid item xs={12}>

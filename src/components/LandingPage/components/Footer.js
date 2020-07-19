@@ -23,7 +23,7 @@ export function Copyright() {
 
 export default function Footer() {
   const styles = {
-    dislay: "flex",
+    display: "flex",
     justifyContent: "center",
   };
 

@@ -12,9 +12,10 @@ function SignUpFormBase(props) {
   const initialState = {
     email: "",
     password: "",
+    passwordConfirm: "",
     firstName: "",
     lastName: "",
-    passwordConfirm: "",
+    newUser: true,
   };
 
   const loginUser = () => {
@@ -149,6 +150,11 @@ function SignUpFormBase(props) {
                 onChange={handleInputChange}
               />
             }
+            fullWidth
+            type="password"
+            label="Re-enter Password"
+            value={inputs.passwordConfirm}
+            onChange={handleInputChange}
           />
           {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>}
         </Grid>
