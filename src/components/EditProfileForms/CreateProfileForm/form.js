@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import useForm from "../../../hooks/useForm";
+import { AuthUserContext } from "../../Firebase/AuthUser/AuthUserContext";
 import {
   Button,
   TextField,
@@ -10,12 +11,12 @@ import {
   // Radio,
 } from "@material-ui/core";
 
-export default (props) => {
-  // TODO: get firstName, lastName, displayName, etc. from user state (context?)
+export default ({ firebase, user }) => {
+  const authUser = useContext(AuthUserContext);
+
   const initialState = {
-    firstName: "",
-    lastName: "",
-    displayName: "",
+    firstName: user.firstName,
+    lastName: user.lastName,
     city: "",
     state: "",
     preferredCodingTime: [],
@@ -24,14 +25,14 @@ export default (props) => {
     specialty: [],
     preferredTechStack: [],
     bio: "",
+    newUser: false,
   };
 
-  // TODO: fix this function!
-  const fetchUser = () => {
-    props.firebase
-      .doGetUserProfile(inputs.email, inputs.password)
+  const createUser = () => {
+    firebase
+      .doProfileUpdate(inputs)
       .then((authUser) => {
-        console.log(authUser);
+        console.log("authUser: ", authUser);
       })
       .catch((error) => {
         console.error(error.code, error.message);
@@ -40,8 +41,18 @@ export default (props) => {
 
   const { handleSubmit, handleInputChange, inputs } = useForm(
     initialState,
-    fetchUser
+    createUser
   );
+
+  // Reload page after user creates profile
+  useEffect(() => {
+    firebase.doGetUserProfile(authUser.uid, (user) => {
+      if (user.data().newUser === false) {
+        window.location.reload(false);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputs]);
 
   return (
     <form onSubmit={handleSubmit}>

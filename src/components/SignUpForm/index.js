@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import SignUpForm from "./form";
+import CreateProfileForm from "../EditProfileForms/CreateProfileForm/form";
 import { FirebaseContext } from "../../components/Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 import { LoginModalContext } from "../ModalComponentWrapper/ModalsContext/LoginModalContext";
@@ -12,9 +13,24 @@ import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import "./style.css";
 
 export default () => {
+  const fb = useContext(FirebaseContext);
   const authUser = useContext(AuthUserContext);
+  const [doc, setDoc] = useState();
   const [, setSignUpModalOpen] = useContext(SignUpModalContext);
   const [, setLoginModalOpen] = useContext(LoginModalContext);
+
+  // Pass a callback to handle the data.  Don't forget the empty array as second parameter of useEffect.
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        fb.doGetUserProfile(authUser.uid, (user) => {
+          setDoc(user.data());
+        });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
 
   return (
     <FirebaseContext.Consumer>
@@ -48,7 +64,17 @@ export default () => {
               </Grid>
             </Grid>
           )}
-          {authUser && (
+          {authUser && doc !== undefined && doc.newUser && (
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Typography variant="h5">Create Your Profile</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <CreateProfileForm firebase={firebase} user={doc} />
+              </Grid>
+            </Grid>
+          )}
+          {authUser && doc !== undefined && !doc.newUser && (
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Typography variant="h5">Welcome</Typography>

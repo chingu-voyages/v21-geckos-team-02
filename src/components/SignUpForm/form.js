@@ -10,6 +10,7 @@ export default (props) => {
     passwordConfirm: "",
     firstName: "",
     lastName: "",
+    newUser: true,
   };
 
   const loginUser = () => {

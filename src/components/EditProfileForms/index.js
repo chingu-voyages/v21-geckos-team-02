@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import UpdateProfileForm from "./UpdateProfileForm/form";
 import CreateProfileForm from "./CreateProfileForm/form";
 import { FirebaseContext } from "../Firebase";
@@ -9,6 +9,21 @@ import "./style.css";
 // TODO: Create form container below
 const EditProfileDisplay = () => {
   const authUser = useContext(AuthUserContext);
+  const fb = useContext(FirebaseContext);
+  const [doc, setDoc] = useState();
+
+  // Pass a callback to handle the data.  Don't forget the empty array as second parameter of useEffect.
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        fb.doGetUserProfile(authUser.uid, (user) => {
+          setDoc(user.data());
+        });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
 
   return (
     <FirebaseContext.Consumer>

@@ -80,7 +80,7 @@ export default (props) => {
             fullWidth
             type="password"
             label="Re-enter Password"
-            value={inputs.passwordCOnfirm}
+            value={inputs.passwordConfirm}
             onChange={handleInputChange}
           />
         </Grid>
