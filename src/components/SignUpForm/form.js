@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useFormHook from "../../hooks/useForm";
 import { Button, TextField, Grid } from "@material-ui/core";
 // import { auth } from "firebase";
@@ -36,11 +36,10 @@ function SignUpFormBase(props) {
 
   //React-Hook-Form
   const { register, handleSubmit, errors, control, getValues } = useForm({});
+  const [error, setError] = useState(null);
 
-  const onSubmit = (inputs) => {
-    props.firebase.doCreateUserWithEmailAndPassword(inputs).then(() => {
-      props.history.push("/home/login");
-    });
+  onSubmit = (data) => {
+    console.log(data);
   };
 
   return (
@@ -164,6 +163,7 @@ function SignUpFormBase(props) {
             Submit
           </Button>
         </Grid>
+        {error !== null && <div>{error}</div>}
       </Grid>
     </form>
   );
