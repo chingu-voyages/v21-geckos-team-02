@@ -19,17 +19,17 @@ export default () => {
   const [, setSignUpModalOpen] = useContext(SignUpModalContext);
   const [, setLoginModalOpen] = useContext(LoginModalContext);
 
-  // useEffect(
-  //   () => {
-  //     if (authUser !== null && authUser !== undefined) {
-  //       fb.doGetUserProfile(authUser.uid, (user) => {
-  //         setDoc(user.data());
-  //       });
-  //     }
-  //   },
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   [authUser]
-  // );
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        fb.doGetUserProfile(authUser.uid, (user) => {
+          setDoc(user.data());
+        });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
 
   return (
     <FirebaseContext.Consumer>
