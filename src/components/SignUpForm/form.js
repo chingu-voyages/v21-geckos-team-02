@@ -7,16 +7,17 @@ export default (props) => {
   const initialState = {
     email: "",
     password: "",
+    passwordConfirm: "",
     firstName: "",
     lastName: "",
-    passwordConfirm: "",
+    newUser: true,
   };
 
   const loginUser = () => {
     props.firebase
       .doCreateUserWithEmailAndPassword(inputs)
       .then((authUser) => {
-        console.log('authUser: ', authUser);
+        console.log("authUser: ", authUser);
       })
       .catch((error) => {
         console.error(error.code, error.message);
@@ -77,7 +78,7 @@ export default (props) => {
             fullWidth
             type="password"
             label="Re-enter Password"
-            value={inputs.passwordCOnfirm}
+            value={inputs.passwordConfirm}
             onChange={handleInputChange}
           />
         </Grid>

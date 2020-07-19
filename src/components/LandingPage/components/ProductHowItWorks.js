@@ -9,7 +9,6 @@ import account from "../../../assets/images/account.jpg";
 import signin from "../../../assets/images/signin.jpg";
 import searchConnect from "../../../assets/images/searchConnect.jpg";
 import { Link as RouterLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
 
 const styles = (theme) => ({
   root: {

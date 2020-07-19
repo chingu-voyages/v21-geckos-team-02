@@ -56,10 +56,10 @@ const useStyles = makeStyles((theme) => ({
 
 function PasswordForgetFormBase(props) {
   const classes = useStyles();
-  const styles = {
-    dislay: "flex",
-    justifyContent: "center",
-  };
+  // const styles = {
+  //   dislay: "flex",
+  //   justifyContent: "center",
+  // };
 
   useEffect(() => {
     register({ emailRequired: "emailRequired" }, { required: true });
@@ -108,7 +108,6 @@ function PasswordForgetFormBase(props) {
                 "send you a link to reset your password."}
             </Typography>
           </React.Fragment>
-
           <TextField
             required
             id="filled-full-width"
@@ -122,7 +121,7 @@ function PasswordForgetFormBase(props) {
             inputRef={register({
               required: "Email is required.",
               pattern: {
-                value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                 message: "Email must be valid.",
               },
             })}
@@ -130,7 +129,6 @@ function PasswordForgetFormBase(props) {
             onChange={(event) => setValue("emailRequired", event.target.value)}
           />
           <ErrorMessage errors={errors} name="emailRequired" />
-
           <button className={classes.input} type="submit">
             Send Reset Link
           </button>
