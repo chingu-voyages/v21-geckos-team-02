@@ -2,13 +2,10 @@ import React, { useState } from "react";
 import useFormHook from "../../hooks/useForm";
 import { Button, TextField, Grid } from "@material-ui/core";
 // import { auth } from "firebase";
-import { withFirebase } from "../Firebase/index";
-import { withRouter } from "react-router-dom";
-import { compose } from "recompose";
 import { useForm, Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 
-function SignUpFormBase(props) {
+export default ({ firebase }) => {
   const initialState = {
     email: "",
     password: "",
@@ -19,13 +16,14 @@ function SignUpFormBase(props) {
   };
 
   const loginUser = () => {
-    props.firebase
+    firebase
       .doCreateUserWithEmailAndPassword(inputs)
       .then((authUser) => {
         console.log("authUser: ", authUser);
       })
       .catch((error) => {
         console.error(error.code, error.message);
+        // setError(error.message);
       });
   };
 
@@ -39,8 +37,28 @@ function SignUpFormBase(props) {
   const { register, handleSubmit, errors, control, getValues } = useForm({});
   const [error, setError] = useState(null);
 
-  onSubmit = (data) => {
-    console.log(data);
+  const signUpUser = async (email, password, firstName, lastName) => {
+    try {
+      const newUser = await firebase.doCreateUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      // await firebase
+      //   .database()
+      //   .ref(`/userProfile/${newUser.uid}`)
+      //   .set({ email: email, firstName: firstName, lastName: lastName });
+      // return newUser;
+
+      await firebase.doProfileUpdate({
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+      });
+      return newUser;
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
@@ -153,8 +171,6 @@ function SignUpFormBase(props) {
             fullWidth
             type="password"
             label="Re-enter Password"
-            value={inputs.passwordConfirm}
-            onChange={handleInputChange}
           />
           {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>}
         </Grid>
@@ -164,7 +180,7 @@ function SignUpFormBase(props) {
             fullWidth
             color="primary"
             type="submit"
-            onClick={handleSubmit(onSubmit)}
+            onClick={() => signUpUser()}
           >
             Submit
           </Button>
@@ -173,8 +189,4 @@ function SignUpFormBase(props) {
       </Grid>
     </form>
   );
-}
-
-const SignUpForm = compose(withFirebase, withRouter)(SignUpFormBase);
-
-export default SignUpForm;
+};
