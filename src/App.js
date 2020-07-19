@@ -22,9 +22,6 @@ function App() {
               <Route path="/home">
                 <LandingComponent />
               </Route>
-              <Route path="/home">
-                <LandingComponent />
-              </Route>
               <Route path="/edit-forms">
                 <EditProfileForms />
               </Route>
