@@ -19,18 +19,17 @@ export default () => {
   const [, setSignUpModalOpen] = useContext(SignUpModalContext);
   const [, setLoginModalOpen] = useContext(LoginModalContext);
 
-  // Pass a callback to handle the data.  Don't forget the empty array as second parameter of useEffect.
-  useEffect(
-    () => {
-      if (authUser !== null && authUser !== undefined) {
-        fb.doGetUserProfile(authUser.uid, (user) => {
-          setDoc(user.data());
-        });
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [authUser]
-  );
+  // useEffect(
+  //   () => {
+  //     if (authUser !== null && authUser !== undefined) {
+  //       fb.doGetUserProfile(authUser.uid, (user) => {
+  //         setDoc(user.data());
+  //       });
+  //     }
+  //   },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   [authUser]
+  // );
 
   return (
     <FirebaseContext.Consumer>
@@ -76,7 +75,12 @@ export default () => {
           )}
           {authUser && doc !== undefined && !doc.newUser && (
             <Grid container spacing={3}>
-              <Grid item xs={12}>
+              <Grid item xs={2}>
+                <Link to="/home">
+                  <CloseRoundedIcon color="primary" />
+                </Link>
+              </Grid>
+              <Grid item xs={8}>
                 <Typography variant="h5">Welcome</Typography>
               </Grid>
               <Grid item xs={12}>

@@ -1,17 +1,28 @@
 import React, { useEffect, useContext } from "react";
 import useForm from "../../../hooks/useForm";
 import { AuthUserContext } from "../../Firebase/AuthUser/AuthUserContext";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
   TextField,
   Grid,
-  // FormControl,
-  // FormControlLabel,
-  // RadioGroup,
-  // Radio,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 
+import statesInUsaData from "../data/statesInUsaData";
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+}));
+
 export default ({ firebase, user }) => {
+  const classes = useStyles();
   const authUser = useContext(AuthUserContext);
 
   const initialState = {
@@ -46,11 +57,13 @@ export default ({ firebase, user }) => {
 
   // Reload page after user creates profile
   useEffect(() => {
-    firebase.doGetUserProfile(authUser.uid, (user) => {
-      if (user.data().newUser === false) {
-        window.location.reload(false);
-      }
-    });
+    if (user !== initialState) {
+      firebase.doGetUserProfile(authUser.uid, (user) => {
+        if (user.data().newUser === false) {
+          window.location.reload(false);
+        }
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputs]);
 
@@ -60,6 +73,7 @@ export default ({ firebase, user }) => {
         <Grid item xs={6}>
           <TextField
             name="firstName"
+            required
             fullWidth
             type="text"
             label="First Name"
@@ -70,6 +84,7 @@ export default ({ firebase, user }) => {
         <Grid item xs={6}>
           <TextField
             name="lastName"
+            required
             fullWidth
             type="text"
             label="Last Name"
@@ -80,6 +95,7 @@ export default ({ firebase, user }) => {
         <Grid item xs={6}>
           <TextField
             name="city"
+            required
             fullWidth
             type="text"
             label="City"
@@ -88,15 +104,31 @@ export default ({ firebase, user }) => {
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
+          <FormControl className={classes.formControl}>
+            <InputLabel id="state-selector-label">State</InputLabel>
+            <Select
+              labelId="state-selector-label"
+              id="state-selector"
+              value={inputs.state}
+              onChange={handleInputChange}
+            >
+              {statesInUsaData.map((location) => (
+                <MenuItem value={location.abbreviation}>
+                  {location.abbreviation}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        {/* <TextField
             name="state"
+            required
             fullWidth
             type="text"
             label="State"
             value={inputs.state}
             onChange={handleInputChange}
-          />
-        </Grid>
+          /> */}
         <Grid item xs={4}></Grid>
         <Grid item xs={4}>
           <Button variant="contained" fullWidth color="primary" type="submit">
