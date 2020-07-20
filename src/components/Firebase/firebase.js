@@ -36,8 +36,11 @@ class Firebase {
           .collection("users")
           .doc(this.auth.currentUser.uid)
           .set({ firstName, lastName, newUser });
-      })
-      .catch((error) => console.error("Error: ", error));
+      });
+    // .catch((error) => {
+    //   console.error("Error: ", error);
+    //   throw new Error(error);
+    // });
   };
 
   doSignInWithEmailAndPassword = (email, password) =>

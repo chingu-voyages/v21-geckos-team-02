@@ -69,7 +69,7 @@ export default () => {
                 <Typography variant="h5">Create Your Profile</Typography>
               </Grid>
               <Grid item xs={12}>
-                <CreateProfileForm firebase={firebase} user={doc} />
+                <CreateProfileForm firebase={firebase} user={doc} key={doc} />
               </Grid>
             </Grid>
           )}

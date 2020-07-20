@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import useFormHook from "../../hooks/useForm";
 import { Button, TextField, Grid } from "@material-ui/core";
 // import { auth } from "firebase";
 import { useForm, Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { withRouter } from "react-router-dom";
+import ErrorMessages from "../shared/ErrorSnackBar";
 
-export default ({ firebase }) => {
+const SignUpForm = ({ firebase }) => {
   const initialState = {
     email: "",
     password: "",
@@ -23,46 +25,42 @@ export default ({ firebase }) => {
       })
       .catch((error) => {
         console.error(error.code, error.message);
-        // setError(error.message);
+        setError(error.message);
       });
   };
 
+  const handleSignUp = useCallback(
+    async (data) => {
+      try {
+        await firebase.doCreateUserWithEmailAndPassword({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          password: data.password,
+          passwordConfirm: data.passwordConfirm,
+          newUser: true,
+        });
+      } catch (error) {
+        setError(error.message);
+      }
+    },
+    [firebase]
+  );
+
   const {
-    handleSubmit: handleSubmitHook,
+    // handleSubmit: handleSubmitHook,
     handleInputChange,
     inputs,
   } = useFormHook(initialState, loginUser);
 
   //React-Hook-Form
-  const { register, handleSubmit, errors, control, getValues } = useForm({});
+  const { register, handleSubmit, errors, control, getValues } = useForm({
+    criteriaMode: "all",
+  });
   const [error, setError] = useState(null);
 
-  const signUpUser = async (email, password, firstName, lastName) => {
-    try {
-      const newUser = await firebase.doCreateUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      // await firebase
-      //   .database()
-      //   .ref(`/userProfile/${newUser.uid}`)
-      //   .set({ email: email, firstName: firstName, lastName: lastName });
-      // return newUser;
-
-      await firebase.doProfileUpdate({
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-      });
-      return newUser;
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
   return (
-    <form onSubmit={handleSubmit(handleSubmitHook)}>
+    <form onSubmit={handleSubmit(handleSignUp)}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <TextField
@@ -175,18 +173,14 @@ export default ({ firebase }) => {
           {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>}
         </Grid>
         <Grid item xs={12}>
-          <Button
-            variant="contained"
-            fullWidth
-            color="primary"
-            type="submit"
-            onClick={() => signUpUser()}
-          >
+          <Button variant="contained" fullWidth color="primary" type="submit">
             Submit
           </Button>
         </Grid>
-        {error !== null && <div>{error}</div>}
+        {error !== null && <ErrorMessages error={error} />}
       </Grid>
     </form>
   );
 };
+
+export default withRouter(SignUpForm);
