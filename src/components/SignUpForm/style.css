@@ -8,3 +8,24 @@
 #signup-box h5 {
   text-align: center;
 }
+
+.pass-wrapper-register {
+  position: relative;
+  display: flex;
+  width: 192px;
+  padding: 12px;
+}
+
+i {
+  position: absolute;
+  right: 20px;
+  top: 35px;
+}
+i:hover {
+  color: #00fcb6;
+  cursor: pointer;
+}
+
+.error-pass {
+  width: 168px;
+}

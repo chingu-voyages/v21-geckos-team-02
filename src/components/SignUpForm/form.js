@@ -6,6 +6,10 @@ import { useForm, Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { withRouter } from "react-router-dom";
 import ErrorMessages from "../shared/ErrorSnackBar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+
+const eye = <FontAwesomeIcon icon={faEye} />;
 
 const SignUpForm = ({ firebase }) => {
   const initialState = {
@@ -58,6 +62,10 @@ const SignUpForm = ({ firebase }) => {
     criteriaMode: "all",
   });
   const [error, setError] = useState(null);
+  const [passwordShown, setPasswordShown] = useState(false);
+  const togglePasswordVisibility = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
 
   return (
     <form onSubmit={handleSubmit(handleSignUp)}>
@@ -117,30 +125,35 @@ const SignUpForm = ({ firebase }) => {
           />
           <ErrorMessage errors={errors} name="email" />
         </Grid>
-        <Grid item xs={6}>
-          <Controller
-            name="password"
-            control={control}
-            rules={{
-              required: "Password is required.",
-              minLength: {
-                value: 8,
-                message: "Password must have at least 8 characters.",
-              },
-            }}
-            as={
-              <TextField
-                name="password"
-                fullWidth
-                type="password"
-                label="Password"
-                value={inputs.password}
-                onChange={handleInputChange}
-              />
-            }
-          />
-          {errors.password && <p>{errors.password.message}</p>}
-        </Grid>
+        <div className="pass-wrapper-register">
+          <Grid item xs={6}>
+            <Controller
+              name="password"
+              control={control}
+              rules={{
+                required: "Password is required.",
+                minLength: {
+                  value: 8,
+                  message: "Password must have at least 8 characters.",
+                },
+              }}
+              as={
+                <TextField
+                  name="password"
+                  fullWidth
+                  type={passwordShown ? "text" : "password"}
+                  label="Password"
+                  value={inputs.password}
+                  onChange={handleInputChange}
+                />
+              }
+            />
+            <i onClick={togglePasswordVisibility}>{eye}</i>
+            {errors.password && (
+              <p className="error-pass">{errors.password.message}</p>
+            )}
+          </Grid>
+        </div>
 
         <Grid item xs={6}>
           <Controller
@@ -167,16 +180,19 @@ const SignUpForm = ({ firebase }) => {
               />
             }
             fullWidth
-            type="password"
             label="Re-enter Password"
           />
-          {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>}
+          {errors.passwordConfirm && (
+            <p className="error-pass">{errors.passwordConfirm.message}</p>
+          )}
         </Grid>
+
         <Grid item xs={12}>
           <Button variant="contained" fullWidth color="primary" type="submit">
             Submit
           </Button>
         </Grid>
+
         {error !== null && <ErrorMessages error={error} />}
       </Grid>
     </form>
