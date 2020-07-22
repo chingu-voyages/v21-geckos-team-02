@@ -11,7 +11,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 
-const LogInForm = ({ firebase }) => {
+const LogInForm = ({ firebase, props }) => {
   const initialState = {
     email: "",
     password: "",
@@ -33,11 +33,12 @@ const LogInForm = ({ firebase }) => {
       console.log(data);
       try {
         await firebase.doSignInWithEmailAndPassword(data.email, data.password);
+        props.history.push("/account");
       } catch (error) {
         setError(error.message);
       }
     },
-    [firebase]
+    [firebase, props]
   );
 
   const {
