@@ -29,7 +29,7 @@ const styles = (theme) => ({
 });
 
 function AccountPage(props) {
-  const { classes } = props;
+  const { classes, firebase, authUser, displayName } = props;
   return (
     <div>
       <AppBar position="fixed" style={{ background: "#1d3557" }}>
@@ -46,7 +46,11 @@ function AccountPage(props) {
             {"Co-Coders"}
           </Link>
           <div className={classes.right}>
-            <AccountMenu />
+            <AccountMenu
+              firebase={firebase}
+              authUser={authUser}
+              displayName={displayName}
+            />
           </div>
         </ToolBar>
       </AppBar>
