@@ -32,10 +32,11 @@ class Firebase {
       })
       .then(() => {
         console.log(this.auth.currentUser);
-        return this.db
-          .collection("users")
-          .doc(this.auth.currentUser.uid)
-          .set({ firstName, lastName, newUser });
+        return this.db.collection("users").doc(this.auth.currentUser.uid).set({
+          firstName,
+          lastName,
+          newUser,
+        });
       });
     // .catch((error) => {
     //   console.error("Error: ", error);

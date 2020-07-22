@@ -63,6 +63,7 @@ const SignUpForm = ({ firebase }) => {
   });
   const [error, setError] = useState(null);
   const [passwordShown, setPasswordShown] = useState(false);
+
   const togglePasswordVisibility = () => {
     setPasswordShown(passwordShown ? false : true);
   };
