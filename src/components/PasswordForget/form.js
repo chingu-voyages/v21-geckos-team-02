@@ -5,8 +5,6 @@ import { ErrorMessage } from "@hookform/error-message";
 import Typography from "../LandingPage/UI/Typography";
 import TextField from "@material-ui/core/TextField";
 import { withFirebase } from "../Firebase/index";
-import { withRouter } from "react-router-dom";
-import { compose } from "recompose";
 import SharedNavBar from "../shared/SharedNav";
 import SuccessMessage from "../shared/SuccessSnackbars";
 import ErrorMessages from "../shared/ErrorSnackBar";
@@ -72,7 +70,7 @@ function PasswordForgetFormBase(props) {
 
   const sendResetEmail = () => {
     props.firebase
-      .doPasswordReset(email)
+      .doPasswordReset(email.toString())
       .then(() => {
         setEmailHasBeenSent(true);
         setTimeout(() => {
@@ -161,9 +159,6 @@ function PasswordForgetFormBase(props) {
   );
 }
 
-const PasswordForgetForm = compose(
-  withRouter,
-  withFirebase
-)(PasswordForgetFormBase);
+const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
 
 export { PasswordForgetForm };

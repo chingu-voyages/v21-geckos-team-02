@@ -7,6 +7,7 @@ import { SignUpModalContext } from "../ModalComponentWrapper/ModalsContext/SignU
 import { Paper, Typography, Button, Grid } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import { Link as RouterLink } from "react-router-dom";
 
 import "./style.css";
 import { Link } from "react-router-dom";
@@ -63,7 +64,7 @@ export default () => {
               </Grid>
               <Grid item xs={12}>
                 <Alert
-                  severity="info"
+                  severity="success"
                   action={
                     <Button
                       color="primary"
@@ -76,6 +77,24 @@ export default () => {
                   }
                 >
                   Signed in as {authUser.email}
+                </Alert>
+              </Grid>
+              <Grid item xs={12}>
+                <Alert
+                  severity="info"
+                  action={
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      component={RouterLink}
+                      to="/account"
+                      size="small"
+                    >
+                      &raquo; My Account
+                    </Button>
+                  }
+                >
+                  Let's check out <strong>{authUser.displayName}</strong> !
                 </Alert>
               </Grid>
             </Grid>

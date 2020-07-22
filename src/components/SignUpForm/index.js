@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import SignUpForm from "./form";
 import CreateProfileForm from "../EditProfileForms/CreateProfileForm/form";
-import { FirebaseContext } from "../../components/Firebase";
+import { FirebaseContext } from "../Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 import { LoginModalContext } from "../ModalComponentWrapper/ModalsContext/LoginModalContext";
 import { SignUpModalContext } from "../ModalComponentWrapper/ModalsContext/SignUpModalContext";
@@ -85,7 +85,7 @@ export default () => {
               </Grid>
               <Grid item xs={12}>
                 <Alert
-                  severity="info"
+                  severity="success"
                   action={
                     <Button
                       color="primary"
