@@ -40,14 +40,14 @@ const LogInForm = ({ firebase }) => {
     [firebase]
   );
 
-  const {
-    // handleSubmit: handleSubmitHook,
-    handleInputChange,
-    inputs,
-  } = useFormHook(initialState, loginUser);
+  const { inputs } = useFormHook(initialState, loginUser);
 
   const { register, handleSubmit, errors, formState } = useForm({
     mode: "onChange",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
   const [error, setError] = useState(null);
   const [passwordShown, setPasswordShown] = useState(false);
@@ -64,8 +64,6 @@ const LogInForm = ({ firebase }) => {
             fullWidth
             type="email"
             label="Email"
-            value={inputs.email}
-            onChange={handleInputChange}
             inputRef={register({
               required: "Email is required.",
               pattern: {
@@ -84,8 +82,6 @@ const LogInForm = ({ firebase }) => {
               fullWidth
               type={passwordShown ? "text" : "password"}
               label="Password"
-              value={inputs.password}
-              onChange={handleInputChange}
               inputRef={register({
                 required: "Password is required.",
                 minLength: {

@@ -51,15 +51,19 @@ const SignUpForm = ({ firebase }) => {
     [firebase]
   );
 
-  const {
-    // handleSubmit: handleSubmitHook,
-    handleInputChange,
-    inputs,
-  } = useFormHook(initialState, loginUser);
+  const { inputs } = useFormHook(initialState, loginUser);
 
   //React-Hook-Form
   const { register, handleSubmit, errors, control, getValues } = useForm({
     criteriaMode: "all",
+    defaultValues: {
+      email: "",
+      password: "",
+      passwordConfirm: "",
+      firstName: "",
+      lastName: "",
+      newUser: true,
+    },
   });
   const [error, setError] = useState(null);
   const [passwordShown, setPasswordShown] = useState(false);
@@ -76,8 +80,6 @@ const SignUpForm = ({ firebase }) => {
             fullWidth
             type="text"
             label="First Name"
-            value={inputs.firstName}
-            onChange={handleInputChange}
             inputRef={register({
               required: "First name is required.",
               maxLength: {
@@ -94,8 +96,6 @@ const SignUpForm = ({ firebase }) => {
             fullWidth
             type="text"
             label="Last Name"
-            value={inputs.lastName}
-            onChange={handleInputChange}
             inputRef={register({
               required: "Last name is required.",
               pattern: {
@@ -112,8 +112,6 @@ const SignUpForm = ({ firebase }) => {
             fullWidth
             type="email"
             label="Email"
-            value={inputs.email}
-            onChange={handleInputChange}
             inputRef={register({
               required: "Email is required.",
               pattern: {
@@ -143,8 +141,6 @@ const SignUpForm = ({ firebase }) => {
                   fullWidth
                   type={passwordShown ? "text" : "password"}
                   label="Password"
-                  value={inputs.password}
-                  onChange={handleInputChange}
                 />
               }
             />
@@ -175,8 +171,6 @@ const SignUpForm = ({ firebase }) => {
                 fullWidth
                 type="password"
                 label="Re-enter Password"
-                value={inputs.passwordConfirm}
-                onChange={handleInputChange}
               />
             }
             fullWidth
