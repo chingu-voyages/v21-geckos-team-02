@@ -118,7 +118,10 @@ const AccountMenu = () => {
                 >
                   My Profile
                 </MenuItem>
-                <MenuItem onClick={handleClose}>Settings</MenuItem>
+                <Link to="/pw-change">
+                  <MenuItem onClick={handleClose}>Settings</MenuItem>
+                </Link>
+
                 <Link to="/home">
                   <MenuItem onClick={firebase.doSignOut}>Log Out</MenuItem>
                 </Link>

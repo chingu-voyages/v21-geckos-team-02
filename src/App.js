@@ -12,6 +12,7 @@ import { PasswordForgetForm } from "./components/PasswordForget/form";
 import Footer from "./components/LandingPage/components/Footer";
 import "./styles/scss/App.css";
 import AccountPage from "./components/Account/AccountPage";
+import PasswordChange from "./components/PasswordChange/form";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
                 <EditProfileForms />
               </Route>
               <Route path="/pw-forget" component={PasswordForgetForm} />
+              <Route path="/pw-change" component={PasswordChange} />
               <Route path="/account" component={AccountPage} />
               <Route render={() => <Redirect to="/home" />} />
             </Switch>
