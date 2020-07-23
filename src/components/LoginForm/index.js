@@ -48,7 +48,7 @@ export default () => {
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Link to="/pw-forget">Forgot Password?</Link>
+                <Link to="/account/pw-forget">Forgot Password?</Link>
               </Grid>
             </Grid>
           )}

@@ -118,7 +118,7 @@ const AccountMenu = () => {
                 >
                   My Profile
                 </MenuItem>
-                <Link to="/pw-change">
+                <Link to="/account/pw-change">
                   <MenuItem onClick={handleClose}>Settings</MenuItem>
                 </Link>
 

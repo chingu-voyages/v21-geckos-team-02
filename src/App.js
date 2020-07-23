@@ -27,8 +27,8 @@ function App() {
               <Route path="/edit-forms">
                 <EditProfileForms />
               </Route>
-              <Route path="/pw-forget" component={PasswordForgetForm} />
-              <Route path="/pw-change" component={PasswordChange} />
+              <Route path="/account/pw-forget" component={PasswordForgetForm} />
+              <Route path="/account/pw-change" component={PasswordChange} />
               <Route path="/account" component={AccountPage} />
               <Route render={() => <Redirect to="/home" />} />
             </Switch>
