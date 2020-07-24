@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import LoginForm from "./form";
 import { FirebaseContext } from "../../components/Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
@@ -16,6 +16,16 @@ export default () => {
   const authUser = useContext(AuthUserContext);
   const [, setLoginModalOpen] = useContext(LoginModalContext);
   const [, setSignUpModalOpen] = useContext(SignUpModalContext);
+
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        return;
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
 
   return (
     <FirebaseContext.Consumer>

@@ -12,12 +12,11 @@ import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    // background: "white",
     fontWeight: 500,
     textTransform: "capitalize",
     borderColor: "lavenderblush",
     borderStyle: "solid",
-    borderWidth: "2px",
+    borderWidth: "1px",
     borderRadius: 4,
     paddingTop: 8,
     paddingBottom: 8,
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AccountMenu = () => {
-  const fb = useContext(FirebaseContext.Consumer);
+  const fb = useContext(FirebaseContext);
   const authUser = useContext(AuthUserContext);
   const [doc, setDoc] = useState();
 
@@ -84,7 +83,7 @@ const AccountMenu = () => {
                 onClick={handleClick}
               >
                 <span style={{ color: "#ff3366" }}>
-                  Hello {authUser.displayName}
+                  Hi {authUser.displayName}
                 </span>
                 <ExpandMoreIcon
                   className={

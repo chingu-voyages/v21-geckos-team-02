@@ -57,6 +57,8 @@ class Firebase {
   doPasswordUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
 
+  doSendEmailVerification = () => this.auth.currentUser.sendEmailVerification();
+
   doProfileUpdate = (profile) => {
     return this.db
       .collection("users")

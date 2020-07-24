@@ -72,6 +72,7 @@ function PasswordForgetFormBase(props) {
     props.firebase
       .doPasswordReset(email.toString())
       .then(() => {
+        props.firebase.doSendEmailVerification(email.toString());
         setEmailHasBeenSent(true);
         setTimeout(() => {
           setEmailHasBeenSent(false);
