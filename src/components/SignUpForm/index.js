@@ -85,6 +85,7 @@ export default () => {
               </Grid>
               <Grid item xs={12}>
                 <Alert
+                  transition={null}
                   severity="success"
                   action={
                     <Button

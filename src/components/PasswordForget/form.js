@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
 import { ErrorMessage } from "@hookform/error-message";
@@ -8,6 +8,7 @@ import { withFirebase } from "../Firebase/index";
 import SharedNavBar from "../shared/SharedNav";
 import SuccessMessage from "../shared/SuccessSnackbars";
 import ErrorMessages from "../shared/ErrorSnackBar";
+import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,6 +61,8 @@ function PasswordForgetFormBase(props) {
   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [error, setError] = useState(null);
 
+  const authUser = useContext(AuthUserContext);
+
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
 
@@ -72,7 +75,6 @@ function PasswordForgetFormBase(props) {
     props.firebase
       .doPasswordReset(email.toString())
       .then(() => {
-        props.firebase.doSendEmailVerification(email.toString());
         setEmailHasBeenSent(true);
         setTimeout(() => {
           setEmailHasBeenSent(false);
@@ -94,6 +96,16 @@ function PasswordForgetFormBase(props) {
   const { register, handleSubmit, errors } = useForm({
     criteriaMode: "all",
   });
+
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        return;
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
 
   return (
     <React.Fragment>

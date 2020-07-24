@@ -132,6 +132,7 @@ function NavBar(props) {
           return (
             <ModalComponentWrapper>
               <Modal
+                animation={false}
                 aria-labelledby="login-form"
                 aria-describedby="login-form-for-co-coders"
                 open={loginModalOpen}
@@ -155,6 +156,7 @@ function NavBar(props) {
           return (
             <ModalComponentWrapper>
               <Modal
+                animation={false}
                 aria-labelledby="signup-form"
                 aria-describedby="registration-form-for-co-coders"
                 open={signUpModalOpen}

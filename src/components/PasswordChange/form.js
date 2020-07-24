@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import ErrorMessages from "../shared/ErrorSnackBar";
+import { withFirebase } from "../Firebase/index";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 
@@ -67,32 +68,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PasswordChange = ({ firebase }) => {
+const PasswordChangeBase = (props) => {
   const classes = useStyles();
-
-  // const handlePasswordChange = async (newPass) => {
-  //   console.log(newPass);
-  //   const newPassword = newPass.newPass;
-  //   console.log(newPassword);
-  //   try {
-  //     await props.firebase.doPasswordUpdate(newPassword);
-  //     setPasswordHasBeenChanged(true);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // };
 
   const handlePasswordChange = useCallback(
     async (newPass) => {
       const newPassword = newPass.newPass;
       try {
-        await firebase.doPasswordUpdate(newPassword);
+        await props.firebase.doPasswordUpdate(newPassword);
         setPasswordHasBeenChanged(true);
       } catch (error) {
         setError(error.message);
       }
     },
-    [firebase]
+    [props]
   );
 
   const { register, handleSubmit, errors, control, getValues } = useForm({
@@ -242,5 +231,7 @@ const PasswordChange = ({ firebase }) => {
     </React.Fragment>
   );
 };
+
+const PasswordChange = withFirebase(PasswordChangeBase);
 
 export default withRouter(PasswordChange);
