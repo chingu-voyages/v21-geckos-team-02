@@ -11,6 +11,8 @@ import EditProfileForms from "./components/EditProfileForms";
 import { PasswordForgetForm } from "./components/PasswordForget/form";
 import Footer from "./components/LandingPage/components/Footer";
 import "./styles/scss/App.css";
+import Dashboard from "./components/Dashboard";
+import NavBar from "./components/LandingPage/components/Navbar/Navbar.component";
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
       <div className="content-wrap">
         <AuthUserProvider>
           <Router>
+            <NavBar />
             <Switch>
               <Route path="/home">
                 <LandingComponent />
@@ -26,6 +29,7 @@ function App() {
                 <EditProfileForms />
               </Route>
               <Route path="/pw-forget" component={PasswordForgetForm} />
+              <Route path="/dashboard" component={Dashboard} />
               <Route render={() => <Redirect to="/home" />} />
             </Switch>
           </Router>
