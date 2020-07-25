@@ -15,7 +15,7 @@ import SignUpForm from "../../../SignUpForm";
 import { SignUpModalContext } from "../../../ModalComponentWrapper/ModalsContext/SignUpModalContext";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-
+import { AuthUserContext } from "../../../Firebase/AuthUser/AuthUserContext";
 const styles = (theme) => ({
   title: {
     fontSize: 24,
@@ -46,6 +46,7 @@ const styles = (theme) => ({
 });
 
 function NavBar(props) {
+  const authUser = useContext(AuthUserContext);
   const { classes } = props;
   const [loginModalOpen, setLoginModalOpen] = useContext(LoginModalContext);
   const [signUpModalOpen, setSignUpModalOpen] = useContext(SignUpModalContext);
@@ -100,6 +101,18 @@ function NavBar(props) {
             {"Co-Coders"}
           </Link>
           <div className={classes.right}>
+            {authUser && (
+              <Link
+                variant="h6"
+                underline="none"
+                color="inherit"
+                className={classes.rightLink}
+                component={RouterLink}
+                to="/dashboard"
+              >
+                {"Dashboard"}
+              </Link>
+            )}
             <Link
               color="inherit"
               variant="h6"
