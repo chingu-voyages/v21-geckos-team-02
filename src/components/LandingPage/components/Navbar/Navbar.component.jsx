@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
+// import { Button, Typography } from "@material-ui/core";
 import AppBar from "./AppBar";
 import ToolBar, { styles as toolbarStyles } from "./Toolbar";
 import { Link as RouterLink } from "react-router-dom";
@@ -15,6 +16,8 @@ import SignUpForm from "../../../SignUpForm";
 import { SignUpModalContext } from "../../../ModalComponentWrapper/ModalsContext/SignUpModalContext";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
+// import { AuthUserContext } from "../../../Firebase/AuthUser/AuthUserContext";
+// import { FirebaseContext } from "../../../Firebase";
 
 const styles = (theme) => ({
   title: {
@@ -46,6 +49,8 @@ const styles = (theme) => ({
 });
 
 function NavBar(props) {
+  // const authUser = useContext(AuthUserContext);
+  // const firebase = useContext(FirebaseContext);
   const { classes } = props;
   const [loginModalOpen, setLoginModalOpen] = useContext(LoginModalContext);
   const [signUpModalOpen, setSignUpModalOpen] = useContext(SignUpModalContext);
@@ -100,6 +105,35 @@ function NavBar(props) {
             {"Co-Coders"}
           </Link>
           <div className={classes.right}>
+            {/* {authUser ? (
+              <>
+                {authUser && (
+                  <Typography variant="h5">
+                    Welcome {authUser.displayName}
+                  </Typography>
+                )}
+                <Link
+                  variant="h6"
+                  underline="none"
+                  color="inherit"
+                  className={classes.rightLink}
+                  component={RouterLink}
+                  to="/dashboard"
+                >
+                  {"Dashboard"}
+                </Link>
+                <Link
+                  color="primary"
+                  variant="h6"
+                  className={clsx(classes.rightLink, classes.linkSecondary)}
+                  onClick={firebase.doSignOut}
+                  size="small"
+                >
+                  Sign Out
+                </Link>
+              </>
+            ) : (
+              <> */}
             <Link
               color="inherit"
               variant="h6"
@@ -122,6 +156,8 @@ function NavBar(props) {
             >
               {"Sign Up"}
             </Link>
+            {/* </>
+            )} */}
           </div>
         </ToolBar>
       </AppBar>

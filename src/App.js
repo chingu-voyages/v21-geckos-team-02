@@ -13,6 +13,8 @@ import Footer from "./components/LandingPage/components/Footer";
 import "./styles/scss/App.css";
 import AccountPage from "./components/Account/AccountPage";
 import PasswordChange from "./components/PasswordChange/form";
+// import Dashboard from "./components/Dashboard";
+// import NavBar from "./components/LandingPage/components/Navbar/Navbar.component";
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
       <div className="content-wrap">
         <AuthUserProvider>
           <Router>
+            {/* <NavBar /> */}
             <Switch>
               <Route path="/home">
                 <LandingComponent />
@@ -28,6 +31,7 @@ function App() {
                 <EditProfileForms />
               </Route>
               <Route path="/account/pw-forget" component={PasswordForgetForm} />
+              {/* <Route path="/dashboard" component={Dashboard} /> */}
               <Route path="/account/pw-change" component={PasswordChange} />
               <Route path="/account" component={AccountPage} />
               <Route render={() => <Redirect to="/home" />} />
