@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import LoginForm from "./form";
 import { FirebaseContext } from "../../components/Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
@@ -7,6 +7,7 @@ import { SignUpModalContext } from "../ModalComponentWrapper/ModalsContext/SignU
 import { Paper, Typography, Button, Grid } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import { Link as RouterLink } from "react-router-dom";
 
 import "./style.css";
 import { Link } from "react-router-dom";
@@ -15,6 +16,16 @@ export default () => {
   const authUser = useContext(AuthUserContext);
   const [, setLoginModalOpen] = useContext(LoginModalContext);
   const [, setSignUpModalOpen] = useContext(SignUpModalContext);
+
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        return;
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
 
   return (
     <FirebaseContext.Consumer>
@@ -47,7 +58,7 @@ export default () => {
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Link to="/pw-forget">Forgot Password?</Link>
+                <Link to="/account/pw-forget">Forgot Password?</Link>
               </Grid>
             </Grid>
           )}
@@ -63,7 +74,8 @@ export default () => {
               </Grid>
               <Grid item xs={12}>
                 <Alert
-                  severity="info"
+                  transition={null}
+                  severity="success"
                   action={
                     <Button
                       color="primary"
@@ -76,6 +88,25 @@ export default () => {
                   }
                 >
                   Signed in as {authUser.email}
+                </Alert>
+              </Grid>
+              <Grid item xs={12}>
+                <Alert
+                  transition={null}
+                  severity="info"
+                  action={
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      component={RouterLink}
+                      to="/account"
+                      size="small"
+                    >
+                      &raquo;Account
+                    </Button>
+                  }
+                >
+                  Check out <strong>{authUser.displayName}</strong>!
                 </Alert>
               </Grid>
             </Grid>

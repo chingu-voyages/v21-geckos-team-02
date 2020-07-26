@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+
 import { createPortal } from "react-dom";
 
 export default class ModalComponentWrapper extends Component {
