@@ -1,6 +1,7 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 import { mockData } from "./mock-data";
 
 var firebaseConfig = {
@@ -22,7 +23,7 @@ class Firebase {
   }
 
   doCreateUserWithEmailAndPassword = (inputs) => {
-    const { email, password, firstName, lastName, newUser } = inputs;
+    const { email, password, firstName, lastName, newUser, picUrl } = inputs;
 
     return this.auth
       .createUserWithEmailAndPassword(email, password)

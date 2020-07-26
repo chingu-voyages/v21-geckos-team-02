@@ -85,8 +85,8 @@ const LogInForm = ({ firebase }) => {
                 message: "Email must be valid.",
               },
             })}
+            helperText={<ErrorMessage errors={errors} name="email" />}
           />
-          <ErrorMessage errors={errors} name="email" />
         </Grid>
         <div className="pass-wrapper">
           <Grid item xs={12}>
@@ -102,9 +102,9 @@ const LogInForm = ({ firebase }) => {
                   message: "Password must have at least 8 characters.",
                 },
               })}
+              helperText={<ErrorMessage errors={errors} name="password" />}
             />
             <i onClick={togglePasswordVisibility}>{eye}</i>
-            <ErrorMessage errors={errors} name="password" />
           </Grid>
         </div>
 

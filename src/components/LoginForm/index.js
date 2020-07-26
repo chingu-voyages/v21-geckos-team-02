@@ -102,11 +102,11 @@ export default () => {
                       to="/account"
                       size="small"
                     >
-                      &raquo; My Account
+                      &raquo;Account
                     </Button>
                   }
                 >
-                  Let's check out <strong>{authUser.displayName}</strong> !
+                  Check out <strong>{authUser.displayName}</strong>!
                 </Alert>
               </Grid>
             </Grid>

@@ -19,6 +19,7 @@ const SignUpForm = ({ firebase }) => {
     firstName: "",
     lastName: "",
     newUser: true,
+    picUrl: "",
   };
 
   const loginUser = () => {
@@ -43,6 +44,7 @@ const SignUpForm = ({ firebase }) => {
           password: data.password,
           passwordConfirm: data.passwordConfirm,
           newUser: true,
+          picUrl: "",
         });
         firebase.doSendEmailVerification(data.email);
       } catch (error) {
@@ -64,13 +66,19 @@ const SignUpForm = ({ firebase }) => {
       firstName: "",
       lastName: "",
       newUser: true,
+      picUrl: "",
     },
   });
   const [error, setError] = useState(null);
   const [passwordShown, setPasswordShown] = useState(false);
+  const [passConfirmShown, setPasswordConfirmShown] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordShown(passwordShown ? false : true);
+  };
+
+  const togglePasswordConfirmVisibility = () => {
+    setPasswordConfirmShown(passConfirmShown ? false : true);
   };
 
   return (
@@ -78,6 +86,7 @@ const SignUpForm = ({ firebase }) => {
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <TextField
+            helperText={<ErrorMessage errors={errors} name="firstName" />}
             name="firstName"
             fullWidth
             type="text"
@@ -90,10 +99,10 @@ const SignUpForm = ({ firebase }) => {
               },
             })}
           />
-          <ErrorMessage errors={errors} name="firstName" />
         </Grid>
         <Grid item xs={6}>
           <TextField
+            helperText={<ErrorMessage errors={errors} name="lastName" />}
             name="lastName"
             fullWidth
             type="text"
@@ -106,10 +115,10 @@ const SignUpForm = ({ firebase }) => {
               },
             })}
           />
-          <ErrorMessage errors={errors} name="lastName" />
         </Grid>
         <Grid item xs={12}>
           <TextField
+            helperText={<ErrorMessage errors={errors} name="email" />}
             name="email"
             fullWidth
             type="email"
@@ -123,37 +132,35 @@ const SignUpForm = ({ firebase }) => {
               },
             })}
           />
-          <ErrorMessage errors={errors} name="email" />
         </Grid>
         <div className="pass-wrapper-register">
-          <Grid item xs={6}>
-            <Controller
-              name="password"
-              control={control}
-              rules={{
-                required: "Password is required.",
-                minLength: {
-                  value: 8,
-                  message: "Password must have at least 8 characters.",
-                },
-              }}
-              as={
-                <TextField
-                  name="password"
-                  fullWidth
-                  type={passwordShown ? "text" : "password"}
-                  label="Password"
-                />
-              }
-            />
-            <i onClick={togglePasswordVisibility}>{eye}</i>
-            {errors.password && (
-              <p className="error-pass">{errors.password.message}</p>
-            )}
-          </Grid>
+          {/* <Grid item xs={6}> */}
+          <Controller
+            name="password"
+            control={control}
+            rules={{
+              required: "Password is required.",
+              minLength: {
+                value: 8,
+                message: "Password must have at least 8 characters.",
+              },
+            }}
+            as={
+              <TextField
+                helperText={<ErrorMessage errors={errors} name="password" />}
+                name="password"
+                fullWidth
+                type={passwordShown ? "text" : "password"}
+                label="Password"
+              />
+            }
+          />
+          <i onClick={togglePasswordVisibility}>{eye}</i>
+          {/* </Grid> */}
         </div>
 
-        <Grid item xs={6}>
+        <div className="pass-wrapper-register">
+          {/* <Grid item xs={6}> */}
           <Controller
             name="passwordConfirm"
             control={control}
@@ -169,19 +176,21 @@ const SignUpForm = ({ firebase }) => {
             }}
             as={
               <TextField
+                helperText={
+                  <ErrorMessage errors={errors} name="passwordConfirm" />
+                }
                 name="passwordConfirm"
                 fullWidth
-                type="password"
                 label="Re-enter Password"
+                type={passConfirmShown ? "text" : "password"}
               />
             }
             fullWidth
             label="Re-enter Password"
           />
-          {errors.passwordConfirm && (
-            <p className="error-pass">{errors.passwordConfirm.message}</p>
-          )}
-        </Grid>
+          <i onClick={togglePasswordConfirmVisibility}>{eye}</i>
+          {/* </Grid> */}
+        </div>
 
         <Grid item xs={12}>
           <Button variant="contained" fullWidth color="primary" type="submit">

@@ -6,7 +6,7 @@ import Typography from "../LandingPage/UI/Typography";
 import TextField from "@material-ui/core/TextField";
 import { withFirebase } from "../Firebase/index";
 import SharedNavBar from "../shared/SharedNav";
-import SuccessMessage from "../shared/SuccessSnackbars";
+import SuccessMessage from "./SuccessSnackbars";
 import ErrorMessages from "../shared/ErrorSnackBar";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     borderRadius: "4px",
     padding: "10px 5px",
-    marginBottom: "50px",
+    marginBottom: "30px",
     marginTop: "30px",
     fontSize: "14px",
     background: "#ec5990",
@@ -152,8 +152,8 @@ function PasswordForgetFormBase(props) {
             })}
             name="emailRequired"
             onChange={onChangeHandler}
+            helperText={<ErrorMessage errors={errors} name="emailRequired" />}
           />
-          <ErrorMessage errors={errors} name="emailRequired" />
 
           <button
             className={classes.input}

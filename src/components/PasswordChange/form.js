@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import ErrorMessages from "../shared/ErrorSnackBar";
 import { withFirebase } from "../Firebase/index";
+import SuccessMessage from "./SuccessSnackbar";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     borderRadius: "4px",
     padding: "10px 5px",
-    marginBottom: "50px",
+    marginBottom: "30px",
     marginTop: "30px",
     fontSize: "14px",
     background: "#ec5990",
@@ -216,9 +217,7 @@ const PasswordChangeBase = (props) => {
           <button className={classes.input} type="submit">
             Change
           </button>
-          {passwordHasBeenChanged && (
-            <p>Success!Your password has been changed.</p>
-          )}
+          {passwordHasBeenChanged && <SuccessMessage />}
           {error !== null && <ErrorMessages error={error} />}
           <hr />
           <Typography variant="body2" align="center">
