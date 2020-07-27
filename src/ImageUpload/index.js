@@ -50,7 +50,7 @@ function ImageUpload(props) {
   const allInputs = {
     imgUrl: "",
   };
-  const [imageAsFile, setImage] = useState("");
+
   const [url, setUrl] = useState(allInputs);
   const [progressbar, setProgressBar] = useState(0);
   const [saveChange, setSaveChange] = useState(false);
@@ -58,17 +58,15 @@ function ImageUpload(props) {
   const handleChange = (e) => {
     if (e.target.files[0]) {
       const image = e.target.files[0];
-      setImage((imageFile) => image);
+      handleUpload(image);
     }
   };
 
-  const handleUpload = () => {
-    console.log("start of upload");
+  const handleUpload = (imageAsFile) => {
     const uploadTask = props.firebase
       .getStorage()
       .ref(`images/${imageAsFile.name}`)
       .put(imageAsFile);
-
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -96,7 +94,7 @@ function ImageUpload(props) {
 
   return (
     <div>
-      <form onSubmit={handleUpload}>
+      <form>
         <Card className={classes.root}>
           <CardHeader title="Co-Coder Member" subheader="Since 2020" />
 
@@ -134,27 +132,15 @@ function ImageUpload(props) {
                 name="upload-photo"
               />
 
-              <Fab
-                color="primary"
-                size="small"
+              <Button
+                variant="contained"
+                color="secondary"
                 component="span"
-                aria-label="add"
+                startIcon={<CloudUploadIcon />}
               >
-                <AddIcon />
-              </Fab>
+                Upload
+              </Button>
             </label>
-          </div>
-
-          <div className={classes.buttoncenter}>
-            <Button
-              variant="contained"
-              color="secondary"
-              component="span"
-              onClick={handleUpload}
-              startIcon={<CloudUploadIcon />}
-            >
-              Upload
-            </Button>
           </div>
 
           <CardContent>{saveChange && <SuccessSnackbar />}</CardContent>
