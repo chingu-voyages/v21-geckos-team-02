@@ -6,10 +6,14 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
+import { Fab } from "@material-ui/core";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import SuccessMessage from "./SuccessSnackbar";
+import SuccessSnackbar from "./SuccessSnackbar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,13 +37,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     height: "256px",
   },
-  input: {
-    display: "none",
-  },
   buttoncenter: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: "15px",
   },
 }));
 
@@ -51,7 +53,6 @@ function ImageUpload(props) {
   const [imageAsFile, setImage] = useState("");
   const [url, setUrl] = useState(allInputs);
   const [progressbar, setProgressBar] = useState(0);
-  const [error, setError] = useState(null);
   const [saveChange, setSaveChange] = useState(false);
 
   const handleChange = (e) => {
@@ -78,7 +79,6 @@ function ImageUpload(props) {
       },
       (error) => {
         console.log(error);
-        setError(error.message);
       },
       () => {
         props.firebase
@@ -124,9 +124,26 @@ function ImageUpload(props) {
             </Box>
           </CardContent>
 
-          <CardContent>
-            <input type="file" onChange={handleChange} />
-          </CardContent>
+          <div className={classes.buttoncenter}>
+            <label htmlFor="upload-photo">
+              <input
+                type="file"
+                onChange={handleChange}
+                style={{ display: "none" }}
+                id="upload-photo"
+                name="upload-photo"
+              />
+
+              <Fab
+                color="primary"
+                size="small"
+                component="span"
+                aria-label="add"
+              >
+                <AddIcon />
+              </Fab>
+            </label>
+          </div>
 
           <div className={classes.buttoncenter}>
             <Button
@@ -140,8 +157,7 @@ function ImageUpload(props) {
             </Button>
           </div>
 
-          <CardContent>{error !== null && <p>{error.message}</p>}</CardContent>
-          <CardContent>{saveChange && <p>Saved Change</p>}</CardContent>
+          <CardContent>{saveChange && <SuccessSnackbar />}</CardContent>
         </Card>
       </form>
     </div>
