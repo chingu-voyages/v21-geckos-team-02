@@ -20,10 +20,11 @@ class Firebase {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
     this.db = app.firestore();
+    this.storage = app.storage();
   }
 
   doCreateUserWithEmailAndPassword = (inputs) => {
-    const { email, password, firstName, lastName, newUser, picUrl } = inputs;
+    const { email, password, firstName, lastName, newUser } = inputs;
 
     return this.auth
       .createUserWithEmailAndPassword(email, password)
@@ -87,6 +88,10 @@ class Firebase {
 
   doGetUserProfile = (uid, callback) => {
     return this.db.collection("users").doc(uid).get().then(callback);
+  };
+
+  getStorage = () => {
+    return this.storage;
   };
 }
 

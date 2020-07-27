@@ -9,6 +9,7 @@ import ToolBar, {
 } from "../LandingPage/components/Navbar/Toolbar";
 
 import AccountMenu from "../shared/AccountMenu";
+import ImageUpload from "../../ImageUpload/index";
 
 const styles = (theme) => ({
   title: {
@@ -25,6 +26,15 @@ const styles = (theme) => ({
     flex: 1,
     display: "flex",
     justifyContent: "flex-end",
+  },
+  contentwrapper: {
+    display: "flex",
+    flexWrap: "wrap",
+    maxWidth: "940px",
+    paddingRight: "15px",
+    paddingLeft: "15px",
+    marginRight: "auto",
+    marginLeft: "auto",
   },
 });
 
@@ -55,6 +65,9 @@ function AccountPage(props) {
         </ToolBar>
       </AppBar>
       <div className={classes.placeholder} />
+      <div className={classes.contentwrapper}>
+        <ImageUpload />
+      </div>
     </div>
   );
 }
