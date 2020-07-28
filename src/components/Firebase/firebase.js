@@ -30,7 +30,9 @@ class Firebase {
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
         const displayName = user.user.email.split("@")[0];
-        return this.auth.currentUser.updateProfile({ displayName });
+        const photoURL =
+          "https://via.placeholder.com/256x256?text=My+Profile+Image";
+        return this.auth.currentUser.updateProfile({ displayName, photoURL });
       })
       .then(() => {
         console.log(this.auth.currentUser);

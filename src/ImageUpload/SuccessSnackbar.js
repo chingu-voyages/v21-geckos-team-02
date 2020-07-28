@@ -6,7 +6,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 const styles = (theme) => ({
   snackbar: {
-    margin: theme.spacing(),
+    margin: "-25px",
     background: "#43A047",
     display: "flex",
     padding: "10px 10px",
