@@ -7,9 +7,9 @@ import AppBar from "../LandingPage/components/Navbar/AppBar";
 import ToolBar, {
   styles as toolbarStyles,
 } from "../LandingPage/components/Navbar/Toolbar";
-
 import AccountMenu from "../shared/AccountMenu";
 import ImageUpload from "../../ImageUpload/index";
+import ProfileSummary from "./ProfileSummary";
 
 const styles = (theme) => ({
   title: {
@@ -27,13 +27,16 @@ const styles = (theme) => ({
     display: "flex",
     justifyContent: "flex-end",
   },
+  center: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   contentwrapper: {
     display: "flex",
     flexWrap: "wrap",
     maxWidth: "940px",
-    padding: "15px",
-    marginRight: "auto",
-    marginLeft: "auto",
+    padding: "50px",
   },
 });
 
@@ -64,8 +67,11 @@ function AccountPage(props) {
         </ToolBar>
       </AppBar>
       <div className={classes.placeholder} />
-      <div className={classes.contentwrapper}>
-        <ImageUpload />
+      <div className={classes.center}>
+        <div className={classes.contentwrapper}>
+          <ImageUpload />
+          <ProfileSummary />
+        </div>
       </div>
     </div>
   );

@@ -6,24 +6,24 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
-import { Fab } from "@material-ui/core";
+
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import SuccessMessage from "./SuccessSnackbar";
-import SuccessSnackbar from "./SuccessSnackbar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
     background: "lavenderblush",
+    paddingRight: "42px",
+    paddingLeft: "42px",
   },
 
   large: {
-    width: theme.spacing(32),
-    height: theme.spacing(32),
+    width: theme.spacing(30),
+    height: theme.spacing(30),
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
     justifyContent: "center",
     alignItems: "center",
-    height: "256px",
+    height: "240px",
   },
   buttoncenter: {
     display: "flex",
@@ -87,6 +87,7 @@ function ImageUpload(props) {
           .then((firebaseUrl) => {
             setUrl((prevObject) => ({ ...prevObject, imgUrl: firebaseUrl }));
             setSaveChange(true);
+            // props.firebase.getAuth().collection("users").add;
           });
       }
     );
@@ -143,7 +144,7 @@ function ImageUpload(props) {
             </label>
           </div>
 
-          <CardContent>{saveChange && <SuccessSnackbar />}</CardContent>
+          <CardContent>{saveChange && <SuccessMessage />}</CardContent>
         </Card>
       </form>
     </div>
