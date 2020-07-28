@@ -12,7 +12,7 @@ import Button from "../UI/Button";
 import Typography from "../UI/Typography";
 import ProductHeroLayout from "./ProductHeroLayout";
 import heroImage from "../../../assets/images/heroImage.jpg";
-import { Route, Link, Redirect } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 const styles = (theme) => ({
   background: {
@@ -114,7 +114,7 @@ const ProductHero = (props) => {
           );
         }}
       />
-      <Route
+      {/* <Route
         render={() =>
           window.location.pathname.includes("/signup/") ||
           window.location.pathname === "/home/signup" ||
@@ -128,7 +128,7 @@ const ProductHero = (props) => {
             <Redirect to="/home" />
           )
         }
-      />
+      /> */}
     </ProductHeroLayout>
   );
 };

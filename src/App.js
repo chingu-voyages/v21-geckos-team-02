@@ -13,8 +13,10 @@ import Footer from "./components/LandingPage/components/Footer";
 import "./styles/scss/App.css";
 import AccountPage from "./components/Account/AccountPage";
 import PasswordChange from "./components/PasswordChange/form";
-// import Dashboard from "./components/Dashboard";
-// import NavBar from "./components/LandingPage/components/Navbar/Navbar.component";
+import LoginForm from "./components/LoginForm";
+import SignUpForm from "./components/SignUpForm";
+import Dashboard from "./components/Dashboard";
+import NavBar from "./components/LandingPage/components/Navbar/Navbar.component";
 
 function App() {
   return (
@@ -22,19 +24,25 @@ function App() {
       <div className="content-wrap">
         <AuthUserProvider>
           <Router>
-            {/* <NavBar /> */}
+            <NavBar />
             <Switch>
-              <Route path="/home">
+              <Route exact path="/home">
                 <LandingComponent />
               </Route>
               <Route path="/edit-forms">
                 <EditProfileForms />
               </Route>
+              <Route path="/home/signup">
+                <SignUpForm />
+              </Route>
+              <Route path="/home/login">
+                <LoginForm />
+              </Route>
               <Route path="/account/pw-forget" component={PasswordForgetForm} />
-              {/* <Route path="/dashboard" component={Dashboard} /> */}
+              <Route path="/dashboard" component={Dashboard} />
               <Route path="/account/pw-change" component={PasswordChange} />
-              <Route path="/account" component={AccountPage} />
-              <Route render={() => <Redirect to="/home" />} />
+              <Route exact path="/account" component={AccountPage} />
+              <Route path="*" render={() => <Redirect to="/home" />} />
             </Switch>
           </Router>
         </AuthUserProvider>

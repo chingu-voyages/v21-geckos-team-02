@@ -1,23 +1,23 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
-// import { Button, Typography } from "@material-ui/core";
+// import { Typography } from "@material-ui/core";
 import AppBar from "./AppBar";
 import ToolBar, { styles as toolbarStyles } from "./Toolbar";
 import { Link as RouterLink } from "react-router-dom";
-import { Route, Redirect } from "react-router-dom";
+// import { Route, Redirect } from "react-router-dom";
 
-import ModalComponentWrapper from "../../../ModalComponentWrapper";
-import LoginForm from "../../../LoginForm";
-import { LoginModalContext } from "../../../ModalComponentWrapper/ModalsContext/LoginModalContext";
-import SignUpForm from "../../../SignUpForm";
-import { SignUpModalContext } from "../../../ModalComponentWrapper/ModalsContext/SignUpModalContext";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-// import { AuthUserContext } from "../../../Firebase/AuthUser/AuthUserContext";
-// import { FirebaseContext } from "../../../Firebase";
+// import ModalComponentWrapper from "../../../ModalComponentWrapper";
+// import { LoginModalContext } from "../../../ModalComponentWrapper/ModalsContext/LoginModalContext";
+// import LoginForm from "../../../LoginForm";
+// import SignUpForm from "../../../SignUpForm";
+// import { SignUpModalContext } from "../../../ModalComponentWrapper/ModalsContext/SignUpModalContext";
+// import Modal from "@material-ui/core/Modal";
+// import Backdrop from "@material-ui/core/Backdrop";
+import { AuthUserContext } from "../../../Firebase/AuthUser/AuthUserContext";
+import { FirebaseContext } from "../../../Firebase";
 
 const styles = (theme) => ({
   title: {
@@ -49,45 +49,45 @@ const styles = (theme) => ({
 });
 
 function NavBar(props) {
-  // const authUser = useContext(AuthUserContext);
-  // const firebase = useContext(FirebaseContext);
+  const authUser = useContext(AuthUserContext);
+  const firebase = useContext(FirebaseContext);
   const { classes } = props;
-  const [loginModalOpen, setLoginModalOpen] = useContext(LoginModalContext);
-  const [signUpModalOpen, setSignUpModalOpen] = useContext(SignUpModalContext);
+  // const [loginModalOpen, setLoginModalOpen] = useContext(LoginModalContext);
+  // const [signUpModalOpen, setSignUpModalOpen] = useContext(SignUpModalContext);
 
-  const handleSignUpOpen = () => {
-    setSignUpModalOpen(true);
-  };
+  // const handleSignUpOpen = () => {
+  //   setSignUpModalOpen(true);
+  // };
 
-  const handleSignUpClose = () => {
-    setSignUpModalOpen(false);
-  };
+  // const handleSignUpClose = () => {
+  //   setSignUpModalOpen(false);
+  // };
 
-  const handleLoginOpen = () => {
-    setLoginModalOpen(true);
-  };
+  // const handleLoginOpen = () => {
+  //   setLoginModalOpen(true);
+  // };
 
-  const handleLoginClose = () => {
-    setLoginModalOpen(false);
-  };
+  // const handleLoginClose = () => {
+  //   setLoginModalOpen(false);
+  // };
 
-  useEffect(() => {
-    if (
-      window.location.pathname === "/home/signup" ||
-      window.location.pathname === "/home/signup/"
-    ) {
-      setSignUpModalOpen(true);
-    } else if (
-      window.location.pathname === "/home/login" ||
-      window.location.pathname === "/home/login/"
-    ) {
-      setLoginModalOpen(true);
-    } else {
-      setSignUpModalOpen(false);
-      setLoginModalOpen(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (
+  //     window.location.pathname === "/home/signup" ||
+  //     window.location.pathname === "/home/signup/"
+  //   ) {
+  //     setSignUpModalOpen(true);
+  //   } else if (
+  //     window.location.pathname === "/home/login" ||
+  //     window.location.pathname === "/home/login/"
+  //   ) {
+  //     setLoginModalOpen(true);
+  //   } else {
+  //     setSignUpModalOpen(false);
+  //     setLoginModalOpen(false);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <div>
@@ -105,12 +105,19 @@ function NavBar(props) {
             {"Co-Coders"}
           </Link>
           <div className={classes.right}>
-            {/* {authUser ? (
+            {authUser ? (
               <>
                 {authUser && (
-                  <Typography variant="h5">
-                    Welcome {authUser.displayName}
-                  </Typography>
+                  <Link
+                    variant="h6"
+                    underline="none"
+                    color="inherit"
+                    className={classes.rightLink}
+                    component={RouterLink}
+                    to="/edit-forms"
+                  >
+                    {`Welcome ${authUser.displayName}`}
+                  </Link>
                 )}
                 <Link
                   variant="h6"
@@ -133,36 +140,34 @@ function NavBar(props) {
                 </Link>
               </>
             ) : (
-              <> */}
-            <Link
-              color="inherit"
-              variant="h6"
-              underline="none"
-              className={classes.rightLink}
-              onClick={handleLoginOpen}
-              component={RouterLink}
-              to="/home/login"
-            >
-              {"Sign In"}
-            </Link>
-            <Link
-              color="inherit"
-              variant="h6"
-              underline="none"
-              className={clsx(classes.rightLink, classes.linkSecondary)}
-              onClick={handleSignUpOpen}
-              component={RouterLink}
-              to="/home/signup"
-            >
-              {"Sign Up"}
-            </Link>
-            {/* </>
-            )} */}
+              <>
+                <Link
+                  color="inherit"
+                  variant="h6"
+                  underline="none"
+                  className={classes.rightLink}
+                  component={RouterLink}
+                  to="/home/login"
+                >
+                  {"Sign In"}
+                </Link>
+                <Link
+                  color="inherit"
+                  variant="h6"
+                  underline="none"
+                  className={clsx(classes.rightLink, classes.linkSecondary)}
+                  component={RouterLink}
+                  to="/home/signup"
+                >
+                  {"Sign Up"}
+                </Link>
+              </>
+            )}
           </div>
         </ToolBar>
       </AppBar>
       <div className={classes.placeholder} />
-      <Route
+      {/* <Route
         path="/home/login"
         render={() => {
           return (
@@ -185,8 +190,8 @@ function NavBar(props) {
             </ModalComponentWrapper>
           );
         }}
-      />
-      <Route
+      /> */}
+      {/* <Route
         path="/home/signup"
         render={() => {
           return (
@@ -209,8 +214,8 @@ function NavBar(props) {
             </ModalComponentWrapper>
           );
         }}
-      />
-      <Route
+      /> */}
+      {/* <Route
         render={() =>
           window.location.pathname.includes("/signup/") ||
           window.location.pathname === "/home/signup" ||
@@ -224,7 +229,7 @@ function NavBar(props) {
             <Redirect to="/home" />
           )
         }
-      />
+      /> */}
     </div>
   );
 }
