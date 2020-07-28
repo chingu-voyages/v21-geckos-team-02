@@ -23,7 +23,7 @@ class Firebase {
   }
 
   doCreateUserWithEmailAndPassword = (inputs) => {
-    const { email, password, firstName, lastName, newUser, picUrl } = inputs;
+    const { email, password, firstName, lastName, newUser } = inputs;
 
     return this.auth
       .createUserWithEmailAndPassword(email, password)
