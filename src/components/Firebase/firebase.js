@@ -1,6 +1,7 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 import { mockData } from "./mock-data";
 
 var firebaseConfig = {
@@ -22,7 +23,7 @@ class Firebase {
   }
 
   doCreateUserWithEmailAndPassword = (inputs) => {
-    const { email, password, firstName, lastName, newUser } = inputs;
+    const { email, password, firstName, lastName, newUser, picUrl } = inputs;
 
     return this.auth
       .createUserWithEmailAndPassword(email, password)
@@ -32,10 +33,11 @@ class Firebase {
       })
       .then(() => {
         console.log(this.auth.currentUser);
-        return this.db
-          .collection("users")
-          .doc(this.auth.currentUser.uid)
-          .set({ firstName, lastName, newUser });
+        return this.db.collection("users").doc(this.auth.currentUser.uid).set({
+          firstName,
+          lastName,
+          newUser,
+        });
       });
     // .catch((error) => {
     //   console.error("Error: ", error);
@@ -55,6 +57,8 @@ class Firebase {
 
   doPasswordUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
+
+  doSendEmailVerification = () => this.auth.currentUser.sendEmailVerification();
 
   doProfileUpdate = (profile) => {
     return this.db

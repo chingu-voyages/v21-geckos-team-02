@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import useFormHook from "../../hooks/useForm";
 import { Button, TextField, Grid } from "@material-ui/core";
 // import { auth } from "firebase";
@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 import ErrorMessages from "../shared/ErrorSnackBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 
@@ -16,6 +17,8 @@ const LogInForm = ({ firebase }) => {
     email: "",
     password: "",
   };
+
+  const authUser = useContext(AuthUserContext);
 
   const loginUser = () => {
     firebase
@@ -41,6 +44,16 @@ const LogInForm = ({ firebase }) => {
   );
 
   const { inputs } = useFormHook(initialState, loginUser);
+
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        return;
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
 
   const { register, handleSubmit, errors, formState } = useForm({
     mode: "onChange",
@@ -72,8 +85,8 @@ const LogInForm = ({ firebase }) => {
                 message: "Email must be valid.",
               },
             })}
+            helperText={<ErrorMessage errors={errors} name="email" />}
           />
-          <ErrorMessage errors={errors} name="email" />
         </Grid>
         <div className="pass-wrapper">
           <Grid item xs={12}>
@@ -89,9 +102,9 @@ const LogInForm = ({ firebase }) => {
                   message: "Password must have at least 8 characters.",
                 },
               })}
+              helperText={<ErrorMessage errors={errors} name="password" />}
             />
             <i onClick={togglePasswordVisibility}>{eye}</i>
-            <ErrorMessage errors={errors} name="password" />
           </Grid>
         </div>
 

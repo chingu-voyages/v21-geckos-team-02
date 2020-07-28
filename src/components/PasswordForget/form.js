@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
 import { ErrorMessage } from "@hookform/error-message";
 import Typography from "../LandingPage/UI/Typography";
 import TextField from "@material-ui/core/TextField";
 import { withFirebase } from "../Firebase/index";
-import { withRouter } from "react-router-dom";
-import { compose } from "recompose";
 import SharedNavBar from "../shared/SharedNav";
-import SuccessMessage from "../shared/SuccessSnackbars";
+import SuccessMessage from "./SuccessSnackbars";
 import ErrorMessages from "../shared/ErrorSnackBar";
+import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     borderRadius: "4px",
     padding: "10px 5px",
-    marginBottom: "50px",
+    marginBottom: "30px",
     marginTop: "30px",
     fontSize: "14px",
     background: "#ec5990",
@@ -62,6 +61,8 @@ function PasswordForgetFormBase(props) {
   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [error, setError] = useState(null);
 
+  const authUser = useContext(AuthUserContext);
+
   const onChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
 
@@ -72,7 +73,7 @@ function PasswordForgetFormBase(props) {
 
   const sendResetEmail = () => {
     props.firebase
-      .doPasswordReset(email)
+      .doPasswordReset(email.toString())
       .then(() => {
         setEmailHasBeenSent(true);
         setTimeout(() => {
@@ -95,6 +96,16 @@ function PasswordForgetFormBase(props) {
   const { register, handleSubmit, errors } = useForm({
     criteriaMode: "all",
   });
+
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        return;
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
 
   return (
     <React.Fragment>
@@ -141,8 +152,8 @@ function PasswordForgetFormBase(props) {
             })}
             name="emailRequired"
             onChange={onChangeHandler}
+            helperText={<ErrorMessage errors={errors} name="emailRequired" />}
           />
-          <ErrorMessage errors={errors} name="emailRequired" />
 
           <button
             className={classes.input}
@@ -161,9 +172,6 @@ function PasswordForgetFormBase(props) {
   );
 }
 
-const PasswordForgetForm = compose(
-  withRouter,
-  withFirebase
-)(PasswordForgetFormBase);
+const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
 
 export { PasswordForgetForm };
