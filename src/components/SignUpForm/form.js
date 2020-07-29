@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 import ErrorMessages from "../shared/ErrorSnackBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import SuccessMessage from "./SuccessSnackbar";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 
@@ -19,7 +20,7 @@ const SignUpForm = ({ firebase }) => {
     firstName: "",
     lastName: "",
     newUser: true,
-    picUrl: "",
+    photoURL: "",
   };
 
   const loginUser = () => {
@@ -44,9 +45,10 @@ const SignUpForm = ({ firebase }) => {
           password: data.password,
           passwordConfirm: data.passwordConfirm,
           newUser: true,
-          picUrl: "",
+          photoURL: data.photoURL,
         });
         firebase.doSendEmailVerification(data.email);
+        setSignUp(true);
       } catch (error) {
         setError(error.message);
       }
@@ -66,10 +68,11 @@ const SignUpForm = ({ firebase }) => {
       firstName: "",
       lastName: "",
       newUser: true,
-      picUrl: "",
+      photoURL: "",
     },
   });
   const [error, setError] = useState(null);
+  const [signUp, setSignUp] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
   const [passConfirmShown, setPasswordConfirmShown] = useState(false);
 
@@ -198,6 +201,7 @@ const SignUpForm = ({ firebase }) => {
           </Button>
         </Grid>
 
+        {signUp && <SuccessMessage />}
         {error !== null && <ErrorMessages error={error} />}
       </Grid>
     </form>

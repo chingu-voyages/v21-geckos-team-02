@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import useForm from "../../../hooks/useForm";
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthUserContext } from "../../Firebase/AuthUser/AuthUserContext";
@@ -15,6 +15,9 @@ import {
   RadioGroup,
   Radio,
 } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import statesInUsaData from "../data/statesInUsaData";
 
@@ -22,11 +25,76 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 120,
   },
+  photo: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+    justifyContent: "center",
+    alignItems: "center",
+    height: "240px",
+  },
+  large: {
+    width: theme.spacing(30),
+    height: theme.spacing(30),
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttoncenter: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "15px",
+  },
 }));
 
 export default ({ firebase, user }) => {
   const classes = useStyles();
   const authUser = useContext(AuthUserContext);
+  const allInputs = {
+    imgUrl: "",
+  };
+  const [url, setUrl] = useState(allInputs);
+  const [progressbar, setProgressBar] = useState(0);
+
+  // const handleChange = (e) => {
+  //   if (e.target.files[0]) {
+  //     const image = e.target.files[0];
+  //     handleUpload(image);
+  //   }
+  // };
+
+  // const handleUpload = (imageAsFile) => {
+  //   const uploadTask = firebase
+  //     .getStorage()
+  //     .ref(`images/${imageAsFile.name}`)
+  //     .put(imageAsFile);
+  //   uploadTask.on(
+  //     "state_changed",
+  //     (snapshot) => {
+  //       const progress = Math.round(
+  //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+  //       );
+  //       setProgressBar((bar) => progress);
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     },
+  //     () => {
+  //       firebase
+  //         .getStorage()
+  //         .ref("images")
+  //         .child(imageAsFile.name)
+  //         .getDownloadURL()
+  //         .then((firebaseUrl) => {
+  //           setUrl((prevObject) => ({ ...prevObject, imgUrl: firebaseUrl }));
+  //           setSaveChange(true);
+  //           // props.firebase.getAuth().collection("users").add;
+  //         });
+  //     }
+  //   );
+  // };
 
   const initialState = {
     firstName: user.firstName,
@@ -74,6 +142,33 @@ export default ({ firebase, user }) => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
+        <Grid item xs={12} className={classes.photo}>
+          <Avatar
+            src={inputs.photoURL}
+            className={classes.large}
+            alt="Profile"
+          />
+        </Grid>
+        <Grid item xs={12} className={classes.buttoncenter}>
+          <label htmlFor="upload-photo">
+            <input
+              type="file"
+              style={{ display: "none" }}
+              id="upload-photo"
+              name="upload-photo"
+              // onChange={handleChange}
+            />
+
+            <Button
+              variant="contained"
+              color="secondary"
+              component="span"
+              startIcon={<CloudUploadIcon />}
+            >
+              Upload Profile Picture
+            </Button>
+          </label>
+        </Grid>
         <Grid item xs={6}>
           <TextField
             name="firstName"
