@@ -40,6 +40,7 @@ export default ({ firebase, user }) => {
     preferredTechStack: "",
     status: "",
     newUser: false,
+    photoURL: user.photoURL,
   };
 
   const createUser = () => {

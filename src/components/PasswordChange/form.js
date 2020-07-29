@@ -5,7 +5,6 @@ import { ErrorMessage } from "@hookform/error-message";
 import Typography from "../LandingPage/UI/Typography";
 import TextField from "@material-ui/core/TextField";
 import { withRouter } from "react-router-dom";
-import AccountPage from "../Account/AccountPage";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -109,7 +108,6 @@ const PasswordChangeBase = (props) => {
 
   return (
     <React.Fragment>
-      <AccountPage />
       <div className={classes.root}>
         <form
           onSubmit={handleSubmit(handlePasswordChange)}

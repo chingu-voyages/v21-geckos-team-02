@@ -5,7 +5,6 @@ import { ErrorMessage } from "@hookform/error-message";
 import Typography from "../LandingPage/UI/Typography";
 import TextField from "@material-ui/core/TextField";
 import { withFirebase } from "../Firebase/index";
-import SharedNavBar from "../shared/SharedNav";
 import SuccessMessage from "./SuccessSnackbars";
 import ErrorMessages from "../shared/ErrorSnackBar";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
@@ -109,7 +108,6 @@ function PasswordForgetFormBase(props) {
 
   return (
     <React.Fragment>
-      <SharedNavBar />
       <div className={classes.root}>
         <form
           onSubmit={handleSubmit(onSubmit)}
