@@ -69,7 +69,7 @@ function AccountPage(props) {
       <div className={classes.placeholder} />
       <div className={classes.center}>
         <div className={classes.contentwrapper}>
-          <ImageUpload />
+          <ImageUpload authUser={authUser} />
           <ProfileSummary
             firebase={firebase}
             authUser={authUser}

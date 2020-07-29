@@ -29,10 +29,15 @@ class Firebase {
     return this.auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
+        console.log("New User:", user);
         const displayName = user.user.email.split("@")[0];
         const photoURL =
           "https://via.placeholder.com/256x256?text=My+Profile+Image";
-        return this.auth.currentUser.updateProfile({ displayName, photoURL });
+
+        return this.auth.currentUser.updateProfile({
+          displayName,
+          photoURL,
+        });
       })
       .then(() => {
         console.log(this.auth.currentUser);
@@ -103,17 +108,6 @@ class Firebase {
   getAuth = () => {
     return this.auth;
   };
-
-  //   var user = firebase.auth().currentUser;
-
-  // user.updateProfile({
-  //   displayName: "Jane Q. User",
-  //   photoURL: "https://example.com/jane-q-user/profile.jpg"
-  // }).then(function() {
-  //   // Update successful.
-  // }).catch(function(error) {
-  //   // An error happened.
-  // });
 }
 
 export default Firebase;

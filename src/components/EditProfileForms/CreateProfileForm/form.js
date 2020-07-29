@@ -18,6 +18,8 @@ import {
 import Avatar from "@material-ui/core/Avatar";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
 
 import statesInUsaData from "../data/statesInUsaData";
 
@@ -58,43 +60,47 @@ export default ({ firebase, user }) => {
   const [url, setUrl] = useState(allInputs);
   const [progressbar, setProgressBar] = useState(0);
 
-  // const handleChange = (e) => {
-  //   if (e.target.files[0]) {
-  //     const image = e.target.files[0];
-  //     handleUpload(image);
-  //   }
-  // };
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      const image = e.target.files[0];
+      handleUpload(image);
+    }
+  };
 
-  // const handleUpload = (imageAsFile) => {
-  //   const uploadTask = firebase
-  //     .getStorage()
-  //     .ref(`images/${imageAsFile.name}`)
-  //     .put(imageAsFile);
-  //   uploadTask.on(
-  //     "state_changed",
-  //     (snapshot) => {
-  //       const progress = Math.round(
-  //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-  //       );
-  //       setProgressBar((bar) => progress);
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     },
-  //     () => {
-  //       firebase
-  //         .getStorage()
-  //         .ref("images")
-  //         .child(imageAsFile.name)
-  //         .getDownloadURL()
-  //         .then((firebaseUrl) => {
-  //           setUrl((prevObject) => ({ ...prevObject, imgUrl: firebaseUrl }));
-  //           setSaveChange(true);
-  //           // props.firebase.getAuth().collection("users").add;
-  //         });
-  //     }
-  //   );
-  // };
+  const handleUpload = (imageAsFile) => {
+    const uploadTask = firebase
+      .getStorage()
+      .ref(`images/${imageAsFile.name}`)
+      .put(imageAsFile);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgressBar((bar) => progress);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        firebase
+          .getStorage()
+          .ref("images")
+          .child(imageAsFile.name)
+          .getDownloadURL()
+          .then((firebaseUrl) => {
+            setUrl((prevObject) => ({ ...prevObject, imgUrl: firebaseUrl }));
+            firebase.getFirestore().collection("users").doc("images").set(
+              {
+                photoURL: firebaseUrl,
+              },
+              { merge: true }
+            );
+          });
+      }
+    );
+  };
 
   const initialState = {
     firstName: user.firstName,
@@ -108,7 +114,6 @@ export default ({ firebase, user }) => {
     preferredTechStack: "",
     status: "",
     newUser: false,
-    photoURL: user.photoURL,
   };
 
   const createUser = () => {
@@ -144,9 +149,9 @@ export default ({ firebase, user }) => {
       <Grid container spacing={3}>
         <Grid item xs={12} className={classes.photo}>
           <Avatar
-            src={inputs.photoURL}
+            src={url.imgUrl}
             className={classes.large}
-            alt="Profile"
+            alt={user.firstName}
           />
         </Grid>
         <Grid item xs={12} className={classes.buttoncenter}>
@@ -156,8 +161,19 @@ export default ({ firebase, user }) => {
               style={{ display: "none" }}
               id="upload-photo"
               name="upload-photo"
-              // onChange={handleChange}
+              onChange={handleChange}
             />
+            <Box display="flex" alignItems="center">
+              <Box width="100%" mr={1}>
+                <LinearProgress variant="determinate" value={progressbar} />
+              </Box>
+              <Box minWidth={35}>
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                >{`${Math.round(progressbar)}%`}</Typography>
+              </Box>
+            </Box>
 
             <Button
               variant="contained"

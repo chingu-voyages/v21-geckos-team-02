@@ -100,13 +100,7 @@ function ImageUpload(props) {
           <CardHeader title="Co-Coder Member" subheader="Since 2020" />
 
           <div className={classes.photo}>
-            <Avatar
-              src={
-                url.imgUrl ||
-                "https://via.placeholder.com/256x256?text=My+Profile+Image"
-              }
-              className={classes.large}
-            />
+            <Avatar src={url.imgUrl} className={classes.large} />
           </div>
 
           <CardContent>

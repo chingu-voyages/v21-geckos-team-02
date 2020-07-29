@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import useFormHook from "../../hooks/useForm";
 import { Button, TextField, Grid } from "@material-ui/core";
 // import { auth } from "firebase";
@@ -9,6 +9,7 @@ import ErrorMessages from "../shared/ErrorSnackBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import SuccessMessage from "./SuccessSnackbar";
+import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 
@@ -20,8 +21,9 @@ const SignUpForm = ({ firebase }) => {
     firstName: "",
     lastName: "",
     newUser: true,
-    photoURL: "",
   };
+
+  const authUser = useContext(AuthUserContext);
 
   const loginUser = () => {
     firebase
@@ -37,6 +39,10 @@ const SignUpForm = ({ firebase }) => {
 
   const handleSignUp = useCallback(
     async (data) => {
+      setSignUp(true);
+      setTimeout(() => {
+        setSignUp(false);
+      }, 6000);
       try {
         await firebase.doCreateUserWithEmailAndPassword({
           firstName: data.firstName,
@@ -45,10 +51,8 @@ const SignUpForm = ({ firebase }) => {
           password: data.password,
           passwordConfirm: data.passwordConfirm,
           newUser: true,
-          photoURL: data.photoURL,
         });
-        firebase.doSendEmailVerification(data.email);
-        setSignUp(true);
+        // firebase.doSendEmailVerfication(data.email);
       } catch (error) {
         setError(error.message);
       }
@@ -57,6 +61,16 @@ const SignUpForm = ({ firebase }) => {
   );
 
   const { inputs } = useFormHook(initialState, loginUser);
+
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        return;
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
 
   //React-Hook-Form
   const { register, handleSubmit, errors, control, getValues } = useForm({
@@ -68,7 +82,6 @@ const SignUpForm = ({ firebase }) => {
       firstName: "",
       lastName: "",
       newUser: true,
-      photoURL: "",
     },
   });
   const [error, setError] = useState(null);

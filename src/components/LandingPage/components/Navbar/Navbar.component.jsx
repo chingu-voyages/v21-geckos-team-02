@@ -145,7 +145,7 @@ function NavBar(props) {
                   Sign Out
                 </Link>
                 <RouterLink to="/account">
-                  <Avatar alt="profile-pic" src={authUser.photoURL} />
+                  <Avatar alt={authUser.displayName} src={authUser.photoURL} />
                 </RouterLink>
               </>
             ) : (
