@@ -134,9 +134,23 @@ function NavBar(props) {
                 >
                   {"Dashboard"}
                 </Link>
+
+                <Link
+                  variant="h6"
+                  underline="none"
+                  color="inherit"
+                  className={classes.rightLink}
+                  component={RouterLink}
+                  to="/account"
+                >
+                  {"Account"}
+                </Link>
+
                 <Link
                   color="primary"
+                  underline="none"
                   variant="h6"
+                  component={RouterLink}
                   className={clsx(classes.rightLink, classes.linkSecondary)}
                   onClick={firebase.doSignOut}
                   size="small"
@@ -160,7 +174,7 @@ function NavBar(props) {
                 >
                   {"Sign In"}
                 </Link>
-                <Link
+                {/* <Link
                   color="inherit"
                   variant="h6"
                   underline="none"
@@ -169,7 +183,7 @@ function NavBar(props) {
                   to="/home/signup"
                 >
                   {"Sign Up"}
-                </Link>
+                </Link> */}
               </>
             )}
           </div>

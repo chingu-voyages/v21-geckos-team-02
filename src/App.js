@@ -17,6 +17,7 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import Dashboard from "./components/Dashboard";
 import NavBar from "./components/LandingPage/components/Navbar/Navbar.component";
+import { withAuthentication } from "./components/Session/index";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
               </Route>
               <Route path="/account/pw-forget" component={PasswordForgetForm} />
               <Route path="/dashboard" component={Dashboard} />
+
               <Route path="/account/pw-change" component={PasswordChange} />
               <Route exact path="/account" component={AccountPage} />
               <Route path="*" render={() => <Redirect to="/home" />} />
@@ -52,4 +54,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthentication(App);

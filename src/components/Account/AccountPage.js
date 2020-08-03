@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
 import AppBar from "../LandingPage/components/Navbar/AppBar";
@@ -10,8 +10,11 @@ import ToolBar, {
 import AccountMenu from "../shared/AccountMenu";
 import ImageUpload from "../../ImageUpload/index";
 import ProfileSummary from "./ProfileSummary";
+import { compose } from "recompose";
 
-const styles = (theme) => ({
+import { withAuthorization, withEmailVerification } from "../Session/index";
+
+const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 24,
   },
@@ -38,10 +41,11 @@ const styles = (theme) => ({
     maxWidth: "940px",
     padding: "50px",
   },
-});
+}));
 
 function AccountPage(props) {
-  const { classes, firebase, authUser, displayName } = props;
+  const classes = useStyles();
+  const { firebase, authUser, displayName } = props;
   return (
     <div>
       <AppBar position="fixed" style={{ background: "#1d3557" }}>
@@ -81,8 +85,9 @@ function AccountPage(props) {
   );
 }
 
-AccountPage.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+const condition = (authUser) => !!authUser;
 
-export default withStyles(styles)(AccountPage);
+export default compose(
+  withEmailVerification,
+  withAuthorization(condition)
+)(AccountPage);

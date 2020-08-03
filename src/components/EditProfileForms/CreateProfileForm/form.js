@@ -22,6 +22,8 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 
 import statesInUsaData from "../data/statesInUsaData";
+import { compose } from "recompose";
+import { withAuthorization, withEmailVerification } from "../../Session/index";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -51,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ firebase, user }) => {
+const CreateProfileForm = ({ firebase, user }) => {
   const classes = useStyles();
   const authUser = useContext(AuthUserContext);
   const allInputs = {
@@ -351,6 +353,13 @@ export default ({ firebase, user }) => {
     </form>
   );
 };
+
+const condition = (authUser) => !!authUser;
+
+export default compose(
+  withEmailVerification,
+  withAuthorization(condition)
+)(CreateProfileForm);
 
 // TODO: figure out image upload/hosting
 // hosting: imgbb.com

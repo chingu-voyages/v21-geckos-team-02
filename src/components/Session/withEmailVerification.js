@@ -1,8 +1,8 @@
 import React from "react";
 
-import { AuthUserContext } from "./AuthUser/AuthUserContext";
+import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
-import { withFirebase } from "./index";
+import { withFirebase } from "../Firebase/index";
 
 //Checks if the authenticated user has a verified email
 // and an email password sign in on associated with it
@@ -50,7 +50,7 @@ const withEmailVerification = (Component) => {
 
                 <button
                   type="button"
-                  onclick={this.onSendEmailVerification}
+                  onClick={this.onSendEmailVerification}
                   disabled={this.state.isSent}
                 >
                   Send confirmation E-Mail
