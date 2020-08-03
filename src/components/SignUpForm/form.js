@@ -51,7 +51,7 @@ const SignUpForm = ({ firebase }) => {
           passwordConfirm: data.passwordConfirm,
           newUser: true,
         });
-        firebase.doSendEmailVerification(data.email);
+        await firebase.doSendEmailVerification();
       } catch (error) {
         setError(error.message);
       }

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FirebaseContext } from "../";
 
-const AuthUserContext = React.createContext();
+const AuthUserContext = React.createContext(null);
 
 const AuthUserProvider = ({ children }) => {
   const firebase = useContext(FirebaseContext);
   const [authUser, setAuthUser] = useState(null);
 
-  // Listen for Firebase authorization changes
+  // Listen for Firebase (authorization)/authentication changes
   useEffect(() => {
     firebase.auth.onAuthStateChanged((authUser) => {
       if (authUser) {
