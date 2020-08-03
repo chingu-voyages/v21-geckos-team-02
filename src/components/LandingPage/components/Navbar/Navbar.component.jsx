@@ -121,7 +121,7 @@ function NavBar(props) {
                     component={RouterLink}
                     to="/edit-forms"
                   >
-                    {`Welcome ${authUser.displayName}`}
+                    {authUser.displayName && `Welcome ${authUser.displayName}`}
                   </Link>
                 )}
                 <Link

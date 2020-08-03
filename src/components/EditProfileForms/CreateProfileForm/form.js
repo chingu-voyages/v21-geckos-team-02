@@ -133,16 +133,16 @@ export default ({ firebase, user }) => {
   );
 
   // Reload page after user creates profile
-  useEffect(() => {
-    if (user !== initialState) {
-      firebase.doGetUserProfile(authUser.uid, (user) => {
-        if (user.data().newUser === false) {
-          window.location.reload(false);
-        }
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputs]);
+  // useEffect(() => {
+  //   if (user !== initialState) {
+  //     firebase.doGetUserProfile(authUser.uid, (user) => {
+  //       if (user.data().newUser === false) {
+  //         window.location.reload(false);
+  //       }
+  //     });
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [inputs]);
 
   return (
     <form onSubmit={handleSubmit}>

@@ -29,8 +29,10 @@ function SuccessMessage(props) {
         message={
           <span className={classes.message}>
             <CheckCircleIcon />
-            {"Congrats! Successfully registered.  \
-          "}
+            {
+              "Congrats! Successfully registered. Please verify your email before signing in. \
+          "
+            }
           </span>
         }
       />

@@ -14,6 +14,7 @@ import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 const eye = <FontAwesomeIcon icon={faEye} />;
 
 const SignUpForm = ({ firebase }) => {
+  const authUser = useContext(AuthUserContext);
   const initialState = {
     email: "",
     password: "",
@@ -22,8 +23,6 @@ const SignUpForm = ({ firebase }) => {
     lastName: "",
     newUser: true,
   };
-
-  const authUser = useContext(AuthUserContext);
 
   const loginUser = () => {
     firebase
@@ -42,7 +41,7 @@ const SignUpForm = ({ firebase }) => {
       setSignUp(true);
       setTimeout(() => {
         setSignUp(false);
-      }, 6000);
+      }, 5000);
       try {
         await firebase.doCreateUserWithEmailAndPassword({
           firstName: data.firstName,
@@ -52,7 +51,7 @@ const SignUpForm = ({ firebase }) => {
           passwordConfirm: data.passwordConfirm,
           newUser: true,
         });
-        // firebase.doSendEmailVerfication(data.email);
+        firebase.doSendEmailVerification(data.email);
       } catch (error) {
         setError(error.message);
       }
