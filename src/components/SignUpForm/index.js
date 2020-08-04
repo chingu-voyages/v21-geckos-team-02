@@ -5,7 +5,7 @@ import { FirebaseContext } from "../Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 import { LoginModalContext } from "../ModalComponentWrapper/ModalsContext/LoginModalContext";
 import { SignUpModalContext } from "../ModalComponentWrapper/ModalsContext/SignUpModalContext";
-import { Paper, Typography, Grid, Button } from "@material-ui/core";
+import { Typography, Grid, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
@@ -34,7 +34,8 @@ export default () => {
   return (
     <FirebaseContext.Consumer>
       {(firebase) => (
-        <Paper id="signup-box">
+        //Replaces Paper with div to avoid browser warning
+        <div id="signup-box">
           {!authUser && (
             <Grid container spacing={3}>
               <Grid item xs={2}>
@@ -67,7 +68,11 @@ export default () => {
           {authUser && doc !== undefined && doc.newUser && (
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <CreateProfileForm firebase={firebase} user={doc} key={doc} />
+                <CreateProfileForm
+                  firebase={firebase}
+                  user={doc}
+                  key={doc.uid}
+                />
               </Grid>
             </Grid>
           )}
@@ -101,7 +106,7 @@ export default () => {
               </Grid>
             </Grid>
           )}
-        </Paper>
+        </div>
       )}
     </FirebaseContext.Consumer>
   );

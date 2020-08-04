@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 // import ModalComponentWrapper from "../../ModalComponentWrapper";
 // import SignUpForm from "../../SignUpForm";
@@ -11,7 +11,7 @@ import Button from "../UI/Button";
 import Typography from "../UI/Typography";
 import ProductHeroLayout from "./ProductHeroLayout";
 import heroImage from "../../../assets/images/heroImage.jpg";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const styles = (theme) => ({
   background: {

@@ -12,7 +12,7 @@ import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 
-const SignUpForm = ({ firebase }) => {
+const SignUpForm = ({ firebase, props }) => {
   const authUser = useContext(AuthUserContext);
   const initialState = {
     email: "",
@@ -47,11 +47,12 @@ const SignUpForm = ({ firebase }) => {
           newUser: true,
         });
         await firebase.doSendEmailVerification();
+        await props.history.push("/home");
       } catch (error) {
         setError(error.message);
       }
     },
-    [firebase]
+    [firebase, props]
   );
 
   const { inputs } = useFormHook(initialState, loginUser);

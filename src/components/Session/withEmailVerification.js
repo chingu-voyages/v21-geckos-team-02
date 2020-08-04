@@ -4,6 +4,10 @@ import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
 import { withFirebase } from "../Firebase/index";
 
+import SnackbarContent from "@material-ui/core/SnackbarContent";
+import Button from "@material-ui/core/Button";
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+
 //Checks if the authenticated user has a verified email
 // and an email password sign in on associated with it
 
@@ -35,26 +39,29 @@ const withEmailVerification = (Component) => {
             needsEmailVerification(authUser) ? (
               <div>
                 {this.state.isSent ? (
-                  <p>
-                    E-Mail confirmation sent: Check you E-Mails (Spam folder
+                  <SnackbarContent
+                    message=" E-Mail confirmation sent: Check your E-Mails (Spam folder
                     included) for a confirmation E-Mail. Refresh this page once
-                    you confirmed your E-Mail.
-                  </p>
+                    you confirmed your E-Mail."
+                  />
                 ) : (
-                  <p>
-                    Verify your E-Mail: Check you E-Mails (Spam folder included)
-                    for a confirmation E-Mail or send another confirmation
-                    E-Mail.
-                  </p>
+                  <SnackbarContent
+                    style={{ background: "#43A047" }}
+                    message="Please verify your E-Mail now. Only click the button when you don't see the confirmation email."
+                  />
                 )}
 
-                <button
+                <Button
+                  variant="contained"
+                  color="primary"
+                  component="span"
+                  startIcon={<AlternateEmailIcon />}
                   type="button"
                   onClick={this.onSendEmailVerification}
                   disabled={this.state.isSent}
                 >
                   Send confirmation E-Mail
-                </button>
+                </Button>
               </div>
             ) : (
               <Component {...this.props} />

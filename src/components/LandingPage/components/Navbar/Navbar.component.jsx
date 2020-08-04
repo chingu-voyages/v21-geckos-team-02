@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
+
 import clsx from "clsx";
-import { withStyles } from "@material-ui/core/styles";
+
 import Link from "@material-ui/core/Link";
 // import { Typography } from "@material-ui/core";
 
@@ -21,10 +21,10 @@ import { Link as RouterLink } from "react-router-dom";
 import { AuthUserContext } from "../../../Firebase/AuthUser/AuthUserContext";
 import { FirebaseContext } from "../../../Firebase";
 
-// import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 24,
   },
@@ -51,12 +51,12 @@ const styles = (theme) => ({
   linkSecondary: {
     color: theme.palette.secondary.main,
   },
-});
+}));
 
 function NavBar(props) {
   const authUser = useContext(AuthUserContext);
   const firebase = useContext(FirebaseContext);
-  const { classes } = props;
+  const classes = useStyles();
   // const [loginModalOpen, setLoginModalOpen] = useContext(LoginModalContext);
   // const [signUpModalOpen, setSignUpModalOpen] = useContext(SignUpModalContext);
 
@@ -246,8 +246,4 @@ function NavBar(props) {
   );
 }
 
-NavBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(NavBar);
+export default NavBar;
