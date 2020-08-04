@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Menu from "@material-ui/core/Menu";
@@ -7,8 +7,9 @@ import { withRouter } from "react-router-dom";
 import { Link as RouterLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { FirebaseContext } from "../Firebase/index";
-import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
+
+import { compose } from "recompose";
+import { withEmailVerification, withAuthorization } from "../Session/index";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -42,22 +43,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AccountMenu = () => {
-  const fb = useContext(FirebaseContext);
-  const authUser = useContext(AuthUserContext);
-  const [doc, setDoc] = useState();
-
-  useEffect(
-    () => {
-      if (authUser !== null && authUser !== undefined) {
-        fb.doGetUserProfile(authUser.uid, (user) => {
-          setDoc(user.data());
-        });
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [authUser]
-  );
-
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const AccountMenuClasses = useStyles();
@@ -71,66 +56,57 @@ const AccountMenu = () => {
   };
 
   return (
-    <FirebaseContext.Consumer>
-      {(firebase) => (
-        <div>
-          {authUser && doc !== undefined && !doc.newUser && (
-            <div>
-              <Button
-                className={AccountMenuClasses.button}
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                onClick={handleClick}
-              >
-                <span style={{ color: "#ff3366" }}>
-                  Hi {authUser.displayName}
-                </span>
-                <ExpandMoreIcon
-                  className={
-                    anchorEl
-                      ? AccountMenuClasses.downIcon
-                      : AccountMenuClasses.upIcon
-                  }
-                />
-              </Button>
-              <Menu
-                id="simple-menu"
-                classes={{ paper: AccountMenuClasses.paper }}
-                getContentAnchorEl={null}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem
-                  onClick={handleClose}
-                  component={RouterLink}
-                  to="/edit-forms"
-                >
-                  My Profile
-                </MenuItem>
-                <Link to="/account/pw-change">
-                  <MenuItem onClick={handleClose}>Settings</MenuItem>
-                </Link>
-
-                <Link to="/home">
-                  <MenuItem onClick={firebase.doSignOut}>Log Out</MenuItem>
-                </Link>
-              </Menu>
-            </div>
-          )}
-        </div>
-      )}
-    </FirebaseContext.Consumer>
+    <div>
+      <div>
+        <Button
+          className={AccountMenuClasses.button}
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          <ExpandMoreIcon
+            className={
+              anchorEl ? AccountMenuClasses.downIcon : AccountMenuClasses.upIcon
+            }
+          />
+        </Button>
+        <Menu
+          id="simple-menu"
+          classes={{ paper: AccountMenuClasses.paper }}
+          getContentAnchorEl={null}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem
+            onClick={handleClose}
+            component={RouterLink}
+            to="/edit-forms"
+          >
+            My Profile
+          </MenuItem>
+          <Link to="/account/pw-change">
+            <MenuItem onClick={handleClose}>Settings</MenuItem>
+          </Link>
+        </Menu>
+      </div>
+    </div>
   );
 };
 
-export default withRouter(AccountMenu);
+const condition = (authUser) => !!authUser;
+
+export default compose(
+  withRouter,
+  withEmailVerification,
+  withAuthorization(condition)
+)(AccountMenu);

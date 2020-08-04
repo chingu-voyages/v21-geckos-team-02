@@ -67,9 +67,6 @@ export default () => {
           {authUser && doc !== undefined && doc.newUser && (
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Typography variant="h5">Create Your Profile</Typography>
-              </Grid>
-              <Grid item xs={12}>
                 <CreateProfileForm firebase={firebase} user={doc} key={doc} />
               </Grid>
             </Grid>

@@ -93,7 +93,8 @@ const CreateProfileForm = ({ firebase, user }) => {
           .getDownloadURL()
           .then((firebaseUrl) => {
             setUrl((prevObject) => ({ ...prevObject, imgUrl: firebaseUrl }));
-            firebase.getFirestore().collection("users").doc("images").set(
+
+            firebase.getFirestore().collection("users").doc("photoURL").set(
               {
                 photoURL: firebaseUrl,
               },
@@ -134,21 +135,24 @@ const CreateProfileForm = ({ firebase, user }) => {
     createUser
   );
 
-  // Reload page after user creates profile
-  // useEffect(() => {
-  //   if (user !== initialState) {
-  //     firebase.doGetUserProfile(authUser.uid, (user) => {
-  //       if (user.data().newUser === false) {
-  //         window.location.reload(false);
-  //       }
-  //     });
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [inputs]);
+  //Reload page after user creates profile
+  useEffect(() => {
+    if (user !== initialState) {
+      firebase.doGetUserProfile(authUser.uid, (user) => {
+        if (user.data().newUser === false) {
+          window.location.reload(false);
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputs]);
 
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Typography variant="h5">Create Your Profile</Typography>
+        </Grid>
         <Grid item xs={12} className={classes.photo}>
           <Avatar
             src={url.imgUrl}

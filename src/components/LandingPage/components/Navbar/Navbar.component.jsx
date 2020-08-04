@@ -136,17 +136,6 @@ function NavBar(props) {
                 </Link>
 
                 <Link
-                  variant="h6"
-                  underline="none"
-                  color="inherit"
-                  className={classes.rightLink}
-                  component={RouterLink}
-                  to="/account"
-                >
-                  {"Account"}
-                </Link>
-
-                <Link
                   color="primary"
                   underline="none"
                   variant="h6"

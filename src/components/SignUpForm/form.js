@@ -8,7 +8,6 @@ import { withRouter } from "react-router-dom";
 import ErrorMessages from "../shared/ErrorSnackBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import SuccessMessage from "./SuccessSnackbar";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
@@ -38,10 +37,6 @@ const SignUpForm = ({ firebase }) => {
 
   const handleSignUp = useCallback(
     async (data) => {
-      setSignUp(true);
-      setTimeout(() => {
-        setSignUp(false);
-      }, 5000);
       try {
         await firebase.doCreateUserWithEmailAndPassword({
           firstName: data.firstName,
@@ -84,7 +79,6 @@ const SignUpForm = ({ firebase }) => {
     },
   });
   const [error, setError] = useState(null);
-  const [signUp, setSignUp] = useState(false);
   const [passwordShown, setPasswordShown] = useState(false);
   const [passConfirmShown, setPasswordConfirmShown] = useState(false);
 
@@ -213,7 +207,6 @@ const SignUpForm = ({ firebase }) => {
           </Button>
         </Grid>
 
-        {signUp && <SuccessMessage />}
         {error !== null && <ErrorMessages error={error} />}
       </Grid>
     </form>
