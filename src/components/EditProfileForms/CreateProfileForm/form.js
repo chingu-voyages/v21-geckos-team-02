@@ -94,7 +94,7 @@ const CreateProfileForm = ({ firebase, user }) => {
           .then((firebaseUrl) => {
             setUrl((prevObject) => ({ ...prevObject, imgUrl: firebaseUrl }));
 
-            firebase.getFirestore().collection("users").doc("photoURL").set(
+            firebase.getFirestore().collection("users").doc(`${user.uid}`).set(
               {
                 photoURL: firebaseUrl,
               },
@@ -117,11 +117,12 @@ const CreateProfileForm = ({ firebase, user }) => {
     preferredTechStack: "",
     status: "",
     newUser: false,
+    photoURL: "",
   };
 
   const createUser = () => {
     firebase
-      .doProfileUpdate(inputs)
+      .doProfileUpdate({ ...inputs, photoURL: url.imgUrl })
       .then((authUser) => {
         console.log("authUser: ", authUser);
       })
@@ -161,13 +162,14 @@ const CreateProfileForm = ({ firebase, user }) => {
           />
         </Grid>
         <Grid item xs={12} className={classes.buttoncenter}>
-          <label htmlFor="upload-photo">
+          <label htmlFor="photoURL">
             <input
               type="file"
               style={{ display: "none" }}
-              id="upload-photo"
-              name="upload-photo"
+              id="photoURL"
+              name="photoURL"
               onChange={handleChange}
+              value={inputs.photoURL}
             />
             <Box display="flex" alignItems="center">
               <Box width="100%" mr={1}>

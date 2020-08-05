@@ -8,6 +8,7 @@ import { Typography, Button, Grid } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import { Link as RouterLink } from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
 
 import "./style.css";
 import { Link } from "react-router-dom";
@@ -108,6 +109,9 @@ export default () => {
                   }
                 >
                   Check out <strong>{authUser.displayName}</strong>!
+                  <RouterLink to="/account">
+                    <Avatar alt="profile" src={authUser.photoURL} />
+                  </RouterLink>
                 </Alert>
               </Grid>
             </Grid>

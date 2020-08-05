@@ -15,6 +15,7 @@ const AuthUserProvider = ({ children }) => {
       } else {
         setAuthUser(null);
       }
+
       // setAuthUser(authUser);
     });
   }, [firebase.auth]);

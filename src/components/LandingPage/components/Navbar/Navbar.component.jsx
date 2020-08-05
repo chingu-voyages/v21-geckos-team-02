@@ -57,6 +57,7 @@ function NavBar(props) {
   const authUser = useContext(AuthUserContext);
   const firebase = useContext(FirebaseContext);
   const classes = useStyles();
+
   // const [loginModalOpen, setLoginModalOpen] = useContext(LoginModalContext);
   // const [signUpModalOpen, setSignUpModalOpen] = useContext(SignUpModalContext);
 
@@ -148,7 +149,7 @@ function NavBar(props) {
                   Sign Out
                 </Link>
                 <RouterLink to="/account">
-                  <Avatar alt={authUser.displayName} src={authUser.photoURL} />
+                  <Avatar alt="profile" src={authUser.photoURL} />
                 </RouterLink>
               </>
             ) : (

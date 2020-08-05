@@ -21,6 +21,7 @@ const SignUpForm = ({ firebase, props }) => {
     firstName: "",
     lastName: "",
     newUser: true,
+    photoURL: "",
   };
 
   const loginUser = () => {
@@ -45,6 +46,7 @@ const SignUpForm = ({ firebase, props }) => {
           password: data.password,
           passwordConfirm: data.passwordConfirm,
           newUser: true,
+          photoURL: "",
         });
         await firebase.doSendEmailVerification();
         await props.history.push("/home");
@@ -77,6 +79,7 @@ const SignUpForm = ({ firebase, props }) => {
       firstName: "",
       lastName: "",
       newUser: true,
+      photoURL: "",
     },
   });
   const [error, setError] = useState(null);

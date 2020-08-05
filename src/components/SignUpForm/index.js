@@ -18,6 +18,7 @@ export default () => {
   const [doc, setDoc] = useState();
   const [, setSignUpModalOpen] = useContext(SignUpModalContext);
   const [, setLoginModalOpen] = useContext(LoginModalContext);
+  const [didMount, setDidMount] = useState(false);
 
   useEffect(
     () => {
@@ -26,10 +27,16 @@ export default () => {
           setDoc(user.data());
         });
       }
+      setDidMount(true);
+      return () => setDidMount(false);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [authUser]
   );
+
+  if (!didMount) {
+    return null;
+  }
 
   return (
     <FirebaseContext.Consumer>

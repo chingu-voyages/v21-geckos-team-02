@@ -24,15 +24,14 @@ class Firebase {
   }
 
   doCreateUserWithEmailAndPassword = (inputs) => {
-    const { email, password, firstName, lastName, newUser } = inputs;
+    const { email, password, firstName, lastName, newUser, photoURL } = inputs;
 
     return this.auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
         console.log("New User:", user);
         const displayName = user.user.email.split("@")[0];
-        const photoURL =
-          "https://via.placeholder.com/256x256?text=My+Profile+Image";
+        const photoURL = "";
 
         return this.auth.currentUser.updateProfile({
           displayName,
@@ -45,6 +44,7 @@ class Firebase {
           firstName,
           lastName,
           newUser,
+          photoURL,
         });
       });
     // .catch((error) => {
@@ -106,6 +106,10 @@ class Firebase {
 
   getFirestore = () => {
     return this.db;
+  };
+
+  getAuth = () => {
+    return this.auth;
   };
 
   // *** User API***
