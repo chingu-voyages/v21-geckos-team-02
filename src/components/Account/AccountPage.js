@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
@@ -10,6 +10,8 @@ import AccountMenu from "../shared/AccountMenu";
 import ImageUpload from "../../ImageUpload/index";
 import ProfileSummary from "./ProfileSummary";
 import { compose } from "recompose";
+import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
+import { FirebaseContext } from "../Firebase/index";
 
 import { withAuthorization, withEmailVerification } from "../Session/index";
 
@@ -43,44 +45,68 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function AccountPage(props) {
+  const fb = useContext(FirebaseContext);
   const classes = useStyles();
-  const { firebase, authUser, displayName } = props;
+  const authUser = useContext(AuthUserContext);
+  const [doc, setDoc] = useState();
+  const [didMount, setDidMount] = useState(false);
+
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        fb.doGetUserProfile(authUser.uid, (user) => {
+          setDoc(user.data());
+        });
+      }
+      setDidMount(true);
+      return () => setDidMount(false);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
+
+  if (!didMount) {
+    return null;
+  }
   return (
-    <div>
-      <AppBar position="fixed" style={{ background: "#1d3557" }}>
-        <ToolBar className={classes.toolbar}>
-          <div className={classes.left} />
-          <Link
-            variant="h6"
-            underline="none"
-            color="inherit"
-            className={classes.title}
-            component={RouterLink}
-            to="/home"
-          >
-            {"Co-Coders"}
-          </Link>
-          <div className={classes.right}>
-            <AccountMenu
-              firebase={firebase}
-              authUser={authUser}
-              displayName={displayName}
-            />
-          </div>
-        </ToolBar>
-      </AppBar>
-      <div className={classes.placeholder} />
-      <div className={classes.center}>
-        <div className={classes.contentwrapper}>
-          <ImageUpload authUser={authUser} />
-          <ProfileSummary
-            firebase={firebase}
-            authUser={authUser}
-            displayName={displayName}
-          />
+    <FirebaseContext.Consumer>
+      {(firebase) => (
+        <div>
+          {!authUser && (
+            <AppBar position="fixed" style={{ background: "#1d3557" }}>
+              <ToolBar className={classes.toolbar}>
+                <div className={classes.left} />
+                <Link
+                  variant="h6"
+                  underline="none"
+                  color="inherit"
+                  className={classes.title}
+                  component={RouterLink}
+                  to="/home"
+                >
+                  {"Co-Coders"}
+                </Link>
+              </ToolBar>
+            </AppBar>
+          )}
+
+          {authUser && doc !== undefined && !doc.newUser && (
+            <div>
+              <div className={classes.right}>
+                <AccountMenu firebase={firebase} user={doc} />
+              </div>
+
+              <div className={classes.center}>
+                <div className={classes.contentwrapper}>
+                  <ImageUpload user={doc} firebase={firebase} />
+                  <ProfileSummary firebase={firebase} user={doc} />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-      </div>
-    </div>
+      )}
+    </FirebaseContext.Consumer>
   );
 }
 

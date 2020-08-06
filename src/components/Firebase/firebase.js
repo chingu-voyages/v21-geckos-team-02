@@ -112,6 +112,46 @@ class Firebase {
     return this.auth;
   };
 
+  // generateUserDocument function
+  doGenerateUserDocument = async (user, additonalData) => {
+    // Check if there is data at the specified reference
+    // If there is no data, we want to write some data to that document
+    // We will return the user's data using the doGetUserDocument function
+    // If there is data, we will return the user's data right away
+    if (!user) return;
+    const userRef = this.db.doc(`users/${user.uid}`);
+    const snapshot = await userRef.get();
+    if (!snapshot.exists) {
+      const { email, displayName, photoURL } = user;
+      try {
+        await userRef.set({
+          displayName,
+          email,
+          photoURL,
+          ...additonalData,
+        });
+      } catch (error) {
+        console.error("Error creating user document", error);
+      }
+    }
+
+    return this.doGetUserDocument(user.uid);
+  };
+
+  doGetUserDocument = async (uid) => {
+    if (!uid) return null;
+
+    try {
+      const userDocument = await this.db.doc(`users/${uid}`).get();
+      return {
+        uid,
+        ...userDocument.data(),
+      };
+    } catch (error) {
+      console.error("Error fetching user", error);
+    }
+  };
+
   // *** User API***
   user = (uid) => this.db.ref(`users/${uid}`);
   users = () => this.db.ref("users");

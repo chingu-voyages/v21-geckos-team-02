@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NavBar(props) {
+function NavBar() {
   const authUser = useContext(AuthUserContext);
   const firebase = useContext(FirebaseContext);
   const classes = useStyles();
@@ -148,9 +148,6 @@ function NavBar(props) {
                 >
                   Sign Out
                 </Link>
-                <RouterLink to="/account">
-                  <Avatar alt="profile" src={authUser.photoURL} />
-                </RouterLink>
               </>
             ) : (
               <>

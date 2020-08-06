@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { withFirebase } from "../components/Firebase/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ImageUpload(props) {
+function ImageUpload({ firebase, user }) {
   const classes = useStyles();
   const allInputs = {
     imgUrl: "",
@@ -63,7 +62,7 @@ function ImageUpload(props) {
   };
 
   const handleUpload = (imageAsFile) => {
-    const uploadTask = props.firebase
+    const uploadTask = firebase
       .getStorage()
       .ref(`images/${imageAsFile.name}`)
       .put(imageAsFile);
@@ -79,7 +78,7 @@ function ImageUpload(props) {
         console.log(error);
       },
       () => {
-        props.firebase
+        firebase
           .getStorage()
           .ref("images")
           .child(imageAsFile.name)
@@ -87,7 +86,20 @@ function ImageUpload(props) {
           .then((firebaseUrl) => {
             setUrl((prevObject) => ({ ...prevObject, imgUrl: firebaseUrl }));
             setSaveChange(true);
-            // props.firebase.getAuth().collection("users").add;
+            firebase.doProfileUpdate({
+              firstName: user.firstName,
+              lastName: user.lastName,
+              city: user.city,
+              state: user.state,
+              preferredCodingTime: user.preferredCodingTime,
+              frontendTechStack: user.frontendTechStack,
+              backendTechStack: user.backendTechStack,
+              specialty: user.specialty,
+              preferredTechStack: user.preferredTechStack,
+              status: user.status,
+              newUser: false,
+              photoURL: firebaseUrl || user.photoURL,
+            });
           });
       }
     );
@@ -100,7 +112,10 @@ function ImageUpload(props) {
           <CardHeader title="Co-Coder Member" subheader="Since 2020" />
 
           <div className={classes.photo}>
-            <Avatar src={url.imgUrl} className={classes.large} />
+            <Avatar
+              src={url.imgUrl || user.photoURL}
+              className={classes.large}
+            />
           </div>
 
           <CardContent>
@@ -118,13 +133,13 @@ function ImageUpload(props) {
           </CardContent>
 
           <div className={classes.buttoncenter}>
-            <label htmlFor="upload-photo">
+            <label htmlFor="photoURL">
               <input
                 type="file"
                 onChange={handleChange}
                 style={{ display: "none" }}
-                id="upload-photo"
-                name="upload-photo"
+                id="photoURL"
+                name="photoURL"
               />
 
               <Button
@@ -133,7 +148,7 @@ function ImageUpload(props) {
                 component="span"
                 startIcon={<CloudUploadIcon />}
               >
-                Upload
+                Upload New Profile Pic
               </Button>
             </label>
           </div>
@@ -145,4 +160,4 @@ function ImageUpload(props) {
   );
 }
 
-export default withFirebase(ImageUpload);
+export default ImageUpload;

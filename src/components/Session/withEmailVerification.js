@@ -7,6 +7,8 @@ import { withFirebase } from "../Firebase/index";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import Button from "@material-ui/core/Button";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import Link from "@material-ui/core/Link";
+import { Link as RouterLink } from "react-router-dom";
 
 //Checks if the authenticated user has a verified email
 // and an email password sign in on associated with it
@@ -47,11 +49,21 @@ const withEmailVerification = (Component) => {
                 ) : (
                   <SnackbarContent
                     style={{ background: "#43A047" }}
-                    message="Please verify your E-Mail now. Only click the button when you don't see the confirmation email."
+                    message="Email not verified. Please verify your Email now. Only click the button when you don't see the confirmation email."
                   />
                 )}
-
-                <Button
+                <span>To send verification</span>
+                <Link
+                  variant="h6"
+                  underline="none"
+                  color="inherit"
+                  onClick={this.onSendEmailVerification}
+                  disabled={this.state.isSent}
+                  component={RouterLink}
+                >
+                  Click Here
+                </Link>
+                {/* <Button
                   variant="contained"
                   color="primary"
                   component="span"
@@ -61,7 +73,7 @@ const withEmailVerification = (Component) => {
                   disabled={this.state.isSent}
                 >
                   Send confirmation E-Mail
-                </Button>
+                </Button> */}
               </div>
             ) : (
               <Component {...this.props} />

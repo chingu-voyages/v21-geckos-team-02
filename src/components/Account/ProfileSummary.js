@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProfileSummary() {
+export default function ProfileSummary({ firebase, user }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
@@ -52,35 +52,36 @@ export default function ProfileSummary() {
           About me
         </Typography>
         <Typography variant="body2" component="h2">
-          {bull}First Name:
+          {bull}First Name: <strong>{user.firstName}</strong>
         </Typography>
         <br />
         <Typography variant="body2" component="h2">
-          {bull}Last Name:
+          {bull}Last Name: <strong>{user.lastName}</strong>
         </Typography>
         <br />
         <Typography variant="body2" component="h2">
-          {bull}Specialty:
+          {bull}Specialty: <strong>{user.specialty}</strong>
         </Typography>
         <br />
         <Typography variant="body2" component="h2">
-          {bull}Favorite Coding Time:
+          {bull}Favorite Coding Time:{" "}
+          <strong>{user.preferredCodingTime}</strong>
         </Typography>
         <br />
         <Typography variant="body2" component="h2">
-          {bull}Front End Tech Stack:
+          {bull}Front End Tech Stack: <strong>{user.frontendTechStack}</strong>
         </Typography>
         <br />
         <Typography variant="body2" component="h2">
-          {bull}Back End Tech Stack:
+          {bull}Back End Tech Stack: <strong>{user.backendTechStack}</strong>
         </Typography>
         <br />
         <Typography variant="body2" component="h2">
-          {bull}Preferred Tech:
+          {bull}Preferred Tech: <strong>{user.preferredTechStack}</strong>
         </Typography>
         <br />
         <Typography variant="body2" component="h2">
-          {bull}Introduce yourself:
+          {bull}Introduce yourself: <strong>{user.status}</strong>
         </Typography>
       </CardContent>
     </Card>

@@ -48,6 +48,7 @@ const SignUpForm = ({ firebase, props }) => {
           newUser: true,
           photoURL: "",
         });
+
         await firebase.doSendEmailVerification();
         await props.history.push("/home");
       } catch (error) {

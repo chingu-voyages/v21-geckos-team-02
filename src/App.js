@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import {
   Switch,
   Route,
@@ -18,14 +18,39 @@ import SignUpForm from "./components/SignUpForm";
 import Dashboard from "./components/Dashboard";
 import NavBar from "./components/LandingPage/components/Navbar/Navbar.component";
 import { withAuthentication } from "./components/Session/index";
+import { FirebaseContext } from "./components/Firebase/index";
+import { AuthUserContext } from "./components/Firebase/AuthUser/AuthUserContext";
 
 function App() {
+  const authUser = useContext(AuthUserContext);
+  const fb = useContext(FirebaseContext);
+  const [doc, setDoc] = useState();
+  const [didMount, setDidMount] = useState(false);
+
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        fb.doGetUserProfile(authUser.uid, (user) => {
+          setDoc(user.data());
+        });
+      }
+      setDidMount(true);
+      return () => setDidMount(false);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
+
+  if (!didMount) {
+    return null;
+  }
+
   return (
     <div className="App">
       <div className="content-wrap">
         <AuthUserProvider>
           <Router>
-            <NavBar />
+            <NavBar user={doc} />
             <Switch>
               <Route exact path="/home">
                 <LandingComponent />
