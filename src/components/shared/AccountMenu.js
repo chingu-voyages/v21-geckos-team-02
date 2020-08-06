@@ -3,13 +3,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
-import { withRouter } from "react-router-dom";
+
 import { Link as RouterLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-
-import { compose } from "recompose";
-import { withEmailVerification, withAuthorization } from "../Session/index";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -103,10 +100,4 @@ const AccountMenu = () => {
   );
 };
 
-const condition = (authUser) => !!authUser;
-
-export default compose(
-  withRouter,
-  withEmailVerification,
-  withAuthorization(condition)
-)(AccountMenu);
+export default AccountMenu;

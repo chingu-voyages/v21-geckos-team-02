@@ -211,7 +211,6 @@ const SignUpForm = ({ firebase, props }) => {
             Submit
           </Button>
         </Grid>
-
         {error !== null && <ErrorMessages error={error} />}
       </Grid>
     </form>

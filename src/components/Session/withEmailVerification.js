@@ -1,14 +1,10 @@
 import React from "react";
-
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
-
 import { withFirebase } from "../Firebase/index";
-
 import SnackbarContent from "@material-ui/core/SnackbarContent";
-import Button from "@material-ui/core/Button";
-import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 import Link from "@material-ui/core/Link";
 import { Link as RouterLink } from "react-router-dom";
+import Card from "@material-ui/core/Card";
 
 //Checks if the authenticated user has a verified email
 // and an email password sign in on associated with it
@@ -39,9 +35,10 @@ const withEmailVerification = (Component) => {
         <AuthUserContext.Consumer>
           {(authUser) =>
             needsEmailVerification(authUser) ? (
-              <div>
+              <Card>
                 {this.state.isSent ? (
                   <SnackbarContent
+                    style={{ background: "#43A047" }}
                     message=" E-Mail confirmation sent: Check your E-Mails (Spam folder
                     included) for a confirmation E-Mail. Refresh this page once
                     you confirmed your E-Mail."
@@ -49,10 +46,16 @@ const withEmailVerification = (Component) => {
                 ) : (
                   <SnackbarContent
                     style={{ background: "#43A047" }}
-                    message="Email not verified. Please verify your Email now. Only click the button when you don't see the confirmation email."
+                    message="Email not verified! 
+                    Step 1: Please verify your email address, click continue. 
+                    Step 2: Click Register to create your profile.
+                    "
                   />
                 )}
-                <span>To send verification</span>
+                <span>
+                  In case you don't see your email verification link:{" "}
+                </span>
+                <br />
                 <Link
                   variant="h6"
                   underline="none"
@@ -63,18 +66,7 @@ const withEmailVerification = (Component) => {
                 >
                   Click Here
                 </Link>
-                {/* <Button
-                  variant="contained"
-                  color="primary"
-                  component="span"
-                  startIcon={<AlternateEmailIcon />}
-                  type="button"
-                  onClick={this.onSendEmailVerification}
-                  disabled={this.state.isSent}
-                >
-                  Send confirmation E-Mail
-                </Button> */}
-              </div>
+              </Card>
             ) : (
               <Component {...this.props} />
             )

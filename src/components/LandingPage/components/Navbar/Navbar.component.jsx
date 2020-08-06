@@ -22,7 +22,7 @@ import { AuthUserContext } from "../../../Firebase/AuthUser/AuthUserContext";
 import { FirebaseContext } from "../../../Firebase";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
+import AccountMenu from "../../../shared/AccountMenu";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -135,6 +135,8 @@ function NavBar() {
                 >
                   {"Dashboard"}
                 </Link>
+
+                <AccountMenu />
 
                 <Link
                   color="primary"
