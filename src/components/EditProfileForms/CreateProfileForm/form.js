@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import useForm from "../../../hooks/useForm";
 import { makeStyles } from "@material-ui/core/styles";
 import { AuthUserContext } from "../../Firebase/AuthUser/AuthUserContext";
@@ -15,18 +15,95 @@ import {
   RadioGroup,
   Radio,
 } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
 
 import statesInUsaData from "../data/statesInUsaData";
+import { compose } from "recompose";
+import { withAuthorization, withEmailVerification } from "../../Session/index";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     minWidth: 120,
   },
+  photo: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+    justifyContent: "center",
+    alignItems: "center",
+    height: "240px",
+  },
+  large: {
+    width: theme.spacing(30),
+    height: theme.spacing(30),
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttoncenter: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "15px",
+  },
 }));
 
-export default ({ firebase, user }) => {
+const CreateProfileForm = ({ firebase, user }) => {
   const classes = useStyles();
   const authUser = useContext(AuthUserContext);
+  const allInputs = {
+    imgUrl: "",
+  };
+  const [url, setUrl] = useState(allInputs);
+  const [progressbar, setProgressBar] = useState(0);
+
+  const handleChange = (e) => {
+    if (e.target.files[0]) {
+      const image = e.target.files[0];
+      handleUpload(image);
+    }
+  };
+
+  const handleUpload = (imageAsFile) => {
+    const uploadTask = firebase
+      .getStorage()
+      .ref(`images/${imageAsFile.name}`)
+      .put(imageAsFile);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgressBar((bar) => progress);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        firebase
+          .getStorage()
+          .ref("images")
+          .child(imageAsFile.name)
+          .getDownloadURL()
+          .then((firebaseUrl) => {
+            setUrl((prevObject) => ({ ...prevObject, imgUrl: firebaseUrl }));
+
+            firebase.getFirestore().collection("users").doc(`${user.uid}`).set(
+              {
+                photoURL: firebaseUrl,
+              },
+              { merge: true }
+            );
+          });
+      }
+    );
+  };
 
   const initialState = {
     firstName: user.firstName,
@@ -40,11 +117,12 @@ export default ({ firebase, user }) => {
     preferredTechStack: "",
     status: "",
     newUser: false,
+    photoURL: "",
   };
 
   const createUser = () => {
     firebase
-      .doProfileUpdate(inputs)
+      .doProfileUpdate({ ...inputs, photoURL: url.imgUrl })
       .then((authUser) => {
         console.log("authUser: ", authUser);
       })
@@ -58,7 +136,7 @@ export default ({ firebase, user }) => {
     createUser
   );
 
-  // Reload page after user creates profile
+  //Reload page after user creates profile
   useEffect(() => {
     if (user !== initialState) {
       firebase.doGetUserProfile(authUser.uid, (user) => {
@@ -73,6 +151,48 @@ export default ({ firebase, user }) => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Typography variant="h5">Create Your Profile</Typography>
+        </Grid>
+        <Grid item xs={12} className={classes.photo}>
+          <Avatar
+            src={url.imgUrl}
+            className={classes.large}
+            alt={user.firstName}
+          />
+        </Grid>
+        <Grid item xs={12} className={classes.buttoncenter}>
+          <label htmlFor="photoURL">
+            <input
+              type="file"
+              style={{ display: "none" }}
+              id="photoURL"
+              name="photoURL"
+              onChange={handleChange}
+              value={inputs.photoURL}
+            />
+            <Box display="flex" alignItems="center">
+              <Box width="100%" mr={1}>
+                <LinearProgress variant="determinate" value={progressbar} />
+              </Box>
+              <Box minWidth={35}>
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                >{`${Math.round(progressbar)}%`}</Typography>
+              </Box>
+            </Box>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              component="span"
+              startIcon={<CloudUploadIcon />}
+            >
+              Upload Profile Picture
+            </Button>
+          </label>
+        </Grid>
         <Grid item xs={6}>
           <TextField
             name="firstName"
@@ -239,6 +359,13 @@ export default ({ firebase, user }) => {
     </form>
   );
 };
+
+const condition = (authUser) => !!authUser;
+
+export default compose(
+  withEmailVerification,
+  withAuthorization(condition)
+)(CreateProfileForm);
 
 // TODO: figure out image upload/hosting
 // hosting: imgbb.com

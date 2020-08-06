@@ -33,7 +33,6 @@ const LogInForm = ({ firebase }) => {
 
   const handleSignIn = useCallback(
     async (data) => {
-      console.log(data);
       try {
         await firebase.doSignInWithEmailAndPassword(data.email, data.password);
       } catch (error) {

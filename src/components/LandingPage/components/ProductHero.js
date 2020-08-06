@@ -1,18 +1,17 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-
-import ModalComponentWrapper from "../../ModalComponentWrapper";
-import SignUpForm from "../../SignUpForm";
-import { SignUpModalContext } from "../../ModalComponentWrapper/ModalsContext/SignUpModalContext";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
+// import ModalComponentWrapper from "../../ModalComponentWrapper";
+// import SignUpForm from "../../SignUpForm";
+// import { SignUpModalContext } from "../../ModalComponentWrapper/ModalsContext/SignUpModalContext";
+// import Modal from "@material-ui/core/Modal";
+// import Backdrop from "@material-ui/core/Backdrop";
 
 import { withStyles } from "@material-ui/core/styles";
 import Button from "../UI/Button";
 import Typography from "../UI/Typography";
 import ProductHeroLayout from "./ProductHeroLayout";
 import heroImage from "../../../assets/images/heroImage.jpg";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const styles = (theme) => ({
   background: {
@@ -37,27 +36,27 @@ const styles = (theme) => ({
 
 const ProductHero = (props) => {
   const { classes } = props;
-  const [signUpModalOpen, setSignUpModalOpen] = useContext(SignUpModalContext);
+  // const [signUpModalOpen, setSignUpModalOpen] = useContext(SignUpModalContext);
 
-  const handleSignUpOpen = () => {
-    setSignUpModalOpen(true);
-  };
+  // const handleSignUpOpen = () => {
+  //   setSignUpModalOpen(true);
+  // };
 
-  const handleSignUpClose = () => {
-    setSignUpModalOpen(false);
-  };
+  // const handleSignUpClose = () => {
+  //   setSignUpModalOpen(false);
+  // };
 
-  useEffect(() => {
-    if (
-      window.location.pathname === "/home/signup" ||
-      window.location.pathname === "/home/signup/"
-    ) {
-      setSignUpModalOpen(true);
-    } else {
-      setSignUpModalOpen(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   if (
+  //     window.location.pathname === "/home/signup" ||
+  //     window.location.pathname === "/home/signup/"
+  //   ) {
+  //     setSignUpModalOpen(true);
+  //   } else {
+  //     setSignUpModalOpen(false);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <ProductHeroLayout backgroundClassName={classes.background}>
@@ -84,14 +83,14 @@ const ProductHero = (props) => {
         className="classes.button"
         component={Link}
         to="/home/signup"
-        onClick={handleSignUpOpen}
+        // onClick={handleSignUpOpen}
       >
         Register
       </Button>
       <Typography variant="body2" color="inherit" className={classes.more}>
         Enjoy a seamless matchmaking experience
       </Typography>
-      <Route
+      {/* <Route
         path="/home/signup"
         render={() => {
           return (
@@ -113,7 +112,7 @@ const ProductHero = (props) => {
             </ModalComponentWrapper>
           );
         }}
-      />
+      /> */}
       {/* <Route
         render={() =>
           window.location.pathname.includes("/signup/") ||

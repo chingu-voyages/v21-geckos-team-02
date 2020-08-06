@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
+
 import clsx from "clsx";
-import { withStyles } from "@material-ui/core/styles";
+
 import Link from "@material-ui/core/Link";
 // import { Typography } from "@material-ui/core";
+
 import AppBar from "./AppBar";
 import ToolBar, { styles as toolbarStyles } from "./Toolbar";
 import { Link as RouterLink } from "react-router-dom";
+
 // import { Route, Redirect } from "react-router-dom";
 
 // import ModalComponentWrapper from "../../../ModalComponentWrapper";
@@ -19,7 +21,10 @@ import { Link as RouterLink } from "react-router-dom";
 import { AuthUserContext } from "../../../Firebase/AuthUser/AuthUserContext";
 import { FirebaseContext } from "../../../Firebase";
 
-const styles = (theme) => ({
+import { makeStyles } from "@material-ui/core/styles";
+import AccountMenu from "../../../shared/AccountMenu";
+
+const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 24,
   },
@@ -46,12 +51,13 @@ const styles = (theme) => ({
   linkSecondary: {
     color: theme.palette.secondary.main,
   },
-});
+}));
 
-function NavBar(props) {
+function NavBar() {
   const authUser = useContext(AuthUserContext);
   const firebase = useContext(FirebaseContext);
-  const { classes } = props;
+  const classes = useStyles();
+
   // const [loginModalOpen, setLoginModalOpen] = useContext(LoginModalContext);
   // const [signUpModalOpen, setSignUpModalOpen] = useContext(SignUpModalContext);
 
@@ -116,7 +122,7 @@ function NavBar(props) {
                     component={RouterLink}
                     to="/edit-forms"
                   >
-                    {`Welcome ${authUser.displayName}`}
+                    {authUser.displayName && `Welcome ${authUser.displayName}`}
                   </Link>
                 )}
                 <Link
@@ -129,12 +135,18 @@ function NavBar(props) {
                 >
                   {"Dashboard"}
                 </Link>
+
+                <AccountMenu />
+
                 <Link
                   color="primary"
+                  underline="none"
                   variant="h6"
+                  component={RouterLink}
                   className={clsx(classes.rightLink, classes.linkSecondary)}
                   onClick={firebase.doSignOut}
                   size="small"
+                  to="/home"
                 >
                   Sign Out
                 </Link>
@@ -151,7 +163,7 @@ function NavBar(props) {
                 >
                   {"Sign In"}
                 </Link>
-                <Link
+                {/* <Link
                   color="inherit"
                   variant="h6"
                   underline="none"
@@ -160,7 +172,7 @@ function NavBar(props) {
                   to="/home/signup"
                 >
                   {"Sign Up"}
-                </Link>
+                </Link> */}
               </>
             )}
           </div>
@@ -234,8 +246,4 @@ function NavBar(props) {
   );
 }
 
-NavBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(NavBar);
+export default NavBar;

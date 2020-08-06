@@ -4,10 +4,11 @@ import { FirebaseContext } from "../../components/Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 import { LoginModalContext } from "../ModalComponentWrapper/ModalsContext/LoginModalContext";
 import { SignUpModalContext } from "../ModalComponentWrapper/ModalsContext/SignUpModalContext";
-import { Paper, Typography, Button, Grid } from "@material-ui/core";
+import { Typography, Button, Grid } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import { Link as RouterLink } from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
 
 import "./style.css";
 import { Link } from "react-router-dom";
@@ -30,7 +31,8 @@ export default () => {
   return (
     <FirebaseContext.Consumer>
       {(firebase) => (
-        <Paper id="login-box">
+        //Replaces Paper with div to avoid browser warning
+        <div id="login-box">
           {!authUser && (
             <Grid container spacing={3}>
               <Grid item xs={2}>
@@ -107,11 +109,14 @@ export default () => {
                   }
                 >
                   Check out <strong>{authUser.displayName}</strong>!
+                  <RouterLink to="/account">
+                    <Avatar alt="profile" src={authUser.photoURL} />
+                  </RouterLink>
                 </Alert>
               </Grid>
             </Grid>
           )}
-        </Paper>
+        </div>
       )}
     </FirebaseContext.Consumer>
   );

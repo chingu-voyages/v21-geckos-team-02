@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import useFormHook from "../../hooks/useForm";
 import { Button, TextField, Grid } from "@material-ui/core";
 // import { auth } from "firebase";
@@ -8,10 +8,12 @@ import { withRouter } from "react-router-dom";
 import ErrorMessages from "../shared/ErrorSnackBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 
-const SignUpForm = ({ firebase }) => {
+const SignUpForm = ({ firebase, props }) => {
+  const authUser = useContext(AuthUserContext);
   const initialState = {
     email: "",
     password: "",
@@ -19,7 +21,7 @@ const SignUpForm = ({ firebase }) => {
     firstName: "",
     lastName: "",
     newUser: true,
-    picUrl: "",
+    photoURL: "",
   };
 
   const loginUser = () => {
@@ -44,17 +46,29 @@ const SignUpForm = ({ firebase }) => {
           password: data.password,
           passwordConfirm: data.passwordConfirm,
           newUser: true,
-          picUrl: "",
+          photoURL: "",
         });
-        firebase.doSendEmailVerification(data.email);
+
+        await firebase.doSendEmailVerification();
+        await props.history.push("/home");
       } catch (error) {
         setError(error.message);
       }
     },
-    [firebase]
+    [firebase, props]
   );
 
   const { inputs } = useFormHook(initialState, loginUser);
+
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        return;
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
 
   //React-Hook-Form
   const { register, handleSubmit, errors, control, getValues } = useForm({
@@ -66,7 +80,7 @@ const SignUpForm = ({ firebase }) => {
       firstName: "",
       lastName: "",
       newUser: true,
-      picUrl: "",
+      photoURL: "",
     },
   });
   const [error, setError] = useState(null);
@@ -197,7 +211,6 @@ const SignUpForm = ({ firebase }) => {
             Submit
           </Button>
         </Grid>
-
         {error !== null && <ErrorMessages error={error} />}
       </Grid>
     </form>

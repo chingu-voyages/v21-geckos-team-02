@@ -20,16 +20,23 @@ class Firebase {
     app.initializeApp(firebaseConfig);
     this.auth = app.auth();
     this.db = app.firestore();
+    this.storage = app.storage();
   }
 
   doCreateUserWithEmailAndPassword = (inputs) => {
-    const { email, password, firstName, lastName, newUser } = inputs;
+    const { email, password, firstName, lastName, newUser, photoURL } = inputs;
 
     return this.auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
+        console.log("New User:", user);
         const displayName = user.user.email.split("@")[0];
-        return this.auth.currentUser.updateProfile({ displayName });
+        const photoURL = "";
+
+        return this.auth.currentUser.updateProfile({
+          displayName,
+          photoURL,
+        });
       })
       .then(() => {
         console.log(this.auth.currentUser);
@@ -37,6 +44,7 @@ class Firebase {
           firstName,
           lastName,
           newUser,
+          photoURL,
         });
       });
     // .catch((error) => {
@@ -58,7 +66,10 @@ class Firebase {
   doPasswordUpdate = (password) =>
     this.auth.currentUser.updatePassword(password);
 
-  doSendEmailVerification = () => this.auth.currentUser.sendEmailVerification();
+  doSendEmailVerification = () =>
+    this.auth.currentUser.sendEmailVerification({
+      url: "http://localhost:3000",
+    });
 
   doProfileUpdate = (profile) => {
     return this.db
@@ -87,6 +98,94 @@ class Firebase {
 
   doGetUserProfile = (uid, callback) => {
     return this.db.collection("users").doc(uid).get().then(callback);
+  };
+
+  getStorage = () => {
+    return this.storage;
+  };
+
+  getFirestore = () => {
+    return this.db;
+  };
+
+  getAuth = () => {
+    return this.auth;
+  };
+
+  // generateUserDocument function
+  doGenerateUserDocument = async (user, additonalData) => {
+    // Check if there is data at the specified reference
+    // If there is no data, we want to write some data to that document
+    // We will return the user's data using the doGetUserDocument function
+    // If there is data, we will return the user's data right away
+    if (!user) return;
+    const userRef = this.db.doc(`users/${user.uid}`);
+    const snapshot = await userRef.get();
+    if (!snapshot.exists) {
+      const { email, displayName, photoURL } = user;
+      try {
+        await userRef.set({
+          displayName,
+          email,
+          photoURL,
+          ...additonalData,
+        });
+      } catch (error) {
+        console.error("Error creating user document", error);
+      }
+    }
+
+    return this.doGetUserDocument(user.uid);
+  };
+
+  doGetUserDocument = async (uid) => {
+    if (!uid) return null;
+
+    try {
+      const userDocument = await this.db.doc(`users/${uid}`).get();
+      return {
+        uid,
+        ...userDocument.data(),
+      };
+    } catch (error) {
+      console.error("Error fetching user", error);
+    }
+  };
+
+  // *** User API***
+  user = (uid) => this.db.ref(`users/${uid}`);
+  users = () => this.db.ref("users");
+
+  // *** Merge Auth and DB User API *** //
+
+  onAuthUserListener = (next, fallback) => {
+    this.auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        this.user(authUser.uid)
+          .once("value")
+          .then((snapshot) => {
+            const dbUser = snapshot.val();
+
+            //default empty roles
+            if (!dbUser.roles) {
+              dbUser.roles = {};
+            }
+
+            //merge auth and db user
+            authUser = {
+              uid: authUser.uid,
+              email: authUser.email,
+              emailVerified: authUser.emailVerified,
+              providerData: authUser.providerData,
+              ...dbUser,
+            };
+
+            next(authUser);
+          });
+      } else {
+        fallback();
+      }
+    });
   };
 }
 
