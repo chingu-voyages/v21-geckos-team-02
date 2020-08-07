@@ -1,32 +1,42 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LoginForm from "./form";
 import { FirebaseContext } from "../../components/Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
-import { LoginModalContext } from "../ModalComponentWrapper/ModalsContext/LoginModalContext";
-import { SignUpModalContext } from "../ModalComponentWrapper/ModalsContext/SignUpModalContext";
+// import { LoginModalContext } from "../ModalComponentWrapper/ModalsContext/LoginModalContext";
+// import { SignUpModalContext } from "../ModalComponentWrapper/ModalsContext/SignUpModalContext";
 import { Typography, Button, Grid } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
 import { Link as RouterLink } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
-
 import "./style.css";
 import { Link } from "react-router-dom";
 
 export default () => {
   const authUser = useContext(AuthUserContext);
-  const [, setLoginModalOpen] = useContext(LoginModalContext);
-  const [, setSignUpModalOpen] = useContext(SignUpModalContext);
+  // const [, setLoginModalOpen] = useContext(LoginModalContext);
+  // const [, setSignUpModalOpen] = useContext(SignUpModalContext);
+  const fb = useContext(FirebaseContext);
+  const [doc, setDoc] = useState();
+  const [didMount, setDidMount] = useState(false);
 
   useEffect(
     () => {
       if (authUser !== null && authUser !== undefined) {
-        return;
+        fb.doGetUserProfile(authUser.uid, (user) => {
+          setDoc(user.data());
+        });
       }
+      setDidMount(true);
+      return () => setDidMount(false);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [authUser]
   );
+
+  if (!didMount) {
+    return null;
+  }
 
   return (
     <FirebaseContext.Consumer>
@@ -49,11 +59,11 @@ export default () => {
               <Grid item xs={12}>
                 <Typography>
                   <Link
-                    to="signup"
-                    onClick={() => {
-                      setLoginModalOpen(false);
-                      setSignUpModalOpen(true);
-                    }}
+                    to="/home/signup"
+                    // onClick={() => {
+                    //   setLoginModalOpen(false);
+                    //   setSignUpModalOpen(true);
+                    // }}
                   >
                     Need an account? Sign Up!
                   </Link>
@@ -64,7 +74,7 @@ export default () => {
               </Grid>
             </Grid>
           )}
-          {authUser && (
+          {authUser && doc !== undefined && !doc.newUser && (
             <Grid container spacing={3}>
               <Grid item xs={2}>
                 <Link to="/home">
@@ -108,9 +118,9 @@ export default () => {
                     </Button>
                   }
                 >
-                  Check out <strong>{authUser.displayName}</strong>!
+                  Hey <strong>{doc.firstName}</strong>! Check out your account!
                   <RouterLink to="/account">
-                    <Avatar alt="profile" src={authUser.photoURL} />
+                    <Avatar alt="profile" src={doc.photoURL} />
                   </RouterLink>
                 </Alert>
               </Grid>

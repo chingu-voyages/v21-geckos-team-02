@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useForm from "../../../hooks/useForm";
-import { Button, TextField, Grid } from "@material-ui/core";
+import { Button, TextField, Grid, Typography } from "@material-ui/core";
 // import { auth } from "firebase";
 import {
   FormControl,
@@ -64,8 +64,11 @@ const EditProfileForms = ({ firebase, user }) => {
   );
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ background: "lavenderblush" }}>
       <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Typography variant="h5">Update Your Profile</Typography>
+        </Grid>
         <Grid item xs={12}>
           {saveChange && <SuccessMessages />}
         </Grid>
@@ -234,6 +237,7 @@ const EditProfileForms = ({ firebase, user }) => {
             Update Profile
           </Button>
         </Grid>
+        <Grid item xs={4}></Grid>
       </Grid>
     </form>
   );

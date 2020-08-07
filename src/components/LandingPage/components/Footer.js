@@ -25,11 +25,17 @@ export default function Footer() {
   const styles = {
     display: "flex",
     justifyContent: "center",
+    left: "auto",
+    right: "0",
+    bottom: "0",
+    position: "fixed",
+    background: "#1d3557",
+    width: "100%",
   };
 
   return (
     <div style={styles}>
-      <AppBar position="static" style={{ background: "#1d3557" }}>
+      <AppBar position="fixed" style={{ background: "#1d3557" }}>
         <Container maxWidth="md">
           <Toolbar style={styles}>
             <Typography variant="body1" align="center">

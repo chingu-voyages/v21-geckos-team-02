@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import UpdateProfileForm from "./UpdateProfileForm/form";
 import { FirebaseContext } from "../Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
-import { Typography, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import "./style.css";
 
 const EditProfileDisplay = () => {
@@ -45,17 +45,8 @@ const EditProfileDisplay = () => {
             </Grid>
           )} */}
           {authUser && doc !== undefined && !doc.newUser && (
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <Typography variant="h5">Update Your Profile</Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <UpdateProfileForm
-                  firebase={firebase}
-                  user={doc}
-                  key={doc.uid}
-                />
-              </Grid>
+            <Grid item xs={12}>
+              <UpdateProfileForm firebase={firebase} user={doc} key={doc.uid} />
             </Grid>
           )}
         </div>

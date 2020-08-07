@@ -9,6 +9,8 @@ import { Typography, Grid, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import { Link as RouterLink } from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
 
 import "./style.css";
 
@@ -108,7 +110,31 @@ export default () => {
                     </Button>
                   }
                 >
-                  Signed in as {authUser.email}
+                  Thank you <strong>{doc.firstName}</strong> for being a
+                  Co-Coder! Your email to sign in:{" "}
+                  <strong>{authUser.email}</strong>
+                </Alert>
+              </Grid>
+              <Grid item xs={12}>
+                <Alert
+                  transition={null}
+                  severity="info"
+                  action={
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      component={RouterLink}
+                      to="/account"
+                      size="small"
+                    >
+                      &raquo;Account
+                    </Button>
+                  }
+                >
+                  Hey <strong>{doc.firstName}</strong>! Check out your account!
+                  <RouterLink to="/account">
+                    <Avatar alt="profile" src={doc.photoURL} />
+                  </RouterLink>
                 </Alert>
               </Grid>
             </Grid>
