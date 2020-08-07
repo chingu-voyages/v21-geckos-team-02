@@ -1,8 +1,11 @@
 #update-profile-box {
   margin: auto;
-  min-width: 600px;
-  width: 60%;
+  /* min-width: 600px; */
+  width: 100%;
   padding: 20px;
+  background: lavenderblush;
+  margin-top: 20px;
+  margin-bottom: 64px;
 }
 
 #update-profile-box h5 {

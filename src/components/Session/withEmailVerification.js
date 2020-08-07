@@ -2,8 +2,7 @@ import React from "react";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 import { withFirebase } from "../Firebase/index";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
-import Link from "@material-ui/core/Link";
-import { Link as RouterLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 
 //Checks if the authenticated user has a verified email
@@ -62,7 +61,7 @@ const withEmailVerification = (Component) => {
                   color="inherit"
                   onClick={this.onSendEmailVerification}
                   disabled={this.state.isSent}
-                  component={RouterLink}
+                  to="/home"
                 >
                   Click Here
                 </Link>

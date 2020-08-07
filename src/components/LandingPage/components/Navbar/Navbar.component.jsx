@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import clsx from "clsx";
+// import clsx from "clsx";
 
 import Link from "@material-ui/core/Link";
 // import { Typography } from "@material-ui/core";
@@ -19,7 +19,7 @@ import { Link as RouterLink } from "react-router-dom";
 // import Modal from "@material-ui/core/Modal";
 // import Backdrop from "@material-ui/core/Backdrop";
 import { AuthUserContext } from "../../../Firebase/AuthUser/AuthUserContext";
-import { FirebaseContext } from "../../../Firebase";
+// import { FirebaseContext } from "../../../Firebase";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AccountMenu from "../../../shared/AccountMenu";
@@ -44,9 +44,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
   },
   rightLink: {
-    fontSize: 16,
+    fontSize: 14,
     color: theme.palette.common.white,
-    marginLeft: theme.spacing(3),
+    marginLeft: theme.spacing(1),
   },
   linkSecondary: {
     color: theme.palette.secondary.main,
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 function NavBar() {
   const authUser = useContext(AuthUserContext);
-  const firebase = useContext(FirebaseContext);
+  // const firebase = useContext(FirebaseContext);
   const classes = useStyles();
 
   // const [loginModalOpen, setLoginModalOpen] = useContext(LoginModalContext);
@@ -113,7 +113,7 @@ function NavBar() {
           <div className={classes.right}>
             {authUser ? (
               <>
-                {authUser && (
+                {/* {authUser && (
                   <Link
                     variant="h6"
                     underline="none"
@@ -122,10 +122,11 @@ function NavBar() {
                     component={RouterLink}
                     to="/edit-forms"
                   >
-                    {authUser.displayName && `Welcome ${authUser.displayName}`}
+                    {authUser.displayName && `Hi ${authUser.displayName}!`}
                   </Link>
-                )}
-                <Link
+                )} */}
+                {/* // Moves Dashboard to Account Menu */}
+                {/* <Link
                   variant="h6"
                   underline="none"
                   color="inherit"
@@ -134,11 +135,11 @@ function NavBar() {
                   to="/dashboard"
                 >
                   {"Dashboard"}
-                </Link>
-
+                </Link> */}
+                &nbsp;
                 <AccountMenu />
-
-                <Link
+                {/* //Move SignOut to Account Menu */}
+                {/* <Link
                   color="primary"
                   underline="none"
                   variant="h6"
@@ -149,7 +150,7 @@ function NavBar() {
                   to="/home"
                 >
                   Sign Out
-                </Link>
+                </Link> */}
               </>
             ) : (
               <>

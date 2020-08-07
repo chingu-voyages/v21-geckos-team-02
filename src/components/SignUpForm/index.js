@@ -3,12 +3,14 @@ import SignUpForm from "./form";
 import CreateProfileForm from "../EditProfileForms/CreateProfileForm/form";
 import { FirebaseContext } from "../Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
-import { LoginModalContext } from "../ModalComponentWrapper/ModalsContext/LoginModalContext";
-import { SignUpModalContext } from "../ModalComponentWrapper/ModalsContext/SignUpModalContext";
+// import { LoginModalContext } from "../ModalComponentWrapper/ModalsContext/LoginModalContext";
+// import { SignUpModalContext } from "../ModalComponentWrapper/ModalsContext/SignUpModalContext";
 import { Typography, Grid, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import { Link as RouterLink } from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
 
 import "./style.css";
 
@@ -16,8 +18,8 @@ export default () => {
   const fb = useContext(FirebaseContext);
   const authUser = useContext(AuthUserContext);
   const [doc, setDoc] = useState();
-  const [, setSignUpModalOpen] = useContext(SignUpModalContext);
-  const [, setLoginModalOpen] = useContext(LoginModalContext);
+  // const [, setSignUpModalOpen] = useContext(SignUpModalContext);
+  // const [, setLoginModalOpen] = useContext(LoginModalContext);
   const [didMount, setDidMount] = useState(false);
 
   useEffect(
@@ -59,11 +61,11 @@ export default () => {
               <Grid item xs={12}>
                 <Typography>
                   <Link
-                    to="login"
-                    onClick={() => {
-                      setSignUpModalOpen(false);
-                      setLoginModalOpen(true);
-                    }}
+                    to="/home/login"
+                    // onClick={() => {
+                    //   setSignUpModalOpen(false);
+                    //   setLoginModalOpen(true);
+                    // }}
                   >
                     Already have an account? Log In!
                   </Link>
@@ -108,7 +110,31 @@ export default () => {
                     </Button>
                   }
                 >
-                  Signed in as {authUser.email}
+                  Thank you <strong>{doc.firstName}</strong> for being a
+                  Co-Coder! Your email to sign in:{" "}
+                  <strong>{authUser.email}</strong>
+                </Alert>
+              </Grid>
+              <Grid item xs={12}>
+                <Alert
+                  transition={null}
+                  severity="info"
+                  action={
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      component={RouterLink}
+                      to="/account"
+                      size="small"
+                    >
+                      &raquo;Account
+                    </Button>
+                  }
+                >
+                  Hey <strong>{doc.firstName}</strong>! Check out your account!
+                  <RouterLink to="/account">
+                    <Avatar alt="profile" src={doc.photoURL} />
+                  </RouterLink>
                 </Alert>
               </Grid>
             </Grid>
