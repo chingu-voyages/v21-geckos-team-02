@@ -15,8 +15,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import statesInUsaData from "../data/statesInUsaData";
 import SuccessMessages from "./SuccessMessages";
-import { compose } from "recompose";
-import { withAuthorization, withEmailVerification } from "../../Session/index";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -26,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EditProfileForms = ({ firebase, user }) => {
   const classes = useStyles();
-  // const authUser = useContext(AuthUserContext);
+  const history = useHistory();
   const [saveChange, setSaveChange] = useState(false);
   const initialState = {
     // Fill these fields with existing user data
@@ -49,6 +48,10 @@ const EditProfileForms = ({ firebase, user }) => {
       .doProfileUpdate({ ...inputs, photoURL: user.photoURL })
       .then(() => {
         setSaveChange(true);
+        setTimeout(() => {
+          setSaveChange(false);
+          history.push("/account");
+        }, 3000);
       })
       .catch((error) => {
         console.error(error.code, error.message);
@@ -63,6 +66,9 @@ const EditProfileForms = ({ firebase, user }) => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={3}>
+        <Grid item xs={12}>
+          {saveChange && <SuccessMessages />}
+        </Grid>
         <Grid item xs={6}>
           <TextField
             name="firstName"
@@ -228,21 +234,12 @@ const EditProfileForms = ({ firebase, user }) => {
             Update Profile
           </Button>
         </Grid>
-        <Grid item xs={4}></Grid>
-        <Grid item xs={12}>
-          {saveChange && <SuccessMessages />}
-        </Grid>
       </Grid>
     </form>
   );
 };
 
-const condition = (authUser) => !!authUser;
-
-export default compose(
-  withEmailVerification,
-  withAuthorization(condition)
-)(EditProfileForms);
+export default EditProfileForms;
 
 // TODO: figure out image upload/hosting
 // hosting: imgbb.com

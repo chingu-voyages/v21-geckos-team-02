@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import { Link } from "react-router-dom";
-import MenuItem from "@material-ui/core/MenuItem";
 
 const styles = (theme) => ({
   snackbar: {
@@ -31,14 +29,7 @@ function SuccessMessages(props) {
         message={
           <span className={classes.message}>
             <CheckCircleIcon />
-            Your profile has been updated! Let's check out your matches via
-            following links
-            <Link to="/account">
-              <MenuItem>My Account</MenuItem>
-            </Link>
-            <Link to="/dashboard">
-              <MenuItem>Dashboard</MenuItem>
-            </Link>
+            &nbsp; Your profile has been updated!
           </span>
         }
       />

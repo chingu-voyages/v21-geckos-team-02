@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import UpdateProfileForm from "./UpdateProfileForm/form";
 import { FirebaseContext } from "../Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
-import { Paper, Typography, Grid } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 import "./style.css";
 
 const EditProfileDisplay = () => {
@@ -33,7 +33,7 @@ const EditProfileDisplay = () => {
   return (
     <FirebaseContext.Consumer>
       {(firebase) => (
-        <Paper id="update-profile-box">
+        <div id="update-profile-box">
           {/* {!authUser && (
             <Grid container spacing={3}>
               <Grid item xs={12}>
@@ -58,7 +58,7 @@ const EditProfileDisplay = () => {
               </Grid>
             </Grid>
           )}
-        </Paper>
+        </div>
       )}
     </FirebaseContext.Consumer>
   );

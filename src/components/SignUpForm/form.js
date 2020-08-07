@@ -4,7 +4,6 @@ import { Button, TextField, Grid } from "@material-ui/core";
 // import { auth } from "firebase";
 import { useForm, Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { withRouter } from "react-router-dom";
 import ErrorMessages from "../shared/ErrorSnackBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +11,7 @@ import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 
-const SignUpForm = ({ firebase, props }) => {
+const SignUpForm = ({ firebase }) => {
   const authUser = useContext(AuthUserContext);
   const initialState = {
     email: "",
@@ -50,12 +49,11 @@ const SignUpForm = ({ firebase, props }) => {
         });
 
         await firebase.doSendEmailVerification();
-        await props.history.push("/home");
       } catch (error) {
         setError(error.message);
       }
     },
-    [firebase, props]
+    [firebase]
   );
 
   const { inputs } = useFormHook(initialState, loginUser);
@@ -217,4 +215,4 @@ const SignUpForm = ({ firebase, props }) => {
   );
 };
 
-export default withRouter(SignUpForm);
+export default SignUpForm;

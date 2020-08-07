@@ -237,7 +237,10 @@ const CreateProfileForm = ({ firebase, user }) => {
               onChange={handleInputChange}
             >
               {statesInUsaData.map((location) => (
-                <MenuItem value={location.abbreviation}>
+                <MenuItem
+                  value={location.abbreviation}
+                  key={location.abbreviation}
+                >
                   {location.abbreviation}
                 </MenuItem>
               ))}

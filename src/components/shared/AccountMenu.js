@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, useRef } from "react";
 import MenuItem from "@material-ui/core/MenuItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Menu from "@material-ui/core/Menu";
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AccountMenu = () => {
+const AccountMenu = forwardRef((props, ref) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const AccountMenuClasses = useStyles();
@@ -50,9 +50,11 @@ const AccountMenu = () => {
     setAnchorEl(null);
   };
 
+  const buttonRef = useRef();
+
   return (
     <div>
-      <div>
+      <div ref={buttonRef}>
         <Button
           className={AccountMenuClasses.button}
           aria-controls="simple-menu"
@@ -97,6 +99,6 @@ const AccountMenu = () => {
       </div>
     </div>
   );
-};
+});
 
 export default AccountMenu;
