@@ -3,8 +3,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
-
-import { Link as RouterLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -84,13 +82,14 @@ const AccountMenu = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem
-            onClick={handleClose}
-            component={RouterLink}
-            to="/edit-forms"
-          >
-            My Profile
-          </MenuItem>
+          <Link to="/account">
+            <MenuItem onClick={handleClose}>View My Profile</MenuItem>
+          </Link>
+
+          <Link to="/edit-forms">
+            <MenuItem onClick={handleClose}>Edit My Profile</MenuItem>
+          </Link>
+
           <Link to="/account/pw-change">
             <MenuItem onClick={handleClose}>Settings</MenuItem>
           </Link>

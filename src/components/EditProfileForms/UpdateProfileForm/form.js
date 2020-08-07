@@ -1,25 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import useForm from "../../../hooks/useForm";
 import { Button, TextField, Grid } from "@material-ui/core";
 // import { auth } from "firebase";
+import {
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  InputLabel,
+  Select,
+  MenuItem,
+  RadioGroup,
+  Radio,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import statesInUsaData from "../data/statesInUsaData";
+import SuccessMessages from "./SuccessMessages";
+import { compose } from "recompose";
+import { withAuthorization, withEmailVerification } from "../../Session/index";
 
-export default (props) => {
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    minWidth: 120,
+  },
+}));
+
+const EditProfileForms = ({ firebase, user }) => {
+  const classes = useStyles();
+  // const authUser = useContext(AuthUserContext);
+  const [saveChange, setSaveChange] = useState(false);
   const initialState = {
     // Fill these fields with existing user data
-    firstName: "",
-    lastName: "",
-    displayName: "",
-    city: "",
-    state: "",
-    preferredCodingTime: [],
-    frontendTechStack: [],
-    backendTechStack: [],
-    specialty: [],
-    preferredTechStack: [],
-    bio: "",
+    firstName: user.firstName,
+    lastName: user.lastName,
+    city: user.city,
+    state: user.state,
+    preferredCodingTime: user.preferredCodingTime,
+    frontendTechStack: user.frontendTechStack,
+    backendTechStack: user.backendTechStack,
+    specialty: user.specialty,
+    preferredTechStack: user.preferredTechStack,
+    status: user.status,
+    newUser: false,
+    photoURL: user.photoURL,
   };
 
-  const { handleSubmit, handleInputChange, inputs } = useForm(initialState);
+  const updateUser = () => {
+    firebase
+      .doProfileUpdate({ ...inputs, photoURL: user.photoURL })
+      .then(() => {
+        setSaveChange(true);
+      })
+      .catch((error) => {
+        console.error(error.code, error.message);
+      });
+  };
+
+  const { handleSubmit, handleInputChange, inputs } = useForm(
+    initialState,
+    updateUser
+  );
 
   return (
     <form onSubmit={handleSubmit}>
@@ -27,6 +66,7 @@ export default (props) => {
         <Grid item xs={6}>
           <TextField
             name="firstName"
+            required
             fullWidth
             type="text"
             label="First Name"
@@ -37,6 +77,7 @@ export default (props) => {
         <Grid item xs={6}>
           <TextField
             name="lastName"
+            required
             fullWidth
             type="text"
             label="Last Name"
@@ -44,55 +85,164 @@ export default (props) => {
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <TextField
-            name="displayName"
+            name="city"
+            required
             fullWidth
             type="text"
-            label="Display Name"
-            value={inputs.displayName}
+            label="City"
+            value={inputs.city}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl required className={classes.formControl}>
+            <InputLabel id="state-selector-label">State</InputLabel>
+            <Select
+              labelId="state-selector-label"
+              id="state-selector"
+              name="state"
+              value={inputs.state}
+              onChange={handleInputChange}
+            >
+              {statesInUsaData.map((location) => (
+                <MenuItem
+                  value={location.abbreviation}
+                  key={location.abbreviation}
+                >
+                  {location.abbreviation}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl required component="fieldset">
+            <FormLabel component="legend">Specialty</FormLabel>
+            <RadioGroup
+              aria-label="tech-specialty"
+              name="tech-specialty1"
+              value={inputs.specialty}
+              onChange={handleInputChange}
+            >
+              <FormControlLabel
+                name="specialty"
+                value="Front-End"
+                label="Front-End"
+                control={<Radio />}
+              />
+              <FormControlLabel
+                name="specialty"
+                value="Back-End"
+                label="Back-End"
+                control={<Radio />}
+              />
+              <FormControlLabel
+                name="specialty"
+                label="Full-Stack"
+                value="Full-Stack"
+                control={<Radio />}
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl required component="fieldset">
+            <FormLabel component="legend">Fav. Coding Time</FormLabel>
+            <RadioGroup
+              aria-label="preferred-time"
+              name="preferred-time1"
+              value={inputs.preferredCodingTime}
+              onChange={handleInputChange}
+            >
+              <FormControlLabel
+                name="preferredCodingTime"
+                value="morning"
+                label="Morning"
+                control={<Radio />}
+              />
+              <FormControlLabel
+                name="preferredCodingTime"
+                value="afternoon"
+                label="Afternoon"
+                control={<Radio />}
+              />
+              <FormControlLabel
+                name="preferredCodingTime"
+                value="evening"
+                label="Evening"
+                control={<Radio />}
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            name="frontendTechStack"
+            required
+            fullWidth
+            type="text"
+            label="Front-End Tech Stack"
+            value={inputs.frontendTechStack}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            name="backendTechStack"
+            required
+            fullWidth
+            type="text"
+            label="Back-End Tech Stack"
+            value={inputs.backendTechStack}
             onChange={handleInputChange}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            name="email"
+            name="preferredTechStack"
+            required
             fullWidth
-            type="email"
-            label="Email"
-            value={inputs.email}
+            type="text"
+            label="Preferred Tech Stack"
+            value={inputs.preferredTechStack}
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <TextField
-            name="password"
+            name="status"
             fullWidth
-            type="password"
-            label="Password"
-            value={inputs.password}
+            multiline
+            type="text"
+            label="Set Status"
+            placeholder="Introduce yourself to your fellow Co-Coders!"
+            value={inputs.status}
             onChange={handleInputChange}
           />
         </Grid>
-        <Grid item xs={6}>
-          <TextField
-            name="passwordConfirm"
-            fullWidth
-            type="password"
-            label="Re-enter Password"
-            value={inputs.passwordConfirm}
-            onChange={handleInputChange}
-          />
-        </Grid>
+        <Grid item xs={4}></Grid>
         <Grid item xs={4}>
           <Button variant="contained" fullWidth color="primary" type="submit">
-            Confirm Changes
+            Update Profile
           </Button>
+        </Grid>
+        <Grid item xs={4}></Grid>
+        <Grid item xs={12}>
+          {saveChange && <SuccessMessages />}
         </Grid>
       </Grid>
     </form>
   );
 };
+
+const condition = (authUser) => !!authUser;
+
+export default compose(
+  withEmailVerification,
+  withAuthorization(condition)
+)(EditProfileForms);
 
 // TODO: figure out image upload/hosting
 // hosting: imgbb.com

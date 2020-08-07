@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UpdateProfileForm from "./UpdateProfileForm/form";
 import { FirebaseContext } from "../Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
@@ -7,6 +7,28 @@ import "./style.css";
 
 const EditProfileDisplay = () => {
   const authUser = useContext(AuthUserContext);
+  const fb = useContext(FirebaseContext);
+
+  const [doc, setDoc] = useState();
+  const [didMount, setDidMount] = useState(false);
+
+  useEffect(
+    () => {
+      if (authUser !== null && authUser !== undefined) {
+        fb.doGetUserProfile(authUser.uid, (user) => {
+          setDoc(user.data());
+        });
+      }
+      setDidMount(true);
+      return () => setDidMount(false);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [authUser]
+  );
+
+  if (!didMount) {
+    return null;
+  }
 
   return (
     <FirebaseContext.Consumer>
@@ -22,13 +44,17 @@ const EditProfileDisplay = () => {
               </Grid>
             </Grid>
           )} */}
-          {authUser && (
+          {authUser && doc !== undefined && !doc.newUser && (
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Typography variant="h5">Update Your Profile</Typography>
               </Grid>
               <Grid item xs={12}>
-                <UpdateProfileForm firebase={firebase} />
+                <UpdateProfileForm
+                  firebase={firebase}
+                  user={doc}
+                  key={doc.uid}
+                />
               </Grid>
             </Grid>
           )}
