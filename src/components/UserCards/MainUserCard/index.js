@@ -1,5 +1,7 @@
+//Liam
+
 import React, { useContext, useEffect, useState } from "react";
-import { FirebaseContext } from "../Firebase";
+import { FirebaseContext } from "../../Firebase";
 import { Grid } from "@material-ui/core";
 import MatchedUserCard from "./cards";
 import { makeStyles } from "@material-ui/core/styles";
@@ -42,7 +44,7 @@ const CardGrid = () => {
           <MatchedUserCard
             key={`${i}-${user.name}`}
             index={i}
-            picUrl={user.picUrl}
+            photoURL={user.photoURL}
             firstName={user.firstName}
             lastName={user.lastName}
             city={user.city}
@@ -52,7 +54,7 @@ const CardGrid = () => {
             backEnd={user.backendTechStack}
             preferredTech={user.preferredTechStack}
             codingTimes={user.preferredCodingTime}
-            bio={user.bio}
+            status={user.status}
           />
         ))}
       </Grid>

@@ -1,3 +1,4 @@
+// Liam
 import React, { Fragment, useState } from "react";
 import {
   Grid,
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MatchedUserCard = ({
   index,
-  picUrl,
+  photoURL,
   firstName,
   lastName,
   city,
@@ -69,7 +70,7 @@ const MatchedUserCard = ({
   backEnd,
   preferredTech,
   codingTimes,
-  bio,
+  status,
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -92,13 +93,13 @@ const MatchedUserCard = ({
           avatar={
             // Can change these ternary operators to reflect
             // when a user profile image is found (or not found) on the server
-            picUrl !== null && picUrl !== undefined ? (
+            photoURL !== null && photoURL !== undefined ? (
               <Avatar
                 variant="rounded"
                 alt={`Matched User ${index}`}
                 aria-label="matched-user-profile-picture"
                 className={classes.avatar}
-                src={`${picUrl}`}
+                src={`${photoURL}`}
               />
             ) : (
               <Avatar
@@ -189,7 +190,7 @@ const MatchedUserCard = ({
                       color="textPrimary"
                       component="p"
                     >
-                      {bio}
+                      {status}
                     </Typography>
                     <br />
                     <Typography
