@@ -63,8 +63,6 @@ class Firebase {
   doSendEmailVerification = () =>
     this.auth.currentUser.sendEmailVerification({
       url: `${appUrl}/signup`,
-      // for production
-      // url : "chingu-v21-gecho-02.firebaseapp.com/create-profile"
     });
 
   doProfileUpdate = (profile) => {

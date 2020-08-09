@@ -7,7 +7,7 @@
 ## **Overview**
 
 This app serves as a tool for developers to connect to other people with similar skills, tech-stacks, and interests. Individuals create a profile and then can view other people's profiles.
-**LIVE LINK**:[here]()
+**LIVE LINK**:[here](https://chingu-v21-gecho-02.web.app/)
 
 ## Features
 
