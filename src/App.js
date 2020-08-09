@@ -6,7 +6,6 @@ import {
   Redirect,
 } from "react-router-dom";
 import LandingComponent from "./components/LandingPage/Landing.component";
-// import { AuthUserProvider } from "./components/Firebase/AuthUser/AuthUserContext";
 import EditProfileForms from "./components/EditProfileForms";
 import { PasswordForgetForm } from "./components/PasswordForget/form";
 import Footer from "./components/LandingPage/components/Footer";
@@ -23,31 +22,28 @@ function App() {
   return (
     <div className="App">
       <div className="content-wrap">
-        {/* <AuthUserProvider> */}
         <Router>
           <NavBar />
           <Switch>
-            <Route exact path="/home">
+            <Route exact path="/">
               <LandingComponent />
             </Route>
             <Route path="/edit-forms">
               <EditProfileForms />
             </Route>
-            <Route path="/home/signup">
+            <Route path="/signup">
               <SignUpForm />
             </Route>
-            <Route path="/home/login">
+            <Route path="/login">
               <LoginForm />
             </Route>
             <Route path="/account/pw-forget" component={PasswordForgetForm} />
             <Route path="/dashboard" component={Dashboard} />
-
             <Route path="/account/pw-change" component={PasswordChange} />
             <Route exact path="/account" component={AccountPage} />
-            <Route path="*" render={() => <Redirect to="/home" />} />
+            <Route path="*" render={() => <Redirect to="/" />} />
           </Switch>
         </Router>
-        {/* </AuthUserProvider> */}
       </div>
       <Footer />
     </div>

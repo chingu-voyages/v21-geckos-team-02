@@ -30,11 +30,9 @@ const styles = (theme) => ({
   title: {
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
-    zIndex: 1000,
   },
   image: {
     height: 55,
-    zIndex: 1000,
   },
 });
 

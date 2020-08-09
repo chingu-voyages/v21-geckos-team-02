@@ -10,12 +10,6 @@ const AuthUserProvider = ({ children }) => {
   // Listen for Firebase (authorization)/authentication changes
   useEffect(() => {
     firebase.auth.onAuthStateChanged((authUser) => {
-      // if (authUser) {
-      //   setAuthUser(authUser);
-      // } else {
-      //   setAuthUser(null);
-      // }
-
       setAuthUser(authUser);
     });
   }, [firebase.auth]);

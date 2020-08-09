@@ -34,16 +34,6 @@ const EditProfileDisplay = () => {
     <FirebaseContext.Consumer>
       {(firebase) => (
         <div id="update-profile-box">
-          {/* {!authUser && (
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <Typography variant="h5">Create Your Profile</Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <CreateProfileForm firebase={firebase} />
-              </Grid>
-            </Grid>
-          )} */}
           {authUser && doc !== undefined && !doc.newUser && (
             <Grid item xs={12}>
               <UpdateProfileForm firebase={firebase} user={doc} key={doc.uid} />

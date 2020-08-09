@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FirebaseContext } from "../Firebase";
+import { FirebaseContext } from "../../Firebase";
 import { Grid } from "@material-ui/core";
 import MatchedUserCard from "./cards";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginLeft: "auto",
+    flexGrow: 1,
+    padding: theme.spacing(2),
   },
 }));
 
@@ -24,25 +25,27 @@ const CardGrid = () => {
         snapShot.forEach((doc) => {
           tempDocs.push(doc.data());
         });
+        // console.log(tempDocs);
         setDocs([...tempDocs]);
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [fb]
   );
 
   return (
-    <Grid item xs={9} className={classes.root}>
+    <Grid item xs={12} className={classes.root}>
       <Grid
         container
-        spacing={1}
+        spacing={2}
         direction="row"
-        justify="flex-end"
-        alignItems="center"
+        justify="flex-start"
+        alignItems="flex-start"
       >
         {docs.map((user, i) => (
           <MatchedUserCard
             key={`${i}-${user.name}`}
             index={i}
-            picUrl={user.picUrl}
+            photoURL={user.photoURL}
             firstName={user.firstName}
             lastName={user.lastName}
             city={user.city}
@@ -52,7 +55,7 @@ const CardGrid = () => {
             backEnd={user.backendTechStack}
             preferredTech={user.preferredTechStack}
             codingTimes={user.preferredCodingTime}
-            bio={user.bio}
+            status={user.status}
           />
         ))}
       </Grid>

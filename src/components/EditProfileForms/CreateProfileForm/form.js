@@ -93,13 +93,6 @@ const CreateProfileForm = ({ firebase, user }) => {
           .getDownloadURL()
           .then((firebaseUrl) => {
             setUrl((prevObject) => ({ ...prevObject, imgUrl: firebaseUrl }));
-
-            firebase.getFirestore().collection("users").doc(`${user.uid}`).set(
-              {
-                photoURL: firebaseUrl,
-              },
-              { merge: true }
-            );
           });
       }
     );
@@ -155,11 +148,7 @@ const CreateProfileForm = ({ firebase, user }) => {
           <Typography variant="h5">Create Your Profile</Typography>
         </Grid>
         <Grid item xs={12} className={classes.photo}>
-          <Avatar
-            src={url.imgUrl}
-            className={classes.large}
-            alt={user.firstName}
-          />
+          <Avatar src={url.imgUrl} className={classes.large} alt="profile" />
         </Grid>
         <Grid item xs={12} className={classes.buttoncenter}>
           <label htmlFor="photoURL">
@@ -369,7 +358,3 @@ export default compose(
   withEmailVerification,
   withAuthorization(condition)
 )(CreateProfileForm);
-
-// TODO: figure out image upload/hosting
-// hosting: imgbb.com
-// compression: https://helloacm.com/images-compressor/

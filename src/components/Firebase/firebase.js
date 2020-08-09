@@ -3,6 +3,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import { mockData } from "./mock-data";
+import { appUrl } from "../../appUrl";
 
 var firebaseConfig = {
   apiKey: "AIzaSyB6wYT2Ax5dgJ-kjLkxy8XZ89gK6lNnHts",
@@ -29,7 +30,6 @@ class Firebase {
     return this.auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        console.log("New User:", user);
         const displayName = user.user.email.split("@")[0];
         const photoURL = "";
 
@@ -39,7 +39,6 @@ class Firebase {
         });
       })
       .then(() => {
-        console.log(this.auth.currentUser);
         return this.db.collection("users").doc(this.auth.currentUser.uid).set({
           firstName,
           lastName,
@@ -47,15 +46,10 @@ class Firebase {
           photoURL,
         });
       });
-    // .catch((error) => {
-    //   console.error("Error: ", error);
-    //   throw new Error(error);
-    // });
   };
 
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
-  // .catch((error) => console.error("Error: ", error));
 
   doSignOut = () => {
     this.auth.signOut();
@@ -68,7 +62,9 @@ class Firebase {
 
   doSendEmailVerification = () =>
     this.auth.currentUser.sendEmailVerification({
-      url: "http://localhost:3000",
+      url: `${appUrl}/signup`,
+      // for production
+      // url : "chingu-v21-gecho-02.firebaseapp.com/create-profile"
     });
 
   doProfileUpdate = (profile) => {
@@ -110,46 +106,6 @@ class Firebase {
 
   getAuth = () => {
     return this.auth;
-  };
-
-  // generateUserDocument function
-  doGenerateUserDocument = async (user, additonalData) => {
-    // Check if there is data at the specified reference
-    // If there is no data, we want to write some data to that document
-    // We will return the user's data using the doGetUserDocument function
-    // If there is data, we will return the user's data right away
-    if (!user) return;
-    const userRef = this.db.doc(`users/${user.uid}`);
-    const snapshot = await userRef.get();
-    if (!snapshot.exists) {
-      const { email, displayName, photoURL } = user;
-      try {
-        await userRef.set({
-          displayName,
-          email,
-          photoURL,
-          ...additonalData,
-        });
-      } catch (error) {
-        console.error("Error creating user document", error);
-      }
-    }
-
-    return this.doGetUserDocument(user.uid);
-  };
-
-  doGetUserDocument = async (uid) => {
-    if (!uid) return null;
-
-    try {
-      const userDocument = await this.db.doc(`users/${uid}`).get();
-      return {
-        uid,
-        ...userDocument.data(),
-      };
-    } catch (error) {
-      console.error("Error fetching user", error);
-    }
   };
 
   // *** User API***

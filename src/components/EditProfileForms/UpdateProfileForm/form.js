@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import useForm from "../../../hooks/useForm";
 import { Button, TextField, Grid, Typography } from "@material-ui/core";
-// import { auth } from "firebase";
 import {
   FormControl,
   FormLabel,
@@ -16,6 +15,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import statesInUsaData from "../data/statesInUsaData";
 import SuccessMessages from "./SuccessMessages";
 import { useHistory } from "react-router";
+import { compose } from "recompose";
+import { withAuthorization, withEmailVerification } from "../../Session/index";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -243,8 +244,9 @@ const EditProfileForms = ({ firebase, user }) => {
   );
 };
 
-export default EditProfileForms;
+const condition = (authUser) => !!authUser;
 
-// TODO: figure out image upload/hosting
-// hosting: imgbb.com
-// compression: https://helloacm.com/images-compressor/
+export default compose(
+  withEmailVerification,
+  withAuthorization(condition)
+)(EditProfileForms);

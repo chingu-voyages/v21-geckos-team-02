@@ -3,8 +3,6 @@ import SignUpForm from "./form";
 import CreateProfileForm from "../EditProfileForms/CreateProfileForm/form";
 import { FirebaseContext } from "../Firebase";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
-// import { LoginModalContext } from "../ModalComponentWrapper/ModalsContext/LoginModalContext";
-// import { SignUpModalContext } from "../ModalComponentWrapper/ModalsContext/SignUpModalContext";
 import { Typography, Grid, Button } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { Link } from "react-router-dom";
@@ -18,8 +16,6 @@ export default () => {
   const fb = useContext(FirebaseContext);
   const authUser = useContext(AuthUserContext);
   const [doc, setDoc] = useState();
-  // const [, setSignUpModalOpen] = useContext(SignUpModalContext);
-  // const [, setLoginModalOpen] = useContext(LoginModalContext);
   const [didMount, setDidMount] = useState(false);
 
   useEffect(
@@ -48,7 +44,7 @@ export default () => {
           {!authUser && (
             <Grid container spacing={3}>
               <Grid item xs={2}>
-                <Link to="/home">
+                <Link to="/">
                   <CloseRoundedIcon color="primary" />
                 </Link>
               </Grid>
@@ -60,15 +56,7 @@ export default () => {
               </Grid>
               <Grid item xs={12}>
                 <Typography>
-                  <Link
-                    to="/home/login"
-                    // onClick={() => {
-                    //   setSignUpModalOpen(false);
-                    //   setLoginModalOpen(true);
-                    // }}
-                  >
-                    Already have an account? Log In!
-                  </Link>
+                  <Link to="/login">Already have an account? Log In!</Link>
                 </Typography>
               </Grid>
             </Grid>

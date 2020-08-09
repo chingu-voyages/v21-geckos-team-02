@@ -1,37 +1,57 @@
 # v21-geckos-team-02
 
-Developer Matchmaker Project
+# CO-CODERS PROJECT
 
-## Overview
+![Co_Coders](./src/assets/Co-Coders.png)
 
-This app serves as a tool for developers to connect to other people with similar skills, tech-stacks, and interests. The app can be used to find a teammate, employee/employer, mentee/mentor, or just someone to chat with about a tech-related subject.
+## **Overview**
 
-The design will resemble a dating application or social media website. Individuals create a profile and are matched with others based on a number of filters. People can reach out to each other and chat in real time, and then rate the other user based on the interaction.
+This app serves as a tool for developers to connect to other people with similar skills, tech-stacks, and interests. Individuals create a profile and then can view other people's profiles.
+**LIVE LINK**:[here]()
 
 ## Features
 
-- Profile includes image, username, tech stack, interests, time zone, spoken language, available hours.
-- List of matches can be filtered by tech stack, geography, spoken language, available hours. The initial list of matches displayed is based on the user's chosen tech stack, personal preferences, and other profile parameters.
-- From the dashboard, users can access Matched Profiles, Your Profile (the user’s unique profile), and Settings.
-- Users can seek matches for multiple projects.
-- Users will have a maximum of (?) active projects.
-- Projects can be active, on hold, completed.
+- Sign Up
+- Sign In
+- Sign Out
+- Password Forget
+- Password Change
+- Proctected Routes with Authorization
+- Uploads and updates Profile Picture
+- Creates a Profile including image, username, location, tech stack, available hours and introduction.
+- Edit and Updates Profile
+- Views other profiles From the dashboard
 
 ## Setup
 
 ### Firebase
 
-This application makes use of Firebase for authorization and Firestore for database
+This application makes use of Firebase for authorization and Firestore for database and Storage for images
 
 Before deploying, you will need to set the config variables in `/src/components/Firebase/Firebase.js`.
 
 ## Screenshots
 
+![Co_Coders_Account](./src/assets/Co-Coders-Account.png)
+
 ## Dependencies
 
 - firebase
 - material-ui
+- react-hook-form
 
-## TODO
+### **Running The Project**
 
-## Notes
+#### Installing the code
+
+1. Ensure you have node version 10.16.0 or higher before proceeding.
+2. Download or clone the code from this repository
+3. Change to the root directory and run the script `npm install` to install the depedencies.
+4. Visit http://localhost:3000 in the browser.
+5. Use your own Firebase Credentials.
+
+### Use your own Firebase Credentials
+
+1. Visit https://firebase.google.com/ and create a Firebase App.
+2. Copy and paste your Credentials from your Firebase App into src/Firebase/firebase.js.
+3. Activate Email/Password Sign-In Method in your Firebase App.

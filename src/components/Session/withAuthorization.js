@@ -10,10 +10,10 @@ const withAuthorization = (condition) => (Component) => {
       this.listener = this.props.firebase.auth.onAuthStateChanged(
         (authUser) => {
           if (!condition(authUser)) {
-            this.props.history.push("/home/login");
+            this.props.history.push("/login");
           }
         },
-        () => this.props.history.push("/home/login")
+        () => this.props.history.push("/login")
       );
     }
 

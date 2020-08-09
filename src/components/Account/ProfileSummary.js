@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProfileSummary({ firebase, user }) {
+export default function ProfileSummary({ user }) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 

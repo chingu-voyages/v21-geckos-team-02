@@ -67,6 +67,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
             className={
               anchorEl ? AccountMenuClasses.downIcon : AccountMenuClasses.upIcon
             }
+            {...props.children}
           />
         </Button>
         <Menu
@@ -103,7 +104,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
             <MenuItem onClick={handleClose}>Settings</MenuItem>
           </Link>
 
-          <Link to="/home">
+          <Link to="/">
             <MenuItem onClick={firebase.doSignOut}>Sign Out</MenuItem>
           </Link>
         </Menu>
