@@ -28,7 +28,6 @@ const CardGrid = () => {
         });
         // console.log(tempDocs);
         setDocs([...tempDocs]);
-        console.log(docs);
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [fb]

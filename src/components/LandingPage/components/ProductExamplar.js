@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "../UI/Typography";
-import bestSearch from "../../../assets/images/bestSearch.png";
+import technology from "../../../assets/images/technology.jpg";
 const styles = (theme) => ({
   root: {
     marginTop: theme.spacing(8),
@@ -45,7 +45,7 @@ const ProductExamplar = (props) => {
         connect software engineers with similar skills to one another.
       </Typography>
       <img
-        src={bestSearch}
+        src={technology}
         alt="best Search Engine"
         className={classes.image}
       />

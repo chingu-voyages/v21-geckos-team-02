@@ -67,6 +67,7 @@ const AccountMenu = React.forwardRef((props, ref) => {
             className={
               anchorEl ? AccountMenuClasses.downIcon : AccountMenuClasses.upIcon
             }
+            {...props.children}
           />
         </Button>
         <Menu
