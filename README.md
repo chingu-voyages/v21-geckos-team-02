@@ -2,7 +2,7 @@
 
 # CO-CODERS PROJECT
 
-![Co-Coders](./assets/Co-Coders.PNG);
+![Co_Coders](./assets/Co-Coders.PNG);
 
 ## **Overview**
 
