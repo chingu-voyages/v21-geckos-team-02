@@ -39,7 +39,6 @@ class Firebase {
         });
       })
       .then(() => {
-        console.log(this.auth.currentUser);
         return this.db.collection("users").doc(this.auth.currentUser.uid).set({
           firstName,
           lastName,
@@ -51,7 +50,6 @@ class Firebase {
 
   doSignInWithEmailAndPassword = (email, password) =>
     this.auth.signInWithEmailAndPassword(email, password);
-  // .catch((error) => console.error("Error: ", error));
 
   doSignOut = () => {
     this.auth.signOut();

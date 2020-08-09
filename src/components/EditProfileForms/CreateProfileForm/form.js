@@ -93,21 +93,14 @@ const CreateProfileForm = ({ firebase, user }) => {
           .getDownloadURL()
           .then((firebaseUrl) => {
             setUrl((prevObject) => ({ ...prevObject, imgUrl: firebaseUrl }));
-
-            firebase.getFirestore().collection("users").doc(`${user.uid}`).set(
-              {
-                photoURL: firebaseUrl,
-              },
-              { merge: true }
-            );
           });
       }
     );
   };
 
   const initialState = {
-    firstName: "",
-    lastName: "",
+    firstName: user.firstName,
+    lastName: user.lastName,
     city: "",
     state: "",
     preferredCodingTime: "",
@@ -365,7 +358,3 @@ export default compose(
   withEmailVerification,
   withAuthorization(condition)
 )(CreateProfileForm);
-
-// TODO: figure out image upload/hosting
-// hosting: imgbb.com
-// compression: https://helloacm.com/images-compressor/

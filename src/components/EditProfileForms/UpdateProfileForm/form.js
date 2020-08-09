@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import useForm from "../../../hooks/useForm";
 import { Button, TextField, Grid, Typography } from "@material-ui/core";
-// import { auth } from "firebase";
 import {
   FormControl,
   FormLabel,
@@ -251,7 +250,3 @@ export default compose(
   withEmailVerification,
   withAuthorization(condition)
 )(EditProfileForms);
-
-// TODO: figure out image upload/hosting
-// hosting: imgbb.com
-// compression: https://helloacm.com/images-compressor/

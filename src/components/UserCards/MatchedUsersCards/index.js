@@ -1,4 +1,3 @@
-// Liam
 import React, { useContext, useEffect, useState } from "react";
 import { FirebaseContext } from "../../Firebase";
 import { Grid } from "@material-ui/core";

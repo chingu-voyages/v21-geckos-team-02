@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import useFormHook from "../../hooks/useForm";
 import { Button, TextField, Grid } from "@material-ui/core";
-// import { auth } from "firebase";
 import { useForm, Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import ErrorMessages from "../shared/ErrorSnackBar";
