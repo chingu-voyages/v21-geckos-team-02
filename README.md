@@ -2,7 +2,7 @@
 
 # CO-CODERS PROJECT
 
-![Co_Coders](./assets/Co-Coders.PNG);
+![Co_Coders](./assets/Co-Coders.png);
 
 ## **Overview**
 
@@ -32,7 +32,7 @@ Before deploying, you will need to set the config variables in `/src/components/
 
 ## Screenshots
 
-![Co-Coders-Account](./assets/Co-Coders-Account.PNG);
+![Co_Coders_Account](./assets/Co-Coders-Account.png);
 
 ## Dependencies
 
