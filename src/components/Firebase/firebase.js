@@ -3,6 +3,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import { mockData } from "./mock-data";
+import { appUrl } from "../../appUrl";
 
 var firebaseConfig = {
   apiKey: "AIzaSyB6wYT2Ax5dgJ-kjLkxy8XZ89gK6lNnHts",
@@ -29,7 +30,6 @@ class Firebase {
     return this.auth
       .createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        console.log("New User:", user);
         const displayName = user.user.email.split("@")[0];
         const photoURL = "";
 
@@ -68,7 +68,9 @@ class Firebase {
 
   doSendEmailVerification = () =>
     this.auth.currentUser.sendEmailVerification({
-      url: "http://localhost:3000",
+      url: `${appUrl}/signup`,
+      // for production
+      // url : "chingu-v21-gecho-02.firebaseapp.com/create-profile"
     });
 
   doProfileUpdate = (profile) => {

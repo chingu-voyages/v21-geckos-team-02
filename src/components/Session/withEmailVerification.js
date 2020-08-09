@@ -47,7 +47,7 @@ const withEmailVerification = (Component) => {
                     style={{ background: "#43A047" }}
                     message="Email not verified! 
                     Step 1: Please verify your email address, click continue. 
-                    Step 2: Click Register to create your profile.
+                    Step 2: Create Your Profile.
                     "
                   />
                 )}
@@ -61,7 +61,7 @@ const withEmailVerification = (Component) => {
                   color="inherit"
                   onClick={this.onSendEmailVerification}
                   disabled={this.state.isSent}
-                  to="/home"
+                  to="/create-profile"
                 >
                   Click Here
                 </Link>

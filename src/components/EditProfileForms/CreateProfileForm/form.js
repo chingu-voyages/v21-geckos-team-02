@@ -106,8 +106,8 @@ const CreateProfileForm = ({ firebase, user }) => {
   };
 
   const initialState = {
-    firstName: user.firstName,
-    lastName: user.lastName,
+    firstName: "",
+    lastName: "",
     city: "",
     state: "",
     preferredCodingTime: "",
@@ -155,11 +155,7 @@ const CreateProfileForm = ({ firebase, user }) => {
           <Typography variant="h5">Create Your Profile</Typography>
         </Grid>
         <Grid item xs={12} className={classes.photo}>
-          <Avatar
-            src={url.imgUrl}
-            className={classes.large}
-            alt={user.firstName}
-          />
+          <Avatar src={url.imgUrl} className={classes.large} alt="profile" />
         </Grid>
         <Grid item xs={12} className={classes.buttoncenter}>
           <label htmlFor="photoURL">

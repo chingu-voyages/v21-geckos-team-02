@@ -16,6 +16,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import statesInUsaData from "../data/statesInUsaData";
 import SuccessMessages from "./SuccessMessages";
 import { useHistory } from "react-router";
+import { compose } from "recompose";
+import { withAuthorization, withEmailVerification } from "../../Session/index";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -243,7 +245,12 @@ const EditProfileForms = ({ firebase, user }) => {
   );
 };
 
-export default EditProfileForms;
+const condition = (authUser) => !!authUser;
+
+export default compose(
+  withEmailVerification,
+  withAuthorization(condition)
+)(EditProfileForms);
 
 // TODO: figure out image upload/hosting
 // hosting: imgbb.com

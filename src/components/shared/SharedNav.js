@@ -52,7 +52,7 @@ function SharedNavBar(props) {
             color="inherit"
             className={classes.title}
             component={RouterLink}
-            to="/home"
+            to="/"
           >
             {"Co-Coders"}
           </Link>
@@ -72,7 +72,7 @@ function SharedNavBar(props) {
               variant="h6"
               underline="none"
               className={clsx(classes.rightLink, classes.linkSecondary)}
-              to="/home/signup"
+              to="/signup"
               component={RouterLink}
             >
               {"Sign Up"}

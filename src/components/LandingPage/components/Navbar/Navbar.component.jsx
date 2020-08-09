@@ -106,7 +106,7 @@ function NavBar() {
             color="inherit"
             className={classes.title}
             component={RouterLink}
-            to="/home"
+            to="/"
           >
             {"Co-Coders"}
           </Link>
@@ -160,7 +160,7 @@ function NavBar() {
                   underline="none"
                   className={classes.rightLink}
                   component={RouterLink}
-                  to="/home/login"
+                  to="/login"
                 >
                   {"Sign In"}
                 </Link>

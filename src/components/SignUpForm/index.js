@@ -48,7 +48,7 @@ export default () => {
           {!authUser && (
             <Grid container spacing={3}>
               <Grid item xs={2}>
-                <Link to="/home">
+                <Link to="/">
                   <CloseRoundedIcon color="primary" />
                 </Link>
               </Grid>
@@ -61,7 +61,7 @@ export default () => {
               <Grid item xs={12}>
                 <Typography>
                   <Link
-                    to="/home/login"
+                    to="/login"
                     // onClick={() => {
                     //   setSignUpModalOpen(false);
                     //   setLoginModalOpen(true);

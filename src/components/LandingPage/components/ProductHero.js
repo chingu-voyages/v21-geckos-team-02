@@ -82,7 +82,7 @@ const ProductHero = (props) => {
         size="large"
         className="classes.button"
         component={Link}
-        to="/home/signup"
+        to="/signup"
         // onClick={handleSignUpOpen}
       >
         Register

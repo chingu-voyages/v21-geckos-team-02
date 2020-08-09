@@ -107,7 +107,7 @@ function ProductHowItWorks(props) {
           variant="contained"
           className={classes.button}
           component={RouterLink}
-          to="/home/signup"
+          to="/signup"
         >
           Get started
         </Button>
