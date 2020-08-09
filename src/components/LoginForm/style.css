@@ -1,0 +1,28 @@
+#login-box {
+  margin: 40px auto;
+  min-width: 400px;
+  width: 20%;
+  padding: 20px;
+  background: lavenderblush;
+}
+
+#login-box h5 {
+  text-align: center;
+}
+
+.pass-wrapper {
+  position: relative;
+  display: flex;
+  width: 384px;
+  padding: 12px;
+}
+
+i {
+  position: absolute;
+  top: 38%;
+  right: 5%;
+}
+i:hover {
+  color: #00fcb6;
+  cursor: pointer;
+}

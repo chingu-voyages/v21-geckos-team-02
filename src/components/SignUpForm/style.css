@@ -1,0 +1,28 @@
+#signup-box {
+  margin: 40px auto;
+  min-width: 400px;
+  width: 20%;
+  padding: 20px;
+  background: lavenderblush;
+}
+
+#signup-box h5 {
+  text-align: center;
+}
+
+.pass-wrapper-register {
+  position: relative;
+  display: flex;
+  width: 424px;
+  padding: 12px;
+}
+
+i {
+  position: absolute;
+  right: 20px;
+  top: 35px;
+}
+i:hover {
+  color: #00fcb6;
+  cursor: pointer;
+}
