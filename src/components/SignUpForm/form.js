@@ -7,6 +7,7 @@ import ErrorMessages from "../shared/ErrorSnackBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { AuthUserContext } from "../Firebase/AuthUser/AuthUserContext";
+import { Redirect } from 'react-router-dom';
 
 const eye = <FontAwesomeIcon icon={faEye} />;
 
@@ -46,8 +47,9 @@ const SignUpForm = ({ firebase }) => {
           newUser: true,
           photoURL: "",
         });
-
+        
         await firebase.doSendEmailVerification();
+        return <Redirect to="/dashboard" />
       } catch (error) {
         setError(error.message);
       }
