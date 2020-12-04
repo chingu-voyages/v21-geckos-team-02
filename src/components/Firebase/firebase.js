@@ -62,7 +62,7 @@ class Firebase {
 
   doSendEmailVerification = () =>
     this.auth.currentUser.sendEmailVerification({
-      url: `${appUrl}/login`,
+      url: `${appUrl}/signup`,
     });
 
   doProfileUpdate = (profile) => {
