@@ -16,8 +16,7 @@ export default () => {
   const fb = useContext(FirebaseContext);
   const authUser = useContext(AuthUserContext);
   const [doc, setDoc] = useState();
-  const [didMount, setDidMount] = useState(false);
-
+  
   useEffect(
     () => {
       if (authUser !== null && authUser !== undefined) {
@@ -25,16 +24,12 @@ export default () => {
           setDoc(user.data());
         });
       }
-      setDidMount(true);
-      return () => setDidMount(false);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [authUser]
   );
 
-  if (!didMount) {
-    return null;
-  }
+  
 
   return (
     <FirebaseContext.Consumer>
