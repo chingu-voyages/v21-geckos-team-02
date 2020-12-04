@@ -49,7 +49,6 @@ const SignUpForm = ({ firebase }) => {
         });
         
         await firebase.doSendEmailVerification();
-        return <Redirect to="/dashboard" />
       } catch (error) {
         setError(error.message);
       }
